@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Category;
-use App\Models\Cause;
+use App\Models\Campaign;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +21,7 @@ class CreateDonationsTable extends Migration
             $table->string('uuid');
             $table->integer('amount');
             $table->foreignIdFor(Category::class);
-            $table->foreignIdFor(Cause::class);
+            $table->foreignIdFor(Campaign::class);
             $table->foreignIdFor(User::class);
             $table->softDeletes();
             $table->timestamps();

@@ -41,7 +41,7 @@ export default function Users() {
                                 # of donations
                             </th>
                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                # of causes participated in
+                                # of campaigns participated in
                             </th>
                             <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 # of categories participated in
@@ -65,7 +65,7 @@ export default function Users() {
                                 </td>
                                 <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{person.email}</td>
                                 <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{person.donations_count}</td>
-                                <td className="px-3 py-4 text-sm text-gray-500">{person.causes_count}</td>
+                                <td className="px-3 py-4 text-sm text-gray-500">{person.campaigns_count}</td>
                                 <td className="px-3 py-4 text-sm text-gray-500">{person.categories_count}</td>
                                 <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                     <a href="#" className="text-indigo-600 hover:text-indigo-900">

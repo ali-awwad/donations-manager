@@ -22,7 +22,7 @@ const navigation = [
     { keyName: 'Donations', name: 'Donations', href: route('donations.index'), icon: UsersIcon, current: false },
     { keyName: 'Users', name: 'Users', href: route('users'), icon: FolderIcon, current: false },
     { keyName: 'Categories', name: 'Categories', href: route('categories.index'), icon: TagIcon, current: false },
-    { keyName: 'Causes', name: 'Causes', href: route('causes.index'), icon: GiftIcon, current: false },
+    { keyName: 'Campaigns', name: 'Campaigns', href: route('campaigns.index'), icon: GiftIcon, current: false },
 ]
 
 function classNames(...classes) {

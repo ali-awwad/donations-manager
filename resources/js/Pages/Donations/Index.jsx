@@ -45,7 +45,7 @@ export default function Index() {
                             scope="col"
                             className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell"
                         >
-                            Cause
+                            Campaign
                         </th>
                         <th
                             scope="col"
@@ -78,7 +78,7 @@ export default function Index() {
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.amount}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.category}</td>
-                            <td className="px-3 py-4 text-sm text-gray-500">{item.cause}</td>
+                            <td className="px-3 py-4 text-sm text-gray-500">{item.campaign}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.user}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.created_at}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">

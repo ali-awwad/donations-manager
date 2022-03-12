@@ -33,7 +33,7 @@ export default function Index() {
                                 scope="col"
                                 className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
                             >
-                                Number of causes
+                                Number of campaigns
                             </th>
 
                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -51,7 +51,7 @@ export default function Index() {
                                         <dd className="mt-1 truncate text-gray-700"><Link href={route('categories.show', item.id)} className="text-blue-400 hover:text-blue-600">{item.name}</Link></dd>
                                     </dl>
                                 </td>
-                                <td className="px-3 py-4 text-sm text-gray-500">{item.causes_count}</td>
+                                <td className="px-3 py-4 text-sm text-gray-500">{item.campaigns_count}</td>
                                 <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                     <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                         Edit<span className="sr-only">, {item.name}</span>

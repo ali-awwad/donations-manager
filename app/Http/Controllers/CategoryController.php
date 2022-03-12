@@ -23,7 +23,7 @@ class CategoryController extends Controller
                     'id'=>$category->id,
                     'name'=>$category->name,
                     'slug'=>$category->slug,
-                    'causes_count'=>$category->causes_count,
+                    'campaigns_count'=>$category->campaigns_count,
                 ];
             })
         ]);
@@ -64,8 +64,8 @@ class CategoryController extends Controller
                     'id'=>$category->id,
                     'name'=>$category->name,
                     'slug'=>$category->slug,
-                    'causes_count'=>$category->causes_count,
-                    'causes'=>$category->causes()->paginate(10)
+                    'campaigns_count'=>$category->campaigns_count,
+                    'campaigns'=>$category->campaigns()->paginate(10)
                 ]
         ]);
     }

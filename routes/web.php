@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CauseController;
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DonationController;
 use App\Models\Category;
 use App\Models\Donation;
@@ -52,13 +52,13 @@ Route::middleware('auth')->group(function ()
             'users'=>User::orderByDesc('created_at')->paginate(10)->through(function ($user)
             {
                 $categories = Donation::where('user_id',$user->id)->pluck('category_id')->toArray();
-                $causes = Donation::where('user_id',$user->id)->pluck('cause_id')->toArray();
+                $campaigns = Donation::where('user_id',$user->id)->pluck('campaign_id')->toArray();
 
                 return [
                     'email'=>$user->email,
                     'name'=>$user->name,
                     'categories_count'=>Category::whereIn('id',$categories)->count(),
-                    'causes_count'=>Category::whereIn('id',$causes)->count(),
+                    'campaigns_count'=>Category::whereIn('id',$campaigns)->count(),
                     'donations_count'=>$user->donations_count,
                     'role'=>$user->verified_at ? 'Admin' : 'Member',
                 ];
@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function ()
         ]);
     })->name('users');
 
-    Route::resource('causes',CauseController::class);
+    Route::resource('campaigns',CampaignController::class);
     Route::resource('categories',CategoryController::class);
     Route::resource('donations',DonationController::class);
 

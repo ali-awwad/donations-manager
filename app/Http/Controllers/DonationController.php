@@ -24,7 +24,7 @@ class DonationController extends Controller
                     'id'=>$donation->id,
                     'amount'=>$donation->amount,
                     'category'=>$donation->category->name,
-                    'cause'=>$donation->cause->name,
+                    'campaign'=>$donation->campaign->name,
                     'user'=>$donation->user->name,
                     'created_at'=>Carbon::parse($donation->created_at)->diffForHumans(),
                 ];

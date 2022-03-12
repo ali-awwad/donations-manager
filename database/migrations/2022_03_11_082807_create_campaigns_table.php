@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCausesTable extends Migration
+class CreateCampaignsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,12 @@ class CreateCausesTable extends Migration
      */
     public function up()
     {
-        Schema::create('causes', function (Blueprint $table) {
+        Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
+            $table->integer('target');
             $table->foreignIdFor(Category::class);
             $table->softDeletes();
             $table->timestamps();
@@ -32,6 +33,6 @@ class CreateCausesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('causes');
+        Schema::dropIfExists('campaigns');
     }
 }

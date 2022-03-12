@@ -1,15 +1,15 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Causes_Show_jsx"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Campaigns_Show_jsx"],{
 
-/***/ "./resources/js/Pages/Causes/CausesTable.jsx":
+/***/ "./resources/js/Pages/Campaigns/CampaignsTable.jsx":
 /*!***************************************************!*\
-  !*** ./resources/js/Pages/Causes/CausesTable.jsx ***!
+  !*** ./resources/js/Pages/Campaigns/CampaignsTable.jsx ***!
   \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ CausesTable)
+/* harmony export */   "default": () => (/* binding */ CampaignsTable)
 /* harmony export */ });
 /* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/Pagination */ "./resources/js/Shared/Pagination.jsx");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function CausesTable(_ref) {
+function CampaignsTable(_ref) {
   var items = _ref.items;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg",
@@ -57,7 +57,7 @@ function CausesTable(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
               className: "w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
-                href: route('causes.show', item.id),
+                href: route('campaigns.show', item.id),
                 className: "text-blue-400 hover:text-blue-600",
                 children: item.name
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("dl", {
@@ -68,7 +68,7 @@ function CausesTable(_ref) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
                   className: "mt-1 truncate text-gray-700",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
-                    href: route('causes.show', item.id),
+                    href: route('campaigns.show', item.id),
                     className: "text-blue-400 hover:text-blue-600",
                     children: item.name
                   })
@@ -116,9 +116,9 @@ function CausesTable(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Causes/Show.jsx":
+/***/ "./resources/js/Pages/Campaigns/Show.jsx":
 /*!********************************************!*\
-  !*** ./resources/js/Pages/Causes/Show.jsx ***!
+  !*** ./resources/js/Pages/Campaigns/Show.jsx ***!
   \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -128,7 +128,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Show)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var _Causes_CausesTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Causes/CausesTable */ "./resources/js/Pages/Causes/CausesTable.jsx");
+/* harmony import */ var _Campaigns_CampaignsTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Campaigns/CampaignsTable */ "./resources/js/Pages/Campaigns/CampaignsTable.jsx");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -146,7 +146,7 @@ function Show() {
         className: "px-4 py-5 sm:px-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
           className: "text-lg leading-6 font-medium text-gray-900",
-          children: "Cause Information"
+          children: "Campaign Information"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
           className: "mt-1 max-w-2xl text-sm text-gray-500",
           children: ["Below info for ", item.name]
@@ -159,7 +159,7 @@ function Show() {
             className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
-              children: "Cause"
+              children: "Campaign"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
               children: item.name
@@ -5029,7 +5029,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
         }
       }
       // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
-      // that causes it, under certain circumstances, to provide the same value for
+      // that campaigns it, under certain circumstances, to provide the same value for
       // `object` and `other`. See https://github.com/jashkenas/underscore/pull/1247
       // for more details.
       //
@@ -6821,7 +6821,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * Merges the function metadata of `source` into `data`.
      *
      * Merging metadata reduces the number of wrappers used to invoke a function.
-     * This is possible because methods like `_.bind`, `_.curry`, and `_.partial`
+     * This is possible becampaign methods like `_.bind`, `_.curry`, and `_.partial`
      * may be applied regardless of execution order. Methods like `_.ary` and
      * `_.rearg` modify function arguments, making the order in which they are
      * executed important, preventing the merging of metadata. However, we make
@@ -9472,7 +9472,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * invoked with three arguments: (value, index|key, collection).
      *
      * **Note:** This method returns `true` for
-     * [empty collections](https://en.wikipedia.org/wiki/Empty_set) because
+     * [empty collections](https://en.wikipedia.org/wiki/Empty_set) becampaign
      * [everything is true](https://en.wikipedia.org/wiki/Vacuous_truth) of
      * elements of empty collections.
      *
@@ -12288,7 +12288,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * Checks if `value` is a pristine native function.
      *
      * **Note:** This method can't reliably detect native functions in the presence
-     * of the core-js package because core-js circumvents this kind of detection.
+     * of the core-js package becampaign core-js circumvents this kind of detection.
      * Despite multiple requests, the core-js maintainer has made it clear: any
      * attempt to fix the detection will be obstructed. As a result, we're left
      * with little choice but to throw an error. Unfortunately, this also affects
@@ -16065,7 +16065,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
      * are added to its prototype as well.
      *
      * **Note:** Use `_.runInContext` to create a pristine `lodash` function to
-     * avoid conflicts caused by modifying the original.
+     * avoid conflicts campaignd by modifying the original.
      *
      * @static
      * @since 0.1.0

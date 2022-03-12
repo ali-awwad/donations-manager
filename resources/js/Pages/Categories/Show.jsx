@@ -1,7 +1,7 @@
 import { GiftIcon, PaperClipIcon } from '@heroicons/react/outline'
 import { Link, usePage } from '@inertiajs/inertia-react'
-import CausesTable from '../Causes/CausesTable';
 import React from 'react'
+import CampaignsTable from '../Campaigns/CampaignsTable';
 
 export default function Show() {
     const { item } = usePage().props;
@@ -24,8 +24,8 @@ export default function Show() {
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.slug}</dd>
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt className="text-sm font-medium text-gray-500">Nuymber of Causes</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.causes_count}</dd>
+                            <dt className="text-sm font-medium text-gray-500">Nuymber of Campaigns</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.campaigns_count}</dd>
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">About</dt>
@@ -38,7 +38,7 @@ export default function Show() {
                 </div>
             </div>
             <div className="mt-10">
-                <CausesTable items={item.causes}></CausesTable>
+                <CampaignsTable items={item.campaigns}></CampaignsTable>
             </div>
         </>
     )

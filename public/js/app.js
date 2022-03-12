@@ -2170,9 +2170,9 @@ var navigation = [{
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_7__["default"],
   current: false
 }, {
-  keyName: 'Causes',
-  name: 'Causes',
-  href: route('causes.index'),
+  keyName: 'Campaigns',
+  name: 'Campaigns',
+  href: route('campaigns.index'),
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_8__["default"],
   current: false
 }];
@@ -9354,6 +9354,30 @@ var map = {
 		"./resources/js/Pages/Auth/VerifyEmail.js",
 		"resources_js_Pages_Auth_VerifyEmail_js"
 	],
+	"./Campaigns/CampaignsTable": [
+		"./resources/js/Pages/Campaigns/CampaignsTable.jsx",
+		"resources_js_Pages_Campaigns_CampaignsTable_jsx"
+	],
+	"./Campaigns/CampaignsTable.jsx": [
+		"./resources/js/Pages/Campaigns/CampaignsTable.jsx",
+		"resources_js_Pages_Campaigns_CampaignsTable_jsx"
+	],
+	"./Campaigns/Index": [
+		"./resources/js/Pages/Campaigns/Index.jsx",
+		"resources_js_Pages_Campaigns_Index_jsx"
+	],
+	"./Campaigns/Index.jsx": [
+		"./resources/js/Pages/Campaigns/Index.jsx",
+		"resources_js_Pages_Campaigns_Index_jsx"
+	],
+	"./Campaigns/Show": [
+		"./resources/js/Pages/Campaigns/Show.jsx",
+		"resources_js_Pages_Campaigns_Show_jsx"
+	],
+	"./Campaigns/Show.jsx": [
+		"./resources/js/Pages/Campaigns/Show.jsx",
+		"resources_js_Pages_Campaigns_Show_jsx"
+	],
 	"./Categories/Index": [
 		"./resources/js/Pages/Categories/Index.jsx",
 		"resources_js_Pages_Categories_Index_jsx"
@@ -9369,30 +9393,6 @@ var map = {
 	"./Categories/Show.jsx": [
 		"./resources/js/Pages/Categories/Show.jsx",
 		"resources_js_Pages_Categories_Show_jsx"
-	],
-	"./Causes/CausesTable": [
-		"./resources/js/Pages/Causes/CausesTable.jsx",
-		"resources_js_Pages_Causes_CausesTable_jsx"
-	],
-	"./Causes/CausesTable.jsx": [
-		"./resources/js/Pages/Causes/CausesTable.jsx",
-		"resources_js_Pages_Causes_CausesTable_jsx"
-	],
-	"./Causes/Index": [
-		"./resources/js/Pages/Causes/Index.jsx",
-		"resources_js_Pages_Causes_Index_jsx"
-	],
-	"./Causes/Index.jsx": [
-		"./resources/js/Pages/Causes/Index.jsx",
-		"resources_js_Pages_Causes_Index_jsx"
-	],
-	"./Causes/Show": [
-		"./resources/js/Pages/Causes/Show.jsx",
-		"resources_js_Pages_Causes_Show_jsx"
-	],
-	"./Causes/Show.jsx": [
-		"./resources/js/Pages/Causes/Show.jsx",
-		"resources_js_Pages_Causes_Show_jsx"
 	],
 	"./Dashboard": [
 		"./resources/js/Pages/Dashboard.jsx",

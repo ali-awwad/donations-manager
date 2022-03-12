@@ -10,10 +10,10 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $withCount = ['causes'];
+    protected $withCount = ['campaigns'];
 
-    public function causes()
+    public function campaigns()
     {
-        return $this->hasMany(Cause::class);
+        return $this->hasMany(Campaign::class);
     }
 }

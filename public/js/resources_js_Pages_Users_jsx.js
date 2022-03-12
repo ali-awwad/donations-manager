@@ -63,7 +63,7 @@ function Users() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "px-3 py-3.5 text-left text-sm font-semibold text-gray-900",
-              children: "# of causes participated in"
+              children: "# of campaigns participated in"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "px-3 py-3.5 text-left text-sm font-semibold text-gray-900",
@@ -107,7 +107,7 @@ function Users() {
                 children: person.donations_count
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "px-3 py-4 text-sm text-gray-500",
-                children: person.causes_count
+                children: person.campaigns_count
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "px-3 py-4 text-sm text-gray-500",
                 children: person.categories_count

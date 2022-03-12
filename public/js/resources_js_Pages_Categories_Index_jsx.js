@@ -55,7 +55,7 @@ function Index() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell",
-              children: "Number of causes"
+              children: "Number of campaigns"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "relative py-3.5 pl-3 pr-4 sm:pr-6",
@@ -91,7 +91,7 @@ function Index() {
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "px-3 py-4 text-sm text-gray-500",
-                children: item.causes_count
+                children: item.campaigns_count
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {

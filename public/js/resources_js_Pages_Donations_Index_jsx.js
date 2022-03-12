@@ -63,7 +63,7 @@ function Index() {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell",
-              children: "Cause"
+              children: "Campaign"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("th", {
               scope: "col",
               className: "hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell",
@@ -119,7 +119,7 @@ function Index() {
                 children: item.category
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "px-3 py-4 text-sm text-gray-500",
-                children: item.cause
+                children: item.campaign
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
                 className: "px-3 py-4 text-sm text-gray-500",
                 children: item.user

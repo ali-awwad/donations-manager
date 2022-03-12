@@ -1,9 +1,9 @@
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Categories_Show_jsx"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Campaign_Show_jsx"],{
 
-/***/ "./resources/js/Pages/Campaigns/CampaignsTable.jsx":
-/*!*********************************************************!*\
-  !*** ./resources/js/Pages/Campaigns/CampaignsTable.jsx ***!
-  \*********************************************************/
+/***/ "./resources/js/Pages/Campaign/CampaignsTable.jsx":
+/*!********************************************************!*\
+  !*** ./resources/js/Pages/Campaign/CampaignsTable.jsx ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -33,10 +33,6 @@ function CampaignsTable(_ref) {
             scope: "col",
             className: "py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6",
             children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
-            scope: "col",
-            className: "py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6",
-            children: "Target"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
             scope: "col",
             className: "hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell",
@@ -84,9 +80,6 @@ function CampaignsTable(_ref) {
                   children: item.slug
                 })]
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-              className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-              children: ["AED ", item.target]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
               children: item.slug
@@ -123,10 +116,10 @@ function CampaignsTable(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Categories/Show.jsx":
-/*!************************************************!*\
-  !*** ./resources/js/Pages/Categories/Show.jsx ***!
-  \************************************************/
+/***/ "./resources/js/Pages/Campaign/Show.jsx":
+/*!**********************************************!*\
+  !*** ./resources/js/Pages/Campaign/Show.jsx ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -135,10 +128,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Show)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Campaigns_CampaignsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Campaigns/CampaignsTable */ "./resources/js/Pages/Campaigns/CampaignsTable.jsx");
+/* harmony import */ var _CampaignsTable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CampaignsTable */ "./resources/js/Pages/Campaign/CampaignsTable.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
 
 
 
@@ -154,7 +146,7 @@ function Show() {
         className: "px-4 py-5 sm:px-6",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
           className: "text-lg leading-6 font-medium text-gray-900",
-          children: "Category Information"
+          children: "Campaign Information"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
           className: "mt-1 max-w-2xl text-sm text-gray-500",
           children: ["Below info for ", item.name]
@@ -167,7 +159,7 @@ function Show() {
             className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
-              children: "Categroy"
+              children: "Campaign"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
               children: item.name
@@ -185,10 +177,14 @@ function Show() {
             className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
-              children: "Nuymber of Campaigns"
+              children: "Part of Category"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
-              children: item.campaigns_count
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                href: route('categories.show', item.id),
+                className: "text-blue-400 hover:text-blue-600",
+                children: item.category
+              })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
             className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
@@ -203,10 +199,7 @@ function Show() {
         })
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: "mt-10",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Campaigns_CampaignsTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        items: item.campaigns
-      })
+      className: "mt-10"
     })]
   });
 }
