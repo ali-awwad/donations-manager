@@ -4,6 +4,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
     CalendarIcon,
     ChartBarIcon,
+    CurrencyDollarIcon,
+    CurrencyRupeeIcon,
     FolderIcon,
     GiftIcon,
     HomeIcon,
@@ -11,6 +13,7 @@ import {
     MenuIcon,
     TagIcon,
     UserCircleIcon,
+    UserIcon,
     UsersIcon,
     XIcon,
 } from '@heroicons/react/outline'
@@ -18,11 +21,12 @@ import Logo from '@/Shared/Logo'
 import { Head, Link, usePage } from '@inertiajs/inertia-react'
 
 const navigation = [
-    { keyName: 'Dashboard', name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
-    { keyName: 'Donations', name: 'Donations', href: route('donations.index'), icon: UsersIcon, current: false },
-    { keyName: 'Users', name: 'Users', href: route('users'), icon: FolderIcon, current: false },
-    { keyName: 'Categories', name: 'Categories', href: route('categories.index'), icon: TagIcon, current: false },
+    { keyName: 'Home', name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
+    { keyName: 'Donations', name: 'Donations', href: route('donations.index'), icon: CurrencyDollarIcon, current: false },
+    { keyName: 'Donors', name: 'Donors', href: route('donors.index'), icon: UsersIcon, current: false },
     { keyName: 'Campaigns', name: 'Campaigns', href: route('campaigns.index'), icon: GiftIcon, current: false },
+    { keyName: 'Categories', name: 'Categories', href: route('categories.index'), icon: TagIcon, current: false },
+    { keyName: 'Users', name: 'Users', href: route('users'), icon: UserIcon, current: false },
 ]
 
 function classNames(...classes) {

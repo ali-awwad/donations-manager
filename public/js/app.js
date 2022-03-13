@@ -2112,15 +2112,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Layout)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/headlessui.esm.js");
+/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/headlessui.esm.js");
 /* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/HomeIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/UsersIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/FolderIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/TagIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/GiftIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/XIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/UserCircleIcon.js");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/MenuIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/CurrencyDollarIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/UsersIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/GiftIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/TagIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/UserIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/XIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/UserCircleIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/MenuIcon.js");
 /* harmony import */ var _Shared_Logo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/Logo */ "./resources/js/Shared/Logo.jsx");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -2146,7 +2147,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var navigation = [{
-  keyName: 'Dashboard',
+  keyName: 'Home',
   name: 'Dashboard',
   href: route('dashboard'),
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -2158,22 +2159,28 @@ var navigation = [{
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__["default"],
   current: false
 }, {
-  keyName: 'Users',
-  name: 'Users',
-  href: route('users'),
+  keyName: 'Donors',
+  name: 'Donors',
+  href: route('donors.index'),
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__["default"],
-  current: false
-}, {
-  keyName: 'Categories',
-  name: 'Categories',
-  href: route('categories.index'),
-  icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_7__["default"],
   current: false
 }, {
   keyName: 'Campaigns',
   name: 'Campaigns',
   href: route('campaigns.index'),
+  icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_7__["default"],
+  current: false
+}, {
+  keyName: 'Categories',
+  name: 'Categories',
+  href: route('categories.index'),
   icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_8__["default"],
+  current: false
+}, {
+  keyName: 'Users',
+  name: 'Users',
+  href: route('users'),
+  icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_9__["default"],
   current: false
 }];
 
@@ -2204,14 +2211,14 @@ function Layout(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Head, {
       title: title
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Transition.Root, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Transition.Root, {
         show: sidebarOpen,
         as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Dialog, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Dialog, {
           as: "div",
           className: "fixed inset-0 flex z-40 md:hidden",
           onClose: setSidebarOpen,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Transition.Child, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Transition.Child, {
             as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
             enter: "transition-opacity ease-linear duration-300",
             enterFrom: "opacity-0",
@@ -2219,10 +2226,10 @@ function Layout(_ref) {
             leave: "transition-opacity ease-linear duration-300",
             leaveFrom: "opacity-100",
             leaveTo: "opacity-0",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Dialog.Overlay, {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Dialog.Overlay, {
               className: "fixed inset-0 bg-gray-600 bg-opacity-75"
             })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Transition.Child, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Transition.Child, {
             as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
             enter: "transition ease-in-out duration-300 transform",
             enterFrom: "-translate-x-full",
@@ -2232,7 +2239,7 @@ function Layout(_ref) {
             leaveTo: "-translate-x-full",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "relative flex-1 flex flex-col max-w-xs w-full bg-gray-800",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_9__.Transition.Child, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_10__.Transition.Child, {
                 as: react__WEBPACK_IMPORTED_MODULE_0__.Fragment,
                 enter: "ease-in-out duration-300",
                 enterFrom: "opacity-0",
@@ -2251,7 +2258,7 @@ function Layout(_ref) {
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
                       className: "sr-only",
                       children: "Close sidebar"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_10__["default"], {
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__["default"], {
                       className: "h-6 w-6 text-white",
                       "aria-hidden": "true"
                     })]
@@ -2338,7 +2345,7 @@ function Layout(_ref) {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "flex items-center",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__["default"], {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__["default"], {
                     className: "inline-block h-9 w-9 rounded-full stroke-current text-white"
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -2368,7 +2375,7 @@ function Layout(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "sr-only",
               children: "Open sidebar"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_13__["default"], {
               className: "h-6 w-6",
               "aria-hidden": "true"
             })]
@@ -9402,6 +9409,14 @@ var map = {
 		"./resources/js/Pages/Dashboard.jsx",
 		"resources_js_Pages_Dashboard_jsx"
 	],
+	"./Donations/DonationsTable": [
+		"./resources/js/Pages/Donations/DonationsTable.jsx",
+		"resources_js_Pages_Donations_DonationsTable_jsx"
+	],
+	"./Donations/DonationsTable.jsx": [
+		"./resources/js/Pages/Donations/DonationsTable.jsx",
+		"resources_js_Pages_Donations_DonationsTable_jsx"
+	],
 	"./Donations/Index": [
 		"./resources/js/Pages/Donations/Index.jsx",
 		"resources_js_Pages_Donations_Index_jsx"
@@ -9409,6 +9424,22 @@ var map = {
 	"./Donations/Index.jsx": [
 		"./resources/js/Pages/Donations/Index.jsx",
 		"resources_js_Pages_Donations_Index_jsx"
+	],
+	"./Donors/Index": [
+		"./resources/js/Pages/Donors/Index.jsx",
+		"resources_js_Pages_Donors_Index_jsx"
+	],
+	"./Donors/Index.jsx": [
+		"./resources/js/Pages/Donors/Index.jsx",
+		"resources_js_Pages_Donors_Index_jsx"
+	],
+	"./Donors/Show": [
+		"./resources/js/Pages/Donors/Show.jsx",
+		"resources_js_Pages_Donors_Show_jsx"
+	],
+	"./Donors/Show.jsx": [
+		"./resources/js/Pages/Donors/Show.jsx",
+		"resources_js_Pages_Donors_Show_jsx"
 	],
 	"./Home": [
 		"./resources/js/Pages/Home.jsx",
@@ -9532,10 +9563,10 @@ const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(CakeIcon);
 
 /***/ }),
 
-/***/ "./node_modules/@heroicons/react/outline/esm/FolderIcon.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@heroicons/react/outline/esm/FolderIcon.js ***!
-  \*****************************************************************/
+/***/ "./node_modules/@heroicons/react/outline/esm/CurrencyDollarIcon.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/CurrencyDollarIcon.js ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9546,7 +9577,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
-function FolderIcon(props, svgRef) {
+function CurrencyDollarIcon(props, svgRef) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -9558,11 +9589,11 @@ function FolderIcon(props, svgRef) {
   }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    d: "M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
+    d: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
   }));
 }
 
-const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(FolderIcon);
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(CurrencyDollarIcon);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
 
 /***/ }),
@@ -9738,6 +9769,41 @@ function UserCircleIcon(props, svgRef) {
 }
 
 const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(UserCircleIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/UserIcon.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/UserIcon.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function UserIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(UserIcon);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
 
 /***/ }),

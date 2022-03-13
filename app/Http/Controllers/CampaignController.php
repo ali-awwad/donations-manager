@@ -23,7 +23,7 @@ class CampaignController extends Controller
                     'id'=>$campaign->id,
                     'name'=>$campaign->name,
                     'slug'=>$campaign->slug,
-                    'target'=>$campaign->target,
+                    'target'=>friendly_money($campaign->target),
                     'category'=>$campaign->category->name,
                 ];
             })
@@ -65,7 +65,7 @@ class CampaignController extends Controller
                     'id'=>$campaign->id,
                     'name'=>$campaign->name,
                     'slug'=>$campaign->slug,
-                    'target'=>$campaign->target,
+                    'target'=>friendly_money($campaign->target),
                     'description'=>$campaign->description,
                     'category'=>$campaign->category->name
                     // 'campaigns_count'=>$campaign->campaigns_count,

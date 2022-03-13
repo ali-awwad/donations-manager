@@ -5,15 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Donation extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function user()
+    public function donor()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Donor::class);
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -23,9 +25,12 @@ class Donation extends Model
         return $this->belongsTo(Campaign::class);
     }
 
-
-    public function getAmountAttribute()
+    public function getCreatedAtAttribute()
     {
-        return number_format((float)($this->attributes['amount'] / 100), 2, '.', '');
+        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
+    public function getCreatedAtReadableAttribute()
+    {
+        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
     }
 }

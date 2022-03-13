@@ -18,7 +18,7 @@ class CampaignFactory extends Factory
             'name' => $this->faker->realText(20),
             'description' => $this->faker->paragraph,
             'slug'=>$this->faker->slug,
-            'target'=>$this->faker->randomDigitNotZero()*100000,
+            'target'=>$this->faker->randomDigitNotZero()*1000000,
             'category_id'=>Category::inRandomOrder()->first()->id,
         ];
     }

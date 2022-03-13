@@ -2,7 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Campaign;
-use App\Models\User;
+use App\Models\Donor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +22,7 @@ class CreateDonationsTable extends Migration
             $table->integer('amount');
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(Campaign::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Donor::class);
             $table->softDeletes();
             $table->timestamps();
         });

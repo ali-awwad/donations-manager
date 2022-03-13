@@ -43,11 +43,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $withCount = ['donations'];
-
-    public function donations()
-    {
-        return $this->hasMany(Donation::class);
-    }
-
 }

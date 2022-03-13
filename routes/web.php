@@ -3,6 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\DonorController;
+use App\Http\Controllers\HomeController;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\User;
@@ -41,25 +43,16 @@ Route::middleware('auth')->group(function ()
     Route::get('/', function () {
         return redirect()->route('dashboard');
     })->name('home');
-    Route::get('/dashboard', function () {
-        return Inertia::render('Home', [
-            'title' => 'Home and Dashboard Page'
-        ]);
-    })->name('dashboard');
+    Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
     Route::get('/users', function () {
         return Inertia::render('Users', [
             'title' => 'Users Page',
             'users'=>User::orderByDesc('created_at')->paginate(10)->through(function ($user)
             {
-                $categories = Donation::where('user_id',$user->id)->pluck('category_id')->toArray();
-                $campaigns = Donation::where('user_id',$user->id)->pluck('campaign_id')->toArray();
-
                 return [
                     'email'=>$user->email,
                     'name'=>$user->name,
-                    'categories_count'=>Category::whereIn('id',$categories)->count(),
-                    'campaigns_count'=>Category::whereIn('id',$campaigns)->count(),
-                    'donations_count'=>$user->donations_count,
+                    'donor'=>$user->donor,
                     'role'=>$user->verified_at ? 'Admin' : 'Member',
                 ];
             })
@@ -69,5 +62,6 @@ Route::middleware('auth')->group(function ()
     Route::resource('campaigns',CampaignController::class);
     Route::resource('categories',CategoryController::class);
     Route::resource('donations',DonationController::class);
+    Route::resource('donors',DonorController::class);
 
 });
