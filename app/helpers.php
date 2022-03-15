@@ -6,3 +6,9 @@ if(!function_exists('friendly_money')) {
         return number_format((float)($intMoneyInFils / 100), 2, '.', '');
     }
 }
+if(!function_exists('completion_ratio')) {
+    function completion_ratio(int $collected, int $target)
+    {
+        return round(number_format(($collected / $target), 4, '.', '') * 100);
+    }
+}

@@ -14,6 +14,12 @@ export default function CampaignsTable({ items }) {
                         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                             Target
                         </th>
+                        <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                            Collected
+                        </th>
+                        <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                            %
+                        </th>
                         <th
                             scope="col"
                             className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell"
@@ -44,6 +50,8 @@ export default function CampaignsTable({ items }) {
                                 </dl>
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.target}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.collected}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.percentage}%</td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.slug}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.category}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
@@ -55,7 +63,7 @@ export default function CampaignsTable({ items }) {
                     ))}
                 </tbody>
             </table>
-            <Pagination currentPage={items.current_page} from={items.from} to={items.to} first_page_url={items.first_page_url} last_page_url={items.last_page_url} prev_page_url={items.prev_page_url} next_page_url={items.next_page_url} links={items.links} total={items.total} />
+            <Pagination meta={items.meta} links={items.links} />
         </div>
     )
 }

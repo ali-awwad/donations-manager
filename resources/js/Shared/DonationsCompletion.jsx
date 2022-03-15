@@ -12,12 +12,12 @@ export default function DonationsCompletion({data}) {
                         <dt className="text-sm font-medium text-gray-400 truncate">{item.created_at}</dt>
                         <dt className="font-medium text-gray-500 text-lg truncate">{item.name}</dt>
                         <dt className="text-sm font-medium text-gray-800 truncate">{item.donations_count} Donations</dt>
-                        <dd className={'mt-1 text-3xl font-semibold ' + (item.percentage > 100 ? 'text-green-500' : 'text-red-500')}>{item.percentage} %</dd>
+                        <dd className={'mt-1 text-3xl font-semibold ' + (item.percentage >=80 ? 'text-green-500' : (item.percentage >= 50 ? 'text-orange-500' : 'text-red-500'))}>{item.percentage} %</dd>
                     </div>
                 ))}
             </dl>
             <div className="mt-4">
-                <Pagination currentPage={data.current_page} from={data.from} to={data.to} first_page_url={data.first_page_url} last_page_url={data.last_page_url} prev_page_url={data.prev_page_url} next_page_url={data.next_page_url} links={data.links} total={data.total} />
+            <Pagination meta={data.meta} links={data.links} />
             </div>
         </div>
     )

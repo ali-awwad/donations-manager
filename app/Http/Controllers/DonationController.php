@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DonationResource;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -18,17 +19,7 @@ class DonationController extends Controller
     {
         return Inertia::render('Donations/Index', [
             'title'=>'Donations',
-            'items'=> Donation::orderByDesc('created_at')->paginate(10)->through(function ($donation)
-            {
-                return [
-                    'id'=>$donation->id,
-                    'amount'=>friendly_money($donation->amount),
-                    'category'=>$donation->category->name,
-                    'campaign'=>$donation->campaign->name,
-                    'donor'=>$donation->donor->name,
-                    'created_at'=>$donation->created_at_readable,
-                ];
-            })
+            'items'=> DonationResource::collection(Donation::orderByDesc('created_at')->paginate(10))
         ]);
     }
 

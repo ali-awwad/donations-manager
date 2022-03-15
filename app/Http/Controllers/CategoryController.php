@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CampaignResource;
+use App\Http\Resources\CategoryResource;
+use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,15 +20,7 @@ class CategoryController extends Controller
     {
         return Inertia::render('Categories/Index', [
             'title'=>'Categories',
-            'items'=> Category::orderByDesc('created_at')->paginate(10)->through(function ($category)
-            {
-                return [
-                    'id'=>$category->id,
-                    'name'=>$category->name,
-                    'slug'=>$category->slug,
-                    'campaigns_count'=>$category->campaigns_count,
-                ];
-            })
+            'items'=> CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
         ]);
     }
 
@@ -60,13 +55,8 @@ class CategoryController extends Controller
     {
         return Inertia::render('Categories/Show', [
             'title'=>$category->name,
-            'item'=>  [
-                    'id'=>$category->id,
-                    'name'=>$category->name,
-                    'slug'=>$category->slug,
-                    'campaigns_count'=>$category->campaigns_count,
-                    'campaigns'=>$category->campaigns()->paginate(10)
-                ]
+            'item'=>  CategoryResource::make($category->append(['description'])),
+            'campaigns'=>CampaignResource::collection(Campaign::where('category_id',$category->id)->orderByDesc('created_at')->paginate())
         ]);
     }
 

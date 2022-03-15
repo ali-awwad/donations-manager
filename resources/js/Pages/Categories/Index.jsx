@@ -61,7 +61,7 @@ export default function Index() {
                         ))}
                     </tbody>
                 </table>
-                <Pagination currentPage={items.current_page} from={items.from} to={items.to} first_page_url={items.first_page_url} last_page_url={items.last_page_url} prev_page_url={items.prev_page_url} next_page_url={items.next_page_url} links={items.links} total={items.total} />
+                <Pagination meta={items.meta} links={items.links} />
             </div>
         </div>
     )

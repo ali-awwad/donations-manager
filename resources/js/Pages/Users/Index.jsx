@@ -68,7 +68,7 @@ export default function Users() {
                         ))}
                     </tbody>
                 </table>
-                <Pagination currentPage={users.current_page} from={users.from} to={users.to} first_page_url={users.first_page_url} last_page_url={users.last_page_url} prev_page_url={users.prev_page_url} next_page_url={users.next_page_url} links={users.links} total={users.total} />
+                <Pagination meta={users.meta} links={users.links} />
             </div>
         </div>
     )

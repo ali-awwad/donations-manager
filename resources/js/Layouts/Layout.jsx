@@ -26,7 +26,7 @@ const navigation = [
     { keyName: 'Donors', name: 'Donors', href: route('donors.index'), icon: UsersIcon, current: false },
     { keyName: 'Campaigns', name: 'Campaigns', href: route('campaigns.index'), icon: GiftIcon, current: false },
     { keyName: 'Categories', name: 'Categories', href: route('categories.index'), icon: TagIcon, current: false },
-    { keyName: 'Users', name: 'Users', href: route('users'), icon: UserIcon, current: false },
+    { keyName: 'Users', name: 'Users', href: route('users.index'), icon: UserIcon, current: false },
 ]
 
 function classNames(...classes) {

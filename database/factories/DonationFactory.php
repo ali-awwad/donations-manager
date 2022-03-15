@@ -23,6 +23,7 @@ class DonationFactory extends Factory
             'campaign_id'=>Campaign::inRandomOrder()->first()->id,
             'donor_id'=>Donor::inRandomOrder()->first()->id,
             'amount'=>rand(100,70000),
+            'description'=>$this->faker->paragraph(4),
             'uuid'=>Str::uuid()
         ];
     }

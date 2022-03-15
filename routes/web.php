@@ -5,6 +5,7 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\User;
@@ -44,21 +45,9 @@ Route::middleware('auth')->group(function ()
         return redirect()->route('dashboard');
     })->name('home');
     Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
-    Route::get('/users', function () {
-        return Inertia::render('Users', [
-            'title' => 'Users Page',
-            'users'=>User::orderByDesc('created_at')->paginate(10)->through(function ($user)
-            {
-                return [
-                    'email'=>$user->email,
-                    'name'=>$user->name,
-                    'donor'=>$user->donor,
-                    'role'=>$user->verified_at ? 'Admin' : 'Member',
-                ];
-            })
-        ]);
-    })->name('users');
 
+
+    Route::resource('users',UserController::class);
     Route::resource('campaigns',CampaignController::class);
     Route::resource('categories',CategoryController::class);
     Route::resource('donations',DonationController::class);

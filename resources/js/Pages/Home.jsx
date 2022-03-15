@@ -5,6 +5,7 @@ import { Doughnut } from 'react-chartjs-2'
 import { usePage } from '@inertiajs/inertia-react';
 import { DonationsPerCampaignChart } from '@/Shared/DonationsPerCampaignChart';
 import DonationsCompletion from '@/Shared/DonationsCompletion';
+import StartingPoint from '@/Shared/StartingPoint';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
@@ -24,7 +25,11 @@ export default function Home() {
 
     return (
         <div>
-            <div className="flex flex-wrap">
+            <StartingPoint />
+            <div className="my-4">
+                <DonationsCompletion data={campaigns_completion}  />
+            </div>
+            <div className="mt-10 flex flex-wrap">
                 <div className="w-full lg:w-1/4">
                     <div className="max-w-md">
                         <h3 className='text-xl text-center text-indigo-500'>Campains per Category Share</h3>
@@ -39,9 +44,6 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="mt-4">
-                <DonationsCompletion data={campaigns_completion}  />
-            </div>
         </div>
     )
 }

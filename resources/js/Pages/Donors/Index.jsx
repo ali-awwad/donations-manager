@@ -83,7 +83,7 @@ export default function Index() {
                         ))}
                     </tbody>
                 </table>
-                <Pagination currentPage={donors.current_page} from={donors.from} to={donors.to} first_page_url={donors.first_page_url} last_page_url={donors.last_page_url} prev_page_url={donors.prev_page_url} next_page_url={donors.next_page_url} links={donors.links} total={donors.total} />
+                <Pagination meta={donors.meta} links={donors.links} />
             </div>
         </div>
     )

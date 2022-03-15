@@ -23,6 +23,7 @@ class CreateDonationsTable extends Migration
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(Campaign::class);
             $table->foreignIdFor(Donor::class);
+            $table->text('description');
             $table->softDeletes();
             $table->timestamps();
         });

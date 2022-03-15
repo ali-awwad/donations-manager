@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CampaignResource;
+use App\Http\Resources\DonationResource;
 use App\Models\Campaign;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,16 +20,7 @@ class CampaignController extends Controller
     {
         return Inertia::render('Campaigns/Index', [
             'title' => 'Campaigns',
-            'items'=> Campaign::orderByDesc('created_at')->paginate(10)->through(function ($campaign)
-            {
-                return [
-                    'id'=>$campaign->id,
-                    'name'=>$campaign->name,
-                    'slug'=>$campaign->slug,
-                    'target'=>friendly_money($campaign->target),
-                    'category'=>$campaign->category->name,
-                ];
-            })
+            'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
         ]);
     }
 
@@ -61,16 +55,8 @@ class CampaignController extends Controller
     {
         return Inertia::render('Campaigns/Show', [
             'title'=>$campaign->name,
-            'item'=>  [
-                    'id'=>$campaign->id,
-                    'name'=>$campaign->name,
-                    'slug'=>$campaign->slug,
-                    'target'=>friendly_money($campaign->target),
-                    'description'=>$campaign->description,
-                    'category'=>$campaign->category->name
-                    // 'campaigns_count'=>$campaign->campaigns_count,
-                    // 'campaigns'=>$campaign->campaigns()->paginate(10)
-                ]
+            'item'=>  CampaignResource::make($campaign->append(['description'])),
+            'donations'=>DonationResource::collection(Donation::where('campaign_id',$campaign->id)->orderByDesc('created_at')->paginate())
         ]);
     }
 
