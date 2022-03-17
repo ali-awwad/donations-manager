@@ -7,6 +7,9 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class CategoryController extends Controller
@@ -19,8 +22,8 @@ class CategoryController extends Controller
     public function index()
     {
         return Inertia::render('Categories/Index', [
-            'title'=>'Categories',
-            'items'=> CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
+            'title' => 'Categories',
+            'items' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
         ]);
     }
 
@@ -31,7 +34,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        return Inertia::render('Categories/Create', [
+            'title' => 'Create Category',
+        ]);
     }
 
     /**
@@ -42,7 +47,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required|max:255',
+            'color' => 'required|max:255',
+            'description' => 'required|max:3000',
+        ]);
+        DB::beginTransaction();
+        try {
+            $category = new Category();
+            $category->name = $request->category_name;
+            $category->description = $request->description;
+            $category->color = $request->color;
+            $category->slug = Str::slug($category->name);
+            $category->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('categories.show', $category)->with('success', 'Item created successfully');
     }
 
     /**
@@ -54,9 +80,9 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         return Inertia::render('Categories/Show', [
-            'title'=>$category->name,
-            'item'=>  CategoryResource::make($category->append(['description'])),
-            'campaigns'=>CampaignResource::collection(Campaign::where('category_id',$category->id)->orderByDesc('created_at')->paginate())
+            'title' => $category->name,
+            'item' =>  CategoryResource::make($category->append(['description'])),
+            'campaigns' => CampaignResource::collection(Campaign::where('category_id', $category->id)->orderByDesc('created_at')->paginate())
         ]);
     }
 
@@ -68,7 +94,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Categories/Edit', [
+            'title' => 'Edit Category: ' . $category->name,
+            'item' => CategoryResource::make($category->append(['description'])),
+        ]);
     }
 
     /**
@@ -80,7 +109,27 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $this->validate($request, [
+            'category_name' => 'required|max:255',
+            'color' => 'required|max:255',
+            'description' => 'required|max:3000',
+        ]);
+        DB::beginTransaction();
+        try {
+            $category->name = $request->category_name;
+            $category->description = $request->description;
+            $category->color = $request->color;
+            $category->slug = Str::slug($category->name);
+            $category->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('categories.show', $category)->with('success', 'Item updated successfully');
     }
 
     /**

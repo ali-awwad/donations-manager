@@ -19,6 +19,7 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'campaigns_count' => $this->campaigns_count,
+            'color' => $this->color,
             'description'=>$this->whenAppended('description',$this->description),
         ];
     }

@@ -33,6 +33,7 @@
         "@inertiajs/inertia-react": "^0.8.0",
         "@inertiajs/progress": "^0.2.7",
         "chart.js": "^3.7.1",
+        "prop-types": "^15.8.1",
         "react-chartjs-2": "^4.0.1"
     }
 }

@@ -24,6 +24,10 @@ export default function Show() {
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.data.slug}</dd>
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Color</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold" style={{color:item.data.color}}>{item.data.color}</dd>
+                        </div>
+                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Nuymber of Campaigns</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.data.campaigns_count}</dd>
                         </div>
