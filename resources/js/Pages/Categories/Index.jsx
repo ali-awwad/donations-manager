@@ -1,5 +1,6 @@
 import EmptyIndex from "@/Shared/EmptyIndex";
 import Pagination from "@/Shared/Pagination";
+import { LinkIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
@@ -59,11 +60,17 @@ export default function Index() {
                                             </td>
                                             <td className="px-3 py-4 text-sm text-gray-500">{item.campaigns_count}</td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <Link method="DELETE" href={route('categories.destroy',item.id)} className="text-indigo-600 hover:text-indigo-900">
-                                                    Delete<span className="sr-only">, {item.name}</span>
+                                                <Link href={route('categories.show', item.id)} className="btn btn-indigo mr-1">
+                                                    <LinkIcon className="btn-icon" aria-hidden="true" />
+                                                    View<span className="sr-only">, {item.name}</span>
                                                 </Link>
-                                                <Link href={route('categories.edit',item.id)} className="text-indigo-600 hover:text-indigo-900">
+                                                <Link href={route('categories.edit', item.id)} className="btn btn-indigo mr-1">
+                                                    <PencilIcon className="btn-icon" aria-hidden="true" />
                                                     Edit<span className="sr-only">, {item.name}</span>
+                                                </Link>
+                                                <Link as="button" method="DELETE" href={route('categories.destroy', item.id)} className="btn btn-danger">
+                                                    <TrashIcon className="btn-icon" aria-hidden="true" />
+                                                    Delete<span className="sr-only">, {item.name}</span>
                                                 </Link>
                                             </td>
                                         </tr>

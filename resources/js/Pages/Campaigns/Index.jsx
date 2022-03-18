@@ -1,6 +1,6 @@
 import EmptyIndex from '@/Shared/EmptyIndex';
 import Pagination from '@/Shared/Pagination';
-import { usePage } from '@inertiajs/inertia-react'
+import { Link, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 import CampaignsTable from './CampaignsTable';
 
@@ -21,12 +21,11 @@ export default function Index() {
                                 </p>
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <button
-                                    type="button"
+                                <Link href={route('campaigns.create')}
                                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                                 >
                                     Create Campaign
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         <CampaignsTable items={items}></CampaignsTable>

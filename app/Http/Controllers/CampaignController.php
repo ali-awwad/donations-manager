@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CampaignResource;
+use App\Http\Resources\CategoryResource;
 use App\Http\Resources\DonationResource;
 use App\Models\Campaign;
+use App\Models\Category;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class CampaignController extends Controller
@@ -31,7 +36,11 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Campaigns/Create', [
+            'title' => 'Create Campaign',
+            'selected_category_id'=>request('category_id'),
+            'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
+        ]);
     }
 
     /**
@@ -42,7 +51,30 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'campaign_name' => 'required|max:255',
+            'target' => 'required|min:0|numeric',
+            'description' => 'required|max:3000',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        DB::beginTransaction();
+        try {
+            $campaign = new Campaign();
+            $campaign->name = $request->campaign_name;
+            $campaign->description = $request->description;
+            $campaign->target = $request->target;
+            $campaign->category_id = $request->category_id;
+            $campaign->slug = Str::slug($campaign->name);
+            $campaign->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('campaigns.show', $campaign)->with('success', 'Item created successfully');
     }
 
     /**
@@ -91,6 +123,16 @@ class CampaignController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $campaign->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+        return Redirect::route('categories.index')->with('success', 'Item deleted successfully');
     }
 }

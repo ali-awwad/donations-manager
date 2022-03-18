@@ -9581,6 +9581,14 @@ var map = {
 		"./resources/js/Pages/Campaigns/CampaignsTable.jsx",
 		"resources_js_Pages_Campaigns_CampaignsTable_jsx"
 	],
+	"./Campaigns/Create": [
+		"./resources/js/Pages/Campaigns/Create.jsx",
+		"resources_js_Pages_Campaigns_Create_jsx"
+	],
+	"./Campaigns/Create.jsx": [
+		"./resources/js/Pages/Campaigns/Create.jsx",
+		"resources_js_Pages_Campaigns_Create_jsx"
+	],
 	"./Campaigns/Index": [
 		"./resources/js/Pages/Campaigns/Index.jsx",
 		"resources_js_Pages_Campaigns_Index_jsx"

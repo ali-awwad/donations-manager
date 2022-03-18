@@ -140,6 +140,16 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $category->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+        return Redirect::route('categories.index')->with('success', 'Item deleted successfully');
     }
 }
