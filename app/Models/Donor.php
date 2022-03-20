@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -25,6 +26,11 @@ class Donor extends Model
     public function getCreatedAtReadableAttribute()
     {
         return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+    }
+
+    public function scopePinId(Builder $query, int $id)
+    {
+        return $query->orderByRaw("CASE WHEN id = {$id} THEN 0 ELSE 1 END");
     }
 
 }

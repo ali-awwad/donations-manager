@@ -9653,6 +9653,14 @@ var map = {
 		"./resources/js/Pages/Dashboard.jsx",
 		"resources_js_Pages_Dashboard_jsx"
 	],
+	"./Donations/Create": [
+		"./resources/js/Pages/Donations/Create.jsx",
+		"resources_js_Pages_Donations_Create_jsx"
+	],
+	"./Donations/Create.jsx": [
+		"./resources/js/Pages/Donations/Create.jsx",
+		"resources_js_Pages_Donations_Create_jsx"
+	],
 	"./Donations/DonationsTable": [
 		"./resources/js/Pages/Donations/DonationsTable.jsx",
 		"resources_js_Pages_Donations_DonationsTable_jsx"
@@ -9661,6 +9669,14 @@ var map = {
 		"./resources/js/Pages/Donations/DonationsTable.jsx",
 		"resources_js_Pages_Donations_DonationsTable_jsx"
 	],
+	"./Donations/Edit": [
+		"./resources/js/Pages/Donations/Edit.jsx",
+		"resources_js_Pages_Donations_Edit_jsx"
+	],
+	"./Donations/Edit.jsx": [
+		"./resources/js/Pages/Donations/Edit.jsx",
+		"resources_js_Pages_Donations_Edit_jsx"
+	],
 	"./Donations/Index": [
 		"./resources/js/Pages/Donations/Index.jsx",
 		"resources_js_Pages_Donations_Index_jsx"
@@ -9668,6 +9684,14 @@ var map = {
 	"./Donations/Index.jsx": [
 		"./resources/js/Pages/Donations/Index.jsx",
 		"resources_js_Pages_Donations_Index_jsx"
+	],
+	"./Donations/Show": [
+		"./resources/js/Pages/Donations/Show.jsx",
+		"resources_js_Pages_Donations_Show_jsx"
+	],
+	"./Donations/Show.jsx": [
+		"./resources/js/Pages/Donations/Show.jsx",
+		"resources_js_Pages_Donations_Show_jsx"
 	],
 	"./Donors/Create": [
 		"./resources/js/Pages/Donors/Create.jsx",

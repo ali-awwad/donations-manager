@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CampaignResource;
 use App\Http\Resources\DonationResource;
 use App\Http\Resources\DonorResource;
 use App\Http\Resources\UserResource;
-use App\Models\Campaign;
-use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Donor;
 use App\Models\User;
@@ -42,7 +39,6 @@ class DonorController extends Controller
         return Inertia::render('Donors/Create', [
             'title' => 'Add New Donor',
             'selected_user_id'=>request('user_id'),
-            // 'campaigns' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate())
             'users'=>UserResource::collection(User::orderByDesc('id')->paginate())
         ]);
     }

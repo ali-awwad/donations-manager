@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             ]
         );
         \App\Models\Category::factory(5)->create();
-        \App\Models\Campaign::factory(10)->create();
-        \App\Models\Donor::factory(20)->create();
+        \App\Models\Campaign::factory(100)->create();
+        \App\Models\Donor::factory(60)->create();
         \App\Models\Donation::factory(300)->create();
 
 
