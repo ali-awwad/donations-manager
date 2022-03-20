@@ -64,7 +64,10 @@ export default function Users() {
                                                 </dl>
                                             </td>
                                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{person.email}</td>
-                                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{person.donor}</td>
+                                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell truncate max-w-sm">
+                                                {person.donors ? person.donors.map(donor=>
+                                                <span className="text-gray-700 mx-2">{donor.name}</span>
+                                            ) : null}</td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                 <a href="#" className="text-indigo-600 hover:text-indigo-900">
                                                     Edit<span className="sr-only">, {person.name}</span>

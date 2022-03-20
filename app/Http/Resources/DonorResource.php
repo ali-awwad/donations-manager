@@ -17,13 +17,15 @@ class DonorResource extends JsonResource
      */
     public function toArray($request)
     {
-        $categories = Donation::where('donor_id', $this->id)->pluck('category_id')->toArray();
         $campaigns = Donation::where('donor_id', $this->id)->pluck('campaign_id')->toArray();
+        $categories = Campaign::whereIn('id',$campaigns)->pluck('category_id')->toArray();
 
         return [
             'id' => $this->id,
             'alias' => $this->alias,
             'name' => $this->name,
+            'user_id' => $this->user_id,
+            'user' => UserResource::make($this->user),
             'remarks'=>$this->whenAppended('remarks',$this->remarks),
             'total_donations' => friendly_money($this->donations->sum('amount')),
             'categories_count' => Category::whereIn('id', $categories)->count(),

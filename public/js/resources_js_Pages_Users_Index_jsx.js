@@ -103,8 +103,13 @@ function Users() {
                   className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
                   children: person.email
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                  className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-                  children: person.donor
+                  className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell truncate max-w-sm",
+                  children: person.donors ? person.donors.map(function (donor) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+                      className: "text-gray-700 mx-2",
+                      children: donor.name
+                    });
+                  }) : null
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                   className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {

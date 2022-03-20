@@ -1,3 +1,4 @@
+import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { Link, usePage } from '@inertiajs/inertia-react'
 import React from 'react'
 import DonationsTable from '../Donations/DonationsTable';
@@ -9,8 +10,24 @@ export default function Show() {
         <>
             <div className="bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6">
+
+                </div>
+                <div className="flex justify-between">
+                    <div className="px-4 py-5 sm:px-6">
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Campaign Information</h3>
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
+                    </div>
+                    <div className="px-4 py-5 sm:px-6">
+
+                        <Link href={route('campaigns.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
+                            <PencilIcon className="btn-icon" aria-hidden="true" />
+                            Edit<span className="sr-only">, {item.data.name}</span>
+                        </Link>
+                        <Link as='button' method="DELETE" href={route('campaigns.destroy', item.data.id)} className="btn btn-normal btn-danger">
+                            <TrashIcon className="btn-icon" aria-hidden="true" />
+                            Delete<span className="sr-only">, {item.data.name}</span>
+                        </Link></div>
+
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
                     <dl className="sm:divide-y sm:divide-gray-200">

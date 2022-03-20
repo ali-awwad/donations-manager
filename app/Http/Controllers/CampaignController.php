@@ -25,7 +25,7 @@ class CampaignController extends Controller
     {
         return Inertia::render('Campaigns/Index', [
             'title' => 'Campaigns',
-            'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
+            'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate()),
         ]);
     }
 
@@ -39,7 +39,7 @@ class CampaignController extends Controller
         return Inertia::render('Campaigns/Create', [
             'title' => 'Create Campaign',
             'selected_category_id'=>request('category_id'),
-            'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
+            'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate())
         ]);
     }
 
@@ -100,7 +100,11 @@ class CampaignController extends Controller
      */
     public function edit(Campaign $campaign)
     {
-        //
+        return Inertia::render('Campaigns/Edit', [
+            'title' => 'Edit Category: ' . $campaign->name,
+            'item' => CampaignResource::make($campaign->append(['description'])),
+            'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate())
+        ]);
     }
 
     /**
@@ -112,7 +116,29 @@ class CampaignController extends Controller
      */
     public function update(Request $request, Campaign $campaign)
     {
-        //
+        $this->validate($request, [
+            'campaign_name' => 'required|max:255',
+            'target' => 'required|min:0|numeric',
+            'description' => 'required|max:3000',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+        DB::beginTransaction();
+        try {
+            $campaign->name = $request->campaign_name;
+            $campaign->description = $request->description;
+            $campaign->target = $request->target;
+            $campaign->category_id = $request->category_id;
+            $campaign->slug = Str::slug($campaign->name);
+            $campaign->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('campaigns.show', $campaign)->with('success', 'Item updated successfully');
     }
 
     /**

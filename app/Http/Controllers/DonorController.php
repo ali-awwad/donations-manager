@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CampaignResource;
 use App\Http\Resources\DonationResource;
 use App\Http\Resources\DonorResource;
+use App\Http\Resources\UserResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Donor;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class DonorController extends Controller
@@ -33,7 +39,12 @@ class DonorController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Donors/Create', [
+            'title' => 'Add New Donor',
+            'selected_user_id'=>request('user_id'),
+            // 'campaigns' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate())
+            'users'=>UserResource::collection(User::orderByDesc('id')->paginate())
+        ]);
     }
 
     /**
@@ -44,7 +55,31 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'donor_name' => 'required|max:255',
+            'alias' => 'required|max:555|string',
+            'remarks' => 'required|max:3000',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
+        DB::beginTransaction();
+        try {
+            $donor = new Donor();
+            $donor->name = $request->donor_name;
+            $donor->remarks = $request->remarks;
+            $donor->alias = $request->alias;
+            if($request->user_id) {
+                $donor->user_id = $request->user_id;
+            }
+            $donor->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('donors.show', $donor)->with('success', 'Item created successfully');
     }
 
     /**
@@ -70,7 +105,11 @@ class DonorController extends Controller
      */
     public function edit(Donor $donor)
     {
-        //
+        return Inertia::render('Donors/Edit', [
+            'title' => 'Add New Donor',
+            'item' => DonorResource::make($donor->append(['remarks'])),
+            'users'=>UserResource::collection(User::orderByDesc('id')->paginate())
+        ]);
     }
 
     /**
@@ -82,7 +121,31 @@ class DonorController extends Controller
      */
     public function update(Request $request, Donor $donor)
     {
-        //
+        $this->validate($request, [
+            'donor_name' => 'required|max:255',
+            'alias' => 'required|max:555|string',
+            'remarks' => 'required|max:3000',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
+        DB::beginTransaction();
+        try {
+            $donor->name = $request->donor_name;
+            $donor->remarks = $request->remarks;
+            $donor->alias = $request->alias;
+            if($request->user_id) {
+                $donor->user_id = $request->user_id;
+            }
+
+            $donor->save();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+
+        return Redirect::route('donors.show', $donor)->with('success', 'Item updated successfully');
     }
 
     /**
@@ -93,6 +156,16 @@ class DonorController extends Controller
      */
     public function destroy(Donor $donor)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $donor->delete();
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with([
+                'error' => error_message($th->getMessage()),
+            ]);
+        }
+        return Redirect::route('donors.index')->with('success', 'Item deleted successfully');
     }
 }

@@ -1,15 +1,15 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Campaigns_Create_jsx"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Campaigns_Edit_jsx"],{
 
-/***/ "./resources/js/Pages/Campaigns/Create.jsx":
-/*!*************************************************!*\
-  !*** ./resources/js/Pages/Campaigns/Create.jsx ***!
-  \*************************************************/
+/***/ "./resources/js/Pages/Campaigns/Edit.jsx":
+/*!***********************************************!*\
+  !*** ./resources/js/Pages/Campaigns/Edit.jsx ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Create)
+/* harmony export */   "default": () => (/* binding */ Edit)
 /* harmony export */ });
 /* harmony import */ var _Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/ComboBox */ "./resources/js/Shared/ComboBox.jsx");
 /* harmony import */ var _Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/FormCancelButton */ "./resources/js/Shared/FormCancelButton.jsx");
@@ -44,11 +44,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Create() {
+function Edit() {
   var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
       errors = _usePage$props.errors,
       categories = _usePage$props.categories,
-      selected_category_id = _usePage$props.selected_category_id;
+      item = _usePage$props.item;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -66,10 +66,16 @@ function Create() {
       setValues = _useState4[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
-    if (selected_category_id) {
-      categories.data.filter(function (item) {
-        if (item.id === parseInt(selected_category_id)) {
-          setSelectedCategory(item);
+    if (item.data) {
+      setValues({
+        campaign_name: item.data.name,
+        target: item.data.target,
+        description: item.data.description,
+        category_id: item.data.category_id
+      });
+      categories.data.filter(function (category) {
+        if (category.id === parseInt(item.data.category_id)) {
+          setSelectedCategory(category);
         }
       });
     }
@@ -92,108 +98,111 @@ function Create() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.post('/campaigns', values);
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.patch("/campaigns/".concat(item.data.id), values);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
     onSubmit: handleSubmit,
     className: "space-y-8 divide-y divide-gray-200",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
-          className: "text-lg leading-6 font-medium text-gray-900",
-          children: "Create Campaign"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-          className: "mt-1 text-sm text-gray-500",
-          children: "In a campaign you can set the target to reach, assign it to a category, then add donations after you create it."
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        className: "mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      className: "space-y-8 divide-y divide-gray-200",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sm:col-span-6",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-            htmlFor: "description",
-            className: "block text-sm font-medium text-gray-700",
-            children: "About"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
-              defaultValue: values.description,
-              onChange: handleChange,
-              id: "description",
-              name: "description",
-              rows: 3,
-              className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-            })
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
+            className: "text-lg leading-6 font-medium text-gray-900",
+            children: ["Edit: ", item.data.name]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "mt-2 text-sm text-gray-500",
-            children: "Write a few sentences about this campaign."
-          }), errors.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "mt-2 text-sm text-red-500",
-            children: errors.description
+            className: "mt-1 text-sm text-gray-500",
+            children: "In a campaign you can set the target to reach, assign it to a category, then add donations after you create it."
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-            htmlFor: "campaign_name",
-            className: "block text-sm font-medium text-gray-700",
-            children: "Campaign Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.campaign_name,
-              onChange: handleChange,
-              type: "text",
-              name: "campaign_name",
-              id: "campaign_name",
-              autoComplete: "campaign_name",
-              className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            })
-          }), errors.campaign_name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "mt-2 text-sm text-red-500",
-            children: errors.campaign_name
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-            htmlFor: "category_id",
-            className: "block text-sm font-medium text-gray-700",
-            children: "Category"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__["default"], {
-              items: categories.data,
-              selectedItem: selectedCategory,
-              setSelectedItem: setSelectedCategory
-            })
-          }), errors.category_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "mt-2 text-sm text-red-500",
-            children: errors.category_id
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-          className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-            htmlFor: "target",
-            className: "block text-sm font-medium text-gray-700",
-            children: "Target"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-            className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.target,
-              onChange: handleChange,
-              type: "number",
-              min: 0,
-              name: "target",
-              id: "target",
-              autoComplete: "target",
-              className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-            })
-          }), errors.target && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
-            className: "mt-2 text-sm text-red-500",
-            children: errors.target
+          className: "mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "sm:col-span-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+              htmlFor: "description",
+              className: "block text-sm font-medium text-gray-700",
+              children: "About"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mt-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
+                defaultValue: values.description,
+                onChange: handleChange,
+                id: "description",
+                name: "description",
+                rows: 3,
+                className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "mt-2 text-sm text-gray-500",
+              children: "Write a few sentences about this campaign."
+            }), errors.description && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "mt-2 text-sm text-red-500",
+              children: errors.description
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "sm:col-span-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+              htmlFor: "campaign_name",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Campaign Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mt-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                defaultValue: values.campaign_name,
+                onChange: handleChange,
+                type: "text",
+                name: "campaign_name",
+                id: "campaign_name",
+                autoComplete: "campaign_name",
+                className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              })
+            }), errors.campaign_name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "mt-2 text-sm text-red-500",
+              children: errors.campaign_name
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "sm:col-span-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+              htmlFor: "category_id",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Category"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mt-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__["default"], {
+                items: categories.data,
+                selectedItem: selectedCategory,
+                setSelectedItem: setSelectedCategory
+              })
+            }), errors.category_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "mt-2 text-sm text-red-500",
+              children: errors.category_id
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            className: "sm:col-span-2",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+              htmlFor: "target",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Target"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              className: "mt-1",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                defaultValue: values.target,
+                onChange: handleChange,
+                type: "number",
+                min: 0,
+                name: "target",
+                id: "target",
+                autoComplete: "target",
+                className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              })
+            }), errors.target && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "mt-2 text-sm text-red-500",
+              children: errors.target
+            })]
           })]
         })]
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "pt-5",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {

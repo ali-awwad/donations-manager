@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function donors()
+    {
+        return $this->hasMany(Donor::class)->orderByDesc('created_at');
+    }
+
 }

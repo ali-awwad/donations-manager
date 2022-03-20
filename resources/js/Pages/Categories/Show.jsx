@@ -15,7 +15,6 @@ export default function Show() {
                         <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
                     </div>
                     <div className="px-4 py-5 sm:px-6">
-
                         <Link href={route('categories.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
                             <PencilIcon className="btn-icon" aria-hidden="true" />
                             Edit<span className="sr-only">, {item.data.name}</span>
@@ -24,7 +23,6 @@ export default function Show() {
                             <TrashIcon className="btn-icon" aria-hidden="true" />
                             Delete<span className="sr-only">, {item.data.name}</span>
                         </Link></div>
-
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -56,7 +54,22 @@ export default function Show() {
                 </div>
             </div>
             <div className="mt-10">
-                <h2 className="text-lg font-medium text-gray-900">Campaigns</h2>
+                <div className="sm:flex sm:items-center">
+                    <div className="sm:flex-auto">
+                        <h1 className="text-xl font-semibold text-gray-900">Campaigns</h1>
+                        <p className="mt-2 text-sm text-gray-700">
+                            This is a list of all campaigns under {item.data.name}
+                        </p>
+                    </div>
+                    <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <Link href={route('campaigns.create',{'category_id':item.data.id})}
+                            className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                        >
+                            Create Campaign
+                        </Link>
+                    </div>
+                </div>
+                {/* <h2 className="text-lg font-medium text-gray-900">Campaigns</h2> */}
                 <CampaignsTable items={campaigns}></CampaignsTable>
             </div>
         </>

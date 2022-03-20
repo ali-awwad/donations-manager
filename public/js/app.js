@@ -9589,6 +9589,14 @@ var map = {
 		"./resources/js/Pages/Campaigns/Create.jsx",
 		"resources_js_Pages_Campaigns_Create_jsx"
 	],
+	"./Campaigns/Edit": [
+		"./resources/js/Pages/Campaigns/Edit.jsx",
+		"resources_js_Pages_Campaigns_Edit_jsx"
+	],
+	"./Campaigns/Edit.jsx": [
+		"./resources/js/Pages/Campaigns/Edit.jsx",
+		"resources_js_Pages_Campaigns_Edit_jsx"
+	],
 	"./Campaigns/Index": [
 		"./resources/js/Pages/Campaigns/Index.jsx",
 		"resources_js_Pages_Campaigns_Index_jsx"
@@ -9661,6 +9669,14 @@ var map = {
 		"./resources/js/Pages/Donations/Index.jsx",
 		"resources_js_Pages_Donations_Index_jsx"
 	],
+	"./Donors/Create": [
+		"./resources/js/Pages/Donors/Create.jsx",
+		"resources_js_Pages_Donors_Create_jsx"
+	],
+	"./Donors/Create.jsx": [
+		"./resources/js/Pages/Donors/Create.jsx",
+		"resources_js_Pages_Donors_Create_jsx"
+	],
 	"./Donors/DonorsTable": [
 		"./resources/js/Pages/Donors/DonorsTable.jsx",
 		"resources_js_Pages_Donors_DonorsTable_jsx"
@@ -9668,6 +9684,14 @@ var map = {
 	"./Donors/DonorsTable.jsx": [
 		"./resources/js/Pages/Donors/DonorsTable.jsx",
 		"resources_js_Pages_Donors_DonorsTable_jsx"
+	],
+	"./Donors/Edit": [
+		"./resources/js/Pages/Donors/Edit.jsx",
+		"resources_js_Pages_Donors_Edit_jsx"
+	],
+	"./Donors/Edit.jsx": [
+		"./resources/js/Pages/Donors/Edit.jsx",
+		"resources_js_Pages_Donors_Edit_jsx"
 	],
 	"./Donors/Index": [
 		"./resources/js/Pages/Donors/Index.jsx",

@@ -17,7 +17,7 @@ class DonationResource extends JsonResource
         return [
             'id' => $this->id,
             'amount' => friendly_money($this->amount),
-            'category' => $this->category ? $this->category->name : null,
+            'category' => $this->campaign ? $this->campaign->category->name : null,
             'campaign' => $this->campaign ? $this->campaign->name : null,
             'donor' => $this->donor ? $this->donor->name : null,
             'created_at' => $this->created_at_readable,

@@ -20,7 +20,6 @@ class CreateDonationsTable extends Migration
             $table->id();
             $table->string('uuid');
             $table->integer('amount');
-            $table->foreignIdFor(Category::class);
             $table->foreignIdFor(Campaign::class);
             $table->foreignIdFor(Donor::class);
             $table->text('description');

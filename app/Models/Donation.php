@@ -16,11 +16,7 @@ class Donation extends Model
         return $this->belongsTo(Donor::class);
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-    public function Campaign()
+    public function campaign()
     {
         return $this->belongsTo(Campaign::class);
     }
