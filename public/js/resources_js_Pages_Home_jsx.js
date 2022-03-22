@@ -13,12 +13,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/chart.esm.js");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/dist/index.js");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/dist/index.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var _Shared_DonationsPerCampaignChart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Shared/DonationsPerCampaignChart */ "./resources/js/Shared/DonationsPerCampaignChart.jsx");
 /* harmony import */ var _Shared_DonationsCompletion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/Shared/DonationsCompletion */ "./resources/js/Shared/DonationsCompletion.jsx");
 /* harmony import */ var _Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/Shared/StartingPoint */ "./resources/js/Shared/StartingPoint.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _Shared_CategoryByTargetAndCollected__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Shared/CategoryByTargetAndCollected */ "./resources/js/Shared/CategoryByTargetAndCollected.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -33,7 +35,8 @@ function Home() {
   var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.usePage)().props,
       categories = _usePage$props.categories,
       campaigns = _usePage$props.campaigns,
-      campaigns_completion = _usePage$props.campaigns_completion;
+      campaigns_completion = _usePage$props.campaigns_completion,
+      categoriesTargetCollected = _usePage$props.categoriesTargetCollected;
   var data = {
     labels: categories.labels,
     datasets: [{
@@ -44,39 +47,107 @@ function Home() {
       borderWidth: 1
     }]
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "my-4",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_DonationsCompletion__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_DonationsCompletion__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: campaigns_completion
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "mt-10 flex flex-wrap",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "w-full lg:w-1/4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "max-w-md",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
             className: "text-xl text-center text-indigo-500",
             children: "Campains per Category Share"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_7__.Doughnut, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_8__.Doughnut, {
             data: data
           })]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "w-full lg:w-3/4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
           className: "",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
             className: "text-xl text-center text-indigo-500",
             children: "Donations per Campaign"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_DonationsPerCampaignChart__WEBPACK_IMPORTED_MODULE_3__.DonationsPerCampaignChart, {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_DonationsPerCampaignChart__WEBPACK_IMPORTED_MODULE_3__.DonationsPerCampaignChart, {
             labels: campaigns.labels,
             dsData: campaigns.values
           })]
         })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        className: "w-full",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+          className: "mt-10",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h3", {
+            className: "text-xl text-center text-indigo-500",
+            children: "Category by Target and actually collected"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_CategoryByTargetAndCollected__WEBPACK_IMPORTED_MODULE_6__.CategoryByTargetAndCollected, {
+            labels: categoriesTargetCollected.labels,
+            targetData: categoriesTargetCollected.targetValues,
+            collectedData: categoriesTargetCollected.collectedValues
+          })]
+        })
       })]
     })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/Shared/CategoryByTargetAndCollected.jsx":
+/*!**************************************************************!*\
+  !*** ./resources/js/Shared/CategoryByTargetAndCollected.jsx ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CategoryByTargetAndCollected": () => (/* binding */ CategoryByTargetAndCollected)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/chart.esm.js");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+chart_js__WEBPACK_IMPORTED_MODULE_1__.Chart.register(chart_js__WEBPACK_IMPORTED_MODULE_1__.CategoryScale, chart_js__WEBPACK_IMPORTED_MODULE_1__.LinearScale, chart_js__WEBPACK_IMPORTED_MODULE_1__.BarElement, chart_js__WEBPACK_IMPORTED_MODULE_1__.Title, chart_js__WEBPACK_IMPORTED_MODULE_1__.Tooltip, chart_js__WEBPACK_IMPORTED_MODULE_1__.Legend);
+function CategoryByTargetAndCollected(_ref) {
+  var labels = _ref.labels,
+      targetData = _ref.targetData,
+      collectedData = _ref.collectedData;
+  var options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top'
+      },
+      title: {
+        display: true,
+        text: 'Categories by Target and Actually Collected'
+      }
+    }
+  };
+  var data = {
+    labels: labels,
+    datasets: [{
+      label: 'Target',
+      data: targetData,
+      backgroundColor: '#ef4444'
+    }, {
+      label: 'Collected',
+      data: collectedData,
+      backgroundColor: '#22c55e'
+    }]
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_3__.Bar, {
+    options: options,
+    data: data
   });
 }
 
@@ -178,7 +249,7 @@ function DonationsPerCampaignChart(_ref) {
   var data = {
     labels: labels,
     datasets: [{
-      label: 'Campaings',
+      label: 'Donations',
       data: dsData,
       backgroundColor: 'rgba(255, 99, 132, 0.5)'
     }]

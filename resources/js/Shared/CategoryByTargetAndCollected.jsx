@@ -19,7 +19,7 @@ ChartJS.register(
   Legend
 );
 
-export function DonationsPerCampaignChart({labels, dsData}) {
+export function CategoryByTargetAndCollected({labels, targetData, collectedData}) {
     const options = {
         responsive: true,
         plugins: {
@@ -28,7 +28,7 @@ export function DonationsPerCampaignChart({labels, dsData}) {
           },
           title: {
             display: true,
-            text: 'Number of Donations per Campaign',
+            text: 'Categories by Target and Actually Collected',
           },
         },
       };
@@ -37,9 +37,14 @@ export function DonationsPerCampaignChart({labels, dsData}) {
         labels,
         datasets: [
           {
-            label: 'Donations',
-            data: dsData,
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            label: 'Target',
+            data: targetData,
+            backgroundColor: '#ef4444',
+          },
+          {
+            label: 'Collected',
+            data: collectedData,
+            backgroundColor: '#22c55e',
           }
         ],
       };

@@ -37,20 +37,20 @@ export default function Show() {
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Donor</dt>
-                            {donation.data.donor_id &&
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><Link href={route('donors.show', donation.data.donor_id)} className="text-blue-500">{donation.data.donor}</Link> </dd>
+                            {donation.data.donor.id &&
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><Link href={route('donors.show', donation.data.donor.id)} className="text-blue-500">{donation.data.donor.name}</Link> </dd>
                             }
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Category</dt>
-                            {donation.data.category_id &&
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold"><Link href={route('categories.show', donation.data.category_id)} className="text-blue-500">{donation.data.category}</Link> </dd>
+                            {donation.data.category.id &&
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold"><Link href={route('categories.show', donation.data.category.id)} className="text-blue-500">{donation.data.category.name}</Link> </dd>
                             }
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Campaign</dt>
-                            {donation.data.campaign_id &&
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><Link href={route('campaigns.show', donation.data.campaign_id)} className="text-blue-500">{donation.data.campaign}</Link> </dd>
+                            {donation.data.campaign.id &&
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><Link href={route('campaigns.show', donation.data.campaign.id)} className="text-blue-500">{donation.data.campaign.name}</Link> </dd>
                             }
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

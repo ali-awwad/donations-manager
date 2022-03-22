@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
                 'email'=>'a.awwad@test.com'
             ]
         );
-        \App\Models\Category::factory(5)->create();
-        \App\Models\Campaign::factory(100)->create();
-        \App\Models\Donor::factory(60)->create();
-        \App\Models\Donation::factory(300)->create();
+        \App\Models\Category::factory(3)->create();
+        \App\Models\Campaign::factory(7)->create();
+        \App\Models\Donor::factory(15)->create();
+        \App\Models\Donation::factory(40)->create();
 
 
     }

@@ -1,12 +1,10 @@
 import AlertError from "@/Shared/AlertError";
-import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import SearchInput from "@/Shared/SearchInput";
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
-import DonorsTable from "../Donors/DonorsTable";
 import FormSteps from "./FormSteps";
 import SelectCampaignTable from "./SelectCampaignTable";
 import SelectDonorTable from "./SelectDonorTable";
@@ -158,7 +156,7 @@ export default function Create() {
                         {errors.donor_id && <AlertError message={errors.donor_id} />}
                         <SearchInput setQuery={setSearchDonor} query={searchDonor} />
                         <div className="h-2"></div>
-                        <SelectDonorTable donors={donors} setSelectedDonor={setSelectedDonor} />
+                        <SelectDonorTable donors={donors} selectedDonor={selectedDonor} setSelectedDonor={setSelectedDonor} />
                     </div>
                 }
                 {currentStep === '03' &&
@@ -167,7 +165,7 @@ export default function Create() {
                         {errors.campaign_id && <AlertError message={errors.campaign_id} />}
                         <SearchInput setQuery={setSearchCampaign} query={searchCampaign} />
                         <div className="h-2"></div>
-                        <SelectCampaignTable campaigns={campaigns} setSelectedCampaign={setSelectedCampaign} />
+                        <SelectCampaignTable campaigns={campaigns} selectedCampaign={selectedCampaign} setSelectedCampaign={setSelectedCampaign} />
                     </div>
                 }
             </div>

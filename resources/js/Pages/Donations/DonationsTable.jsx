@@ -49,7 +49,7 @@ export default function DonationsTable({ items }) {
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                    {items.data.map((item) => (
+                    {items.data.map((item) =>
                         <tr key={item.id}>
                             <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                                 <Link href={route('donations.show', item.id)} className="text-blue-400 hover:text-blue-600">{item.id}</Link>
@@ -86,7 +86,7 @@ export default function DonationsTable({ items }) {
                                 </Link>
                             </td>
                         </tr>
-                    ))}
+                    )}
                 </tbody>
             </table>
             <Pagination meta={items.meta} links={items.links} />

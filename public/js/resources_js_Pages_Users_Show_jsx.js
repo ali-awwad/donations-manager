@@ -1,20 +1,22 @@
 "use strict";
-(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Donations_SelectDonorTable_jsx"],{
+(self["webpackChunk"] = self["webpackChunk"] || []).push([["resources_js_Pages_Users_Show_jsx"],{
 
-/***/ "./resources/js/Pages/Donations/SelectDonorTable.jsx":
-/*!***********************************************************!*\
-  !*** ./resources/js/Pages/Donations/SelectDonorTable.jsx ***!
-  \***********************************************************/
+/***/ "./resources/js/Pages/Donors/DonorsTable.jsx":
+/*!***************************************************!*\
+  !*** ./resources/js/Pages/Donors/DonorsTable.jsx ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ SelectDonorTable)
+/* harmony export */   "default": () => (/* binding */ DonorsTable)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Shared_Pagination__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Shared/Pagination */ "./resources/js/Shared/Pagination.jsx");
-/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/CheckIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/LinkIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/PencilIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/TrashIcon.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -22,12 +24,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function SelectDonorTable(_ref) {
-  var donors = _ref.donors,
-      selectedDonor = _ref.selectedDonor,
-      setSelectedDonor = _ref.setSelectedDonor;
+function DonorsTable(_ref) {
+  var donors = _ref.donors;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    className: "-mx-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg",
+    className: "-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
       className: "min-w-full divide-y divide-gray-300",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("thead", {
@@ -47,10 +47,22 @@ function SelectDonorTable(_ref) {
             children: "Total Donations"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
             scope: "col",
+            className: "hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell",
+            children: "# of donations"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            scope: "col",
+            className: "px-3 py-3.5 text-left text-sm font-semibold text-gray-900",
+            children: "# of campaigns participated in"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            scope: "col",
+            className: "px-3 py-3.5 text-left text-sm font-semibold text-gray-900",
+            children: "# of categories participated in"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("th", {
+            scope: "col",
             className: "relative py-3.5 pl-3 pr-4 sm:pr-6",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
               className: "sr-only",
-              children: "Select"
+              children: "Edit"
             })
           })]
         })
@@ -58,10 +70,13 @@ function SelectDonorTable(_ref) {
         className: "divide-y divide-gray-200 bg-white",
         children: donors.data.map(function (donor) {
           return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-            className: "".concat(selectedDonor === donor.id ? 'bg-green-50 hover:bg-green-100' : '', " hover:bg-gray-50"),
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
               className: "w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6",
-              children: [donor.name, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("dl", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                href: route('donors.show', donor.id),
+                className: "text-blue-400 hover:text-blue-600",
+                children: donor.name
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("dl", {
                 className: "font-normal lg:hidden",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
                   className: "sr-only",
@@ -88,17 +103,49 @@ function SelectDonorTable(_ref) {
               className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
               children: ["AED ", donor.total_donations]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+              className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
+              children: donor.donations_count
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+              className: "px-3 py-4 text-sm text-gray-500",
+              children: donor.campaigns_count
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+              className: "px-3 py-4 text-sm text-gray-500",
+              children: donor.categories_count
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
               className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-                type: "button",
-                onClick: function onClick() {
-                  return setSelectedDonor(donor.id);
-                },
-                className: "btn btn-default ".concat(selectedDonor === donor.id ? 'border-green-600 bg-green-600 text-white' : ''),
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                href: route('donors.show', donor.id),
+                className: "btn btn-indigo mr-1",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"], {
-                  className: "btn-icon"
-                }), "Select"]
-              })
+                  className: "btn-icon",
+                  "aria-hidden": "true"
+                }), "View", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  className: "sr-only",
+                  children: [", ", donor.name]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                href: route('donors.edit', donor.id),
+                className: "btn btn-indigo mr-1",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                  className: "btn-icon",
+                  "aria-hidden": "true"
+                }), "Edit", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  className: "sr-only",
+                  children: [", ", donor.name]
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                as: "button",
+                method: "DELETE",
+                href: route('donors.destroy', donor.id),
+                className: "btn btn-danger",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                  className: "btn-icon",
+                  "aria-hidden": "true"
+                }), "Delete", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+                  className: "sr-only",
+                  children: [", ", donor.name]
+                })]
+              })]
             })]
           }, donor.name);
         })
@@ -106,6 +153,127 @@ function SelectDonorTable(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Shared_Pagination__WEBPACK_IMPORTED_MODULE_2__["default"], {
       meta: donors.meta,
       links: donors.links
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Users/Show.jsx":
+/*!*******************************************!*\
+  !*** ./resources/js/Pages/Users/Show.jsx ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Show)
+/* harmony export */ });
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/PencilIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/TrashIcon.js");
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _Donors_DonorsTable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Donors/DonorsTable */ "./resources/js/Pages/Donors/DonorsTable.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+
+function Show() {
+  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.usePage)().props,
+      item = _usePage$props.item,
+      donors = _usePage$props.donors;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "bg-white shadow overflow-hidden sm:rounded-lg",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "flex justify-between",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "px-4 py-5 sm:px-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+            className: "text-lg leading-6 font-medium text-gray-900",
+            children: "User Information"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+            className: "mt-1 max-w-2xl text-sm text-gray-500",
+            children: ["Below info for ", item.data.name]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          className: "px-4 py-5 sm:px-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+            href: route('users.edit', item.data.id),
+            className: "btn btn-normal btn-indigo mr-1",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              className: "btn-icon",
+              "aria-hidden": "true"
+            }), "Edit", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+              className: "sr-only",
+              children: [", ", item.data.name]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+            as: "button",
+            method: "DELETE",
+            href: route('users.destroy', item.data.id),
+            className: "btn btn-normal btn-danger",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_5__["default"], {
+              className: "btn-icon",
+              "aria-hidden": "true"
+            }), "Delete", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+              className: "sr-only",
+              children: [", ", item.data.name]
+            })]
+          })]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: "border-t border-gray-200 px-4 py-5 sm:p-0",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("dl", {
+          className: "sm:divide-y sm:divide-gray-200",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
+              className: "text-sm font-medium text-gray-500",
+              children: "Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
+              className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
+              children: item.data.name
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
+              className: "text-sm font-medium text-gray-500",
+              children: "Email"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
+              className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
+              children: item.data.email
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+            className: "py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dt", {
+              className: "text-sm font-medium text-gray-500",
+              children: "Verified At"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("dd", {
+              className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold",
+              children: item.data.verified_at
+            })]
+          })]
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: "mt-10",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
+          className: "text-xl font-semibold text-gray-900",
+          children: "Linked to Donors"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          className: "mt-2 text-sm text-gray-700",
+          children: ["This is a list of all donors under ", item.data.name]
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Donors_DonorsTable__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        donors: donors
+      })]
     })]
   });
 }
@@ -228,10 +396,10 @@ function Pagination(_ref) {
 
 /***/ }),
 
-/***/ "./node_modules/@heroicons/react/outline/esm/CheckIcon.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/@heroicons/react/outline/esm/CheckIcon.js ***!
-  \****************************************************************/
+/***/ "./node_modules/@heroicons/react/outline/esm/LinkIcon.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/LinkIcon.js ***!
+  \***************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -241,7 +409,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
-function CheckIcon(props, svgRef) {
+function LinkIcon(props, svgRef) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -253,11 +421,79 @@ function CheckIcon(props, svgRef) {
   }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    d: "M5 13l4 4L19 7"
+    d: "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
   }));
 }
 
-const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(CheckIcon);
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(LinkIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/PencilIcon.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/PencilIcon.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function PencilIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(PencilIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/TrashIcon.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/TrashIcon.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function TrashIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(TrashIcon);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
 
 /***/ }),

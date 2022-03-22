@@ -57,7 +57,7 @@ function Edit() {
 
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)({
     campaign_name: "",
-    target: 1000,
+    target: item.data.target * 100,
     description: "",
     category_id: 0
   }),
@@ -69,10 +69,11 @@ function Edit() {
     if (item.data) {
       setValues({
         campaign_name: item.data.name,
-        target: item.data.target,
+        target: item.data.target * 100,
         description: item.data.description,
         category_id: item.data.category_id
       });
+      console.log(item.data.target);
       categories.data.filter(function (category) {
         if (category.id === parseInt(item.data.category_id)) {
           setSelectedCategory(category);

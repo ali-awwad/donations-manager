@@ -41,9 +41,6 @@ class DonationController extends Controller
         return Inertia::render('Donations/Create', [
             'title' => 'Add New Donation',
             'selected_campaign_id' => request('campaign_id'),
-            'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->when(request('category_search'), function ($q, $category_search) {
-                return $q->where('name', 'like', '%' . $category_search . '%');
-            })->paginate()),
             'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->when(request('donor_search'), function ($q, $donor_search) {
                 return $q->where('name', 'like', '%' . $donor_search . '%');
             })->paginate(3)),
@@ -116,9 +113,6 @@ class DonationController extends Controller
         return Inertia::render('Donations/Edit', [
             'title' => $donation->uuid,
             'item'=>DonationResource::make($donation->append(['description'])),
-            'categories' => CategoryResource::collection(Category::pinId($donation->campaign->category_id)->orderByDesc('created_at')->when(request('category_search'), function ($q, $category_search) {
-                return $q->where('name', 'like', '%' . $category_search . '%');
-            })->paginate()),
             'donors' => DonorResource::collection(Donor::pinId($donation->donor_id)->orderByDesc('created_at')->when(request('donor_search'), function ($q, $donor_search) {
                 return $q->where('name', 'like', '%' . $donor_search . '%');
             })->paginate()),
@@ -162,7 +156,7 @@ class DonationController extends Controller
             ]);
         }
 
-        return Redirect::route('donations.show', $donation)->with('success', 'Item created successfully');
+        return Redirect::route('donations.show', $donation)->with('success', 'Item updated successfully');
     }
 
     /**

@@ -6,10 +6,11 @@ import { usePage } from '@inertiajs/inertia-react';
 import { DonationsPerCampaignChart } from '@/Shared/DonationsPerCampaignChart';
 import DonationsCompletion from '@/Shared/DonationsCompletion';
 import StartingPoint from '@/Shared/StartingPoint';
+import { CategoryByTargetAndCollected } from '@/Shared/CategoryByTargetAndCollected';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
-    const { categories, campaigns, campaigns_completion } = usePage().props;
+    const { categories, campaigns, campaigns_completion, categoriesTargetCollected } = usePage().props;
     const data = {
         labels: categories.labels,
         datasets: [
@@ -40,6 +41,12 @@ export default function Home() {
                     <div className="">
                         <h3 className='text-xl text-center text-indigo-500'>Donations per Campaign</h3>
                         <DonationsPerCampaignChart labels={campaigns.labels} dsData={campaigns.values} />
+                    </div>
+                </div>
+                <div className="w-full">
+                    <div className="mt-10">
+                        <h3 className='text-xl text-center text-indigo-500'>Category by Target and actually collected</h3>
+                        <CategoryByTargetAndCollected labels={categoriesTargetCollected.labels} targetData={categoriesTargetCollected.targetValues} collectedData={categoriesTargetCollected.collectedValues} />
                     </div>
                 </div>
             </div>

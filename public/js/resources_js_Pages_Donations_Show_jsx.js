@@ -91,12 +91,12 @@ function Show() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
               children: "Donor"
-            }), donation.data.donor_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
+            }), donation.data.donor.id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
-                href: route('donors.show', donation.data.donor_id),
+                href: route('donors.show', donation.data.donor.id),
                 className: "text-blue-500",
-                children: donation.data.donor
+                children: donation.data.donor.name
               }), " "]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -104,12 +104,12 @@ function Show() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
               children: "Category"
-            }), donation.data.category_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
+            }), donation.data.category.id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
-                href: route('categories.show', donation.data.category_id),
+                href: route('categories.show', donation.data.category.id),
                 className: "text-blue-500",
-                children: donation.data.category
+                children: donation.data.category.name
               }), " "]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -117,12 +117,12 @@ function Show() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
               children: "Campaign"
-            }), donation.data.campaign_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
+            }), donation.data.campaign.id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
               className: "mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
-                href: route('campaigns.show', donation.data.campaign_id),
+                href: route('campaigns.show', donation.data.campaign.id),
                 className: "text-blue-500",
-                children: donation.data.campaign
+                children: donation.data.campaign.name
               }), " "]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {

@@ -3,7 +3,7 @@ import React from 'react'
 import Pagination from "@/Shared/Pagination";
 import { CheckIcon } from '@heroicons/react/outline';
 
-export default function SelectDonorTable({ donors, setSelectedDonor }) {
+export default function SelectDonorTable({ donors, selectedDonor, setSelectedDonor }) {
   return (
     <div className="-mx-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
@@ -31,7 +31,7 @@ export default function SelectDonorTable({ donors, setSelectedDonor }) {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                     {donors.data.map((donor) => (
-                        <tr key={donor.name}>
+                        <tr key={donor.name} className={`${selectedDonor===donor.id ? 'bg-green-50 hover:bg-green-100' : ''} hover:bg-gray-50`}>
                             <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
                                 {donor.name}
                                 <dl className="font-normal lg:hidden">
@@ -44,7 +44,7 @@ export default function SelectDonorTable({ donors, setSelectedDonor }) {
                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{donor.alias}</td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">AED {donor.total_donations}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <button type='button' onClick={() => setSelectedDonor(donor.id)} className="btn btn-default">
+                                <button type='button' onClick={() => setSelectedDonor(donor.id)} className={`btn btn-default ${selectedDonor===donor.id ? 'border-green-600 bg-green-600 text-white' : ''}`}>
                                     <CheckIcon className='btn-icon' />
                                     Select
                                 </button>

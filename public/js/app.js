@@ -9765,6 +9765,22 @@ var map = {
 		"./resources/js/Pages/Home.jsx",
 		"resources_js_Pages_Home_jsx"
 	],
+	"./Users/Create": [
+		"./resources/js/Pages/Users/Create.jsx",
+		"resources_js_Pages_Users_Create_jsx"
+	],
+	"./Users/Create.jsx": [
+		"./resources/js/Pages/Users/Create.jsx",
+		"resources_js_Pages_Users_Create_jsx"
+	],
+	"./Users/Edit": [
+		"./resources/js/Pages/Users/Edit.jsx",
+		"resources_js_Pages_Users_Edit_jsx"
+	],
+	"./Users/Edit.jsx": [
+		"./resources/js/Pages/Users/Edit.jsx",
+		"resources_js_Pages_Users_Edit_jsx"
+	],
 	"./Users/Index": [
 		"./resources/js/Pages/Users/Index.jsx",
 		"resources_js_Pages_Users_Index_jsx"
@@ -9772,6 +9788,14 @@ var map = {
 	"./Users/Index.jsx": [
 		"./resources/js/Pages/Users/Index.jsx",
 		"resources_js_Pages_Users_Index_jsx"
+	],
+	"./Users/Show": [
+		"./resources/js/Pages/Users/Show.jsx",
+		"resources_js_Pages_Users_Show_jsx"
+	],
+	"./Users/Show.jsx": [
+		"./resources/js/Pages/Users/Show.jsx",
+		"resources_js_Pages_Users_Show_jsx"
 	],
 	"./Welcome": [
 		"./resources/js/Pages/Welcome.js",

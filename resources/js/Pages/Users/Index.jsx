@@ -1,6 +1,7 @@
 import EmptyIndex from "@/Shared/EmptyIndex";
 import Pagination from "@/Shared/Pagination";
-import { usePage } from "@inertiajs/inertia-react"
+import { LinkIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline";
+import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Users() {
     const { users } = usePage().props;
@@ -19,12 +20,12 @@ export default function Users() {
                                 </p>
                             </div>
                             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <button
-                                    type="button"
+                                <Link
+                                    href={route('users.create')}
                                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
                                 >
                                     Add user
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
@@ -65,13 +66,22 @@ export default function Users() {
                                             </td>
                                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{person.email}</td>
                                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell truncate max-w-sm">
-                                                {person.donors ? person.donors.map(donor=>
-                                                <span className="text-gray-700 mx-2">{donor.name}</span>
-                                            ) : null}</td>
+                                                {person.donors ? person.donors.map((donor, index) =>
+                                                    <span className="text-gray-700 mx-2" key={index} >{donor.name}</span>
+                                                ) : null}</td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                                                <Link href={route('users.show', person.id)} className="btn btn-indigo mr-1">
+                                                    <LinkIcon className="btn-icon" aria-hidden="true" />
+                                                    View<span className="sr-only">, {person.name}</span>
+                                                </Link>
+                                                <Link href={route('users.edit', person.id)} className="btn btn-indigo mr-1">
+                                                    <PencilIcon className="btn-icon" aria-hidden="true" />
                                                     Edit<span className="sr-only">, {person.name}</span>
-                                                </a>
+                                                </Link>
+                                                <Link as="button" method="DELETE" href={route('users.destroy', person.id)} className="btn btn-danger">
+                                                    <TrashIcon className="btn-icon" aria-hidden="true" />
+                                                    Delete<span className="sr-only">, {person.name}</span>
+                                                </Link>
                                             </td>
                                         </tr>
                                     ))}

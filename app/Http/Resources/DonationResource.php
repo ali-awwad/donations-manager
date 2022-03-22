@@ -18,12 +18,18 @@ class DonationResource extends JsonResource
             'id' => $this->id,
             'uuid' => $this->uuid,
             'amount' => friendly_money($this->amount),
-            'category_id' => $this->campaign ? $this->campaign->category->id : null,
-            'category' => $this->campaign ? $this->campaign->category->name : null,
-            'campaign_id' => $this->campaign_id,
-            'campaign' => $this->campaign ? $this->campaign->name : null,
-            'donor_id' => $this->donor ? $this->donor->id : null,
-            'donor' => $this->donor ? $this->donor->name : null,
+            'category'=> [
+                'id'=>$this->campaign && $this->campaign->category ? $this->campaign->category->id : null,
+                'name'=>$this->campaign && $this->campaign->category ? $this->campaign->category->name : null,
+            ],
+            'donor'=> [
+                'id'=>$this->donor ? $this->donor->id : null,
+                'name'=>$this->donor ? $this->donor->name : null,
+            ],
+            'campaign'=> [
+                'id'=>$this->campaign ? $this->campaign->id : null,
+                'name'=>$this->campaign ? $this->campaign->name : null,
+            ],
             'created_at' => $this->created_at_readable,
             'description'=>$this->whenAppended('description',$this->description),
         ];
