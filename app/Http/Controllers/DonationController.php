@@ -46,7 +46,7 @@ class DonationController extends Controller
             })->paginate()),
             'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->when(request('donor_search'), function ($q, $donor_search) {
                 return $q->where('name', 'like', '%' . $donor_search . '%');
-            })->paginate()),
+            })->paginate(3)),
             'campaigns' => CampaignResource::collection(Campaign::orderByDesc('created_at')
                 ->when(request('campaign_search'), function ($q, $campaign_search) {
                     return $q->where('name', 'like', '%' . $campaign_search . '%');

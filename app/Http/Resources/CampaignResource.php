@@ -22,7 +22,7 @@ class CampaignResource extends JsonResource
             'target' => friendly_money($this->target),
             'category' => $this->category ? $this->category->name : null,
             'category_id' => $this->category ? $this->category->id : null,
-            'collected' => friendly_money(Donation::where('this_id', $this->id)->sum('amount')),
+            'collected' => friendly_money(Donation::where('campaign_id', $this->id)->sum('amount')),
             'percentage' => completion_ratio($this->donations->sum('amount'), $this->target),
             'description'=>$this->whenAppended('description',$this->description),
         ];
