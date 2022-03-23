@@ -18,7 +18,7 @@ class CreateDonorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('alias')->nullable();
-            $table->string('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->foreignIdFor(User::class)->nullable();
             $table->timestamps();
             $table->softDeletes();
