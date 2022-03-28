@@ -5,7 +5,9 @@ namespace App\Http\Resources;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use App\Models\Donor;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class DonorResource extends JsonResource
 {
@@ -31,6 +33,11 @@ class DonorResource extends JsonResource
             'categories_count' => Category::whereIn('id', $categories)->count(),
             'campaigns_count' => Campaign::whereIn('id', $campaigns)->count(),
             'donations_count' => $this->donations_count,
+            'can'=> [
+                'view'=>Auth::user()->can('view',Donor::find($this->id)),
+                'update'=>Auth::user()->can('update',Donor::find($this->id)),
+                'delete'=>Auth::user()->can('delete',Donor::find($this->id))
+            ]
         ];
     }
 }

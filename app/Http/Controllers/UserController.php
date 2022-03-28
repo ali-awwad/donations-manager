@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Donor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
@@ -16,6 +17,11 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(User::class,'user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +31,11 @@ class UserController extends Controller
     {
         return Inertia::render('Users/Index', [
             'title' => 'Users Page',
-            'users'=> UserResource::collection(User::orderByDesc('created_at')->paginate(10))
+            'users'=> UserResource::collection(User::orderByDesc('created_at')->paginate(10)),
+            'can'=>[
+                'viewAny'=> Auth::user()->can('viewAny',User::class),
+                'create'=> Auth::user()->can('create',User::class),
+            ]
         ]);
     }
 
@@ -54,6 +64,7 @@ class UserController extends Controller
             'name' => ['required','max:255'],
             'email' => ['required','unique:users,email','email','max:255'],
             'password' => ['required', 'confirmed', Password::min(8)],
+            'user_type'=>['required','max:7'],
         ]);
 
         if ($validator->fails()) {
@@ -65,6 +76,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->user_type = $request->user_type;
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -113,6 +125,7 @@ class UserController extends Controller
             'name' => ['required','max:255'],
             'email' => ['required','unique:users,email,'.$user->id,'email','max:255'],
             'password' => ['nullable', 'confirmed', Password::min(8)],
+            'user_type'=>['required','max:7'],
         ]);
 
         if ($validator->fails()) {
@@ -124,6 +137,7 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->user_type = $request->user_type;
         if($user->password) {
             $user->password = Hash::make($request->password);
         }

@@ -12,7 +12,7 @@ export default function Edit() {
         donor_name: "",
         alias: "",
         remarks: "",
-        user_id: 0,
+        user_id: null,
     })
 
     useEffect(() => {

@@ -9,6 +9,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
@@ -26,6 +27,10 @@ class CampaignController extends Controller
         return Inertia::render('Campaigns/Index', [
             'title' => 'Campaigns',
             'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate()),
+            'can'=>[
+                'viewAny'=> Auth::user()->can('viewAny',Campaign::class),
+                'create'=> Auth::user()->can('create',Campaign::class),
+            ]
         ]);
     }
 

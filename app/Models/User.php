@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,5 +48,26 @@ class User extends Authenticatable
     {
         return $this->hasMany(Donor::class)->orderByDesc('created_at');
     }
+
+    public function scopeAdmin(Builder $query)
+    {
+        return $query->where('user_type', 'admin');
+    }
+
+    public function scopeMember(Builder $query)
+    {
+        return $query->where('user_type', 'member');
+    }
+
+    public function isAdmin()
+    {
+        return $this->user_type==='admin' ? true : false;
+    }
+
+    public function isMember()
+    {
+        return $this->user_type==='member' ? true : false;
+    }
+
 
 }

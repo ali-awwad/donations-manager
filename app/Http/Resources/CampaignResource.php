@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Campaign;
 use App\Models\Donation;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class CampaignResource extends JsonResource
 {
@@ -25,6 +27,11 @@ class CampaignResource extends JsonResource
             'collected' => friendly_money(Donation::where('campaign_id', $this->id)->sum('amount')),
             'percentage' => completion_ratio($this->donations->sum('amount'), $this->target),
             'description'=>$this->whenAppended('description',$this->description),
+            'can'=> [
+                'view'=>Auth::user()->can('view',Campaign::find($this->id)),
+                'update'=>Auth::user()->can('update',Campaign::find($this->id)),
+                'delete'=>Auth::user()->can('delete',Campaign::find($this->id))
+            ]
         ];
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class UserResource extends JsonResource
 {
@@ -19,7 +21,13 @@ class UserResource extends JsonResource
             'email'=>$this->email,
             'name'=>$this->name,
             'donors'=>$this->donors,
-            'role'=>$this->verified_at ? 'Admin' : 'Member',
+            'verified'=>$this->verified_at ? 'Verified' : 'NA',
+            'user_type'=>$this->user_type,
+            'can'=> [
+                'view'=>Auth::user()->can('view',User::find($this->id)),
+                'update'=>Auth::user()->can('update',User::find($this->id)),
+                'delete'=>Auth::user()->can('delete',User::find($this->id))
+            ]
         ];
     }
 }

@@ -59,7 +59,7 @@ function Edit() {
     donor_name: "",
     alias: "",
     remarks: "",
-    user_id: 0
+    user_id: null
   }),
       _useState4 = _slicedToArray(_useState3, 2),
       values = _useState4[0],

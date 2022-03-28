@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -23,7 +24,11 @@ class CategoryController extends Controller
     {
         return Inertia::render('Categories/Index', [
             'title' => 'Categories',
-            'items' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10))
+            'items' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10)),
+            'can'=>[
+                'viewAny'=> Auth::user()->can('viewAny',Category::class),
+                'create'=> Auth::user()->can('create',Category::class),
+            ]
         ]);
     }
 

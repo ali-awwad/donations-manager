@@ -9,6 +9,7 @@ use App\Models\Donation;
 use App\Models\Donor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
@@ -25,7 +26,11 @@ class DonorController extends Controller
     {
         return Inertia::render('Donors/Index', [
             'title' => 'Donors Page',
-            'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->paginate())
+            'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->paginate()),
+            'can'=>[
+                'viewAny'=> Auth::user()->can('viewAny',Donor::class),
+                'create'=> Auth::user()->can('create',Donor::class),
+            ]
         ]);
     }
 

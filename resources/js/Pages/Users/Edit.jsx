@@ -1,3 +1,4 @@
+import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import { Inertia } from "@inertiajs/inertia";
@@ -6,6 +7,17 @@ import { useEffect, useState } from "react";
 
 export default function Edit() {
     const { errors, item } = usePage().props
+    const [selectedUserType, setSelectedUserType] = useState();
+    const [userTypes, setUserTypes] = useState([
+        {
+            id:'admin',
+            name:'Admin'
+        },
+        {
+            id:'member',
+            name:'Member'
+        },
+    ])
     const [values, setValues] = useState({
         name: "",
         email: "",
@@ -19,8 +31,15 @@ export default function Edit() {
                 name: item.data.name,
                 email: item.data.email,
             })
+            setSelectedUserType(item.data.user_type)
         }
     }, [])
+
+    useEffect(() => {
+        if (selectedUserType) {
+            setValues({ ...values, user_type: selectedUserType.id });
+        }
+    }, [selectedUserType])
 
     function handleChange(e) {
         const key = e.target.id;
@@ -81,7 +100,7 @@ export default function Edit() {
                         </div>
                         {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email}</p>}
                     </div>
-                    <div className="sm:col-span-3">
+                    <div className="sm:col-span-2">
                         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                             Password
                         </label>
@@ -97,7 +116,7 @@ export default function Edit() {
                         </div>
                         {errors.password && <p className="mt-2 text-sm text-red-500">{errors.password}</p>}
                     </div>
-                    <div className="sm:col-span-3">
+                    <div className="sm:col-span-2">
                         <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">
                             Confirmation
                         </label>
@@ -112,6 +131,15 @@ export default function Edit() {
                             />
                         </div>
                         {errors.password_confirmation && <p className="mt-2 text-sm text-red-500">{errors.password_confirmation}</p>}
+                    </div>
+                    <div className="sm:col-span-2">
+                        <label htmlFor="user_type" className="block text-sm font-medium text-gray-700">
+                            User Type
+                        </label>
+                        <div className="mt-1">
+                            <MyComboBox items={userTypes} selectedItem={selectedUserType} setSelectedItem={setSelectedUserType} />
+                        </div>
+                        {errors.user_type && <p className="mt-2 text-sm text-red-500">{errors.user_type}</p>}
                     </div>
                 </div>
             </div>
