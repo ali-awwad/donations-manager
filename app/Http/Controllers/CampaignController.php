@@ -24,6 +24,8 @@ class CampaignController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Campaign::class);
+
         return Inertia::render('Campaigns/Index', [
             'title' => 'Campaigns',
             'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate()),
@@ -41,6 +43,8 @@ class CampaignController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Campaign::class);
+
         return Inertia::render('Campaigns/Create', [
             'title' => 'Create Campaign',
             'selected_category_id'=>request('category_id'),
@@ -56,6 +60,8 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',Campaign::class);
+
         $this->validate($request, [
             'campaign_name' => 'required|max:255',
             'target' => 'required|min:0|numeric',
@@ -90,6 +96,8 @@ class CampaignController extends Controller
      */
     public function show(Campaign $campaign)
     {
+        $this->authorize('view',$campaign);
+
         return Inertia::render('Campaigns/Show', [
             'title'=>$campaign->name,
             'item'=>  CampaignResource::make($campaign->append(['description'])),
@@ -105,6 +113,8 @@ class CampaignController extends Controller
      */
     public function edit(Campaign $campaign)
     {
+        $this->authorize('update',$campaign);
+
         return Inertia::render('Campaigns/Edit', [
             'title' => 'Edit Category: ' . $campaign->name,
             'item' => CampaignResource::make($campaign->append(['description'])),
@@ -121,6 +131,8 @@ class CampaignController extends Controller
      */
     public function update(Request $request, Campaign $campaign)
     {
+        $this->authorize('update',$campaign);
+
         $this->validate($request, [
             'campaign_name' => 'required|max:255',
             'target' => 'required|min:0|numeric',
@@ -154,6 +166,8 @@ class CampaignController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
+        $this->authorize('delete',$campaign);
+
         DB::beginTransaction();
         try {
             $campaign->delete();

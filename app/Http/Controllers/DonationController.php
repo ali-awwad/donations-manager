@@ -10,6 +10,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Donor;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -26,9 +27,18 @@ class DonationController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Donation::class);
+
+        $query = Donation::orderByDesc('id');
+        if(!Auth::user()->isAdmin()) {
+            $query->whereHas('donor',function (Builder $q)
+            {
+                $q->where('donors.user_id',Auth::id());
+            });
+        }
         return Inertia::render('Donations/Index', [
             'title' => 'Donations',
-            'items' => DonationResource::collection(Donation::orderByDesc('created_at')->paginate(10)),
+            'items' => DonationResource::collection($query->paginate()),
             'can'=>[
                 'viewAny'=> Auth::user()->can('viewAny',Donation::class),
                 'create'=> Auth::user()->can('create',Donation::class),
@@ -43,10 +53,17 @@ class DonationController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Donation::class);
+
+        $query = Donor::orderByDesc('created_at');
+        if(!Auth::user()->isAdmin()) {
+            $query->where('donors.user_id',Auth::id());
+        }
+
         return Inertia::render('Donations/Create', [
             'title' => 'Add New Donation',
             'selected_campaign_id' => request('campaign_id'),
-            'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->when(request('donor_search'), function ($q, $donor_search) {
+            'donors' => DonorResource::collection($query->when(request('donor_search'), function ($q, $donor_search) {
                 return $q->where('name', 'like', '%' . $donor_search . '%');
             })->paginate(3)),
             'campaigns' => CampaignResource::collection(Campaign::orderByDesc('created_at')
@@ -65,6 +82,8 @@ class DonationController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',Donation::class);
+
         $this->validate($request, [
             'donor_id' => 'required|exists:donors,id',
             'campaign_id' => 'required|exists:campaigns,id',
@@ -100,6 +119,8 @@ class DonationController extends Controller
      */
     public function show(Donation $donation)
     {
+        $this->authorize('view',$donation);
+
         return Inertia::render('Donations/Show', [
             'title' => $donation->name,
             'donation' =>  DonationResource::make($donation->append(['description'])),
@@ -115,6 +136,8 @@ class DonationController extends Controller
      */
     public function edit(Donation $donation)
     {
+        $this->authorize('update',$donation);
+
         return Inertia::render('Donations/Edit', [
             'title' => $donation->uuid,
             'item'=>DonationResource::make($donation->append(['description'])),
@@ -138,6 +161,8 @@ class DonationController extends Controller
      */
     public function update(Request $request, Donation $donation)
     {
+        $this->authorize('update',$donation);
+
         $this->validate($request, [
             'donor_id' => 'required|exists:donors,id',
             'campaign_id' => 'required|exists:campaigns,id',
@@ -172,6 +197,8 @@ class DonationController extends Controller
      */
     public function destroy(Donation $donation)
     {
+        $this->authorize('delete',$donation);
+
         DB::beginTransaction();
         try {
             $donation->delete();

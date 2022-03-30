@@ -30,7 +30,7 @@ class DonationPolicy
      */
     public function view(User $user, Donation $donation)
     {
-        if($donation->donor && $user->id === $donation->donor->user_id)
+        if($donation->donor && $user->id == $donation->donor->user_id)
         return true;
 
         return $user->isAdmin();
@@ -56,7 +56,7 @@ class DonationPolicy
      */
     public function update(User $user, Donation $donation)
     {
-        if($donation->donor && $user->id === $donation->donor->user_id)
+        if($donation->donor && $user->id == $donation->donor->user_id)
         return true;
 
         return $user->isAdmin();
@@ -71,7 +71,7 @@ class DonationPolicy
      */
     public function delete(User $user, Donation $donation)
     {
-        if($donation->donor && $user->id === $donation->donor->user_id)
+        if($donation->donor && $user->id == $donation->donor->user_id)
         return true;
 
         return $user->isAdmin();

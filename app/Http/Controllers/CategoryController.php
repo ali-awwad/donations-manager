@@ -22,6 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Category::class);
         return Inertia::render('Categories/Index', [
             'title' => 'Categories',
             'items' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10)),
@@ -39,6 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Category::class);
         return Inertia::render('Categories/Create', [
             'title' => 'Create Category',
         ]);
@@ -52,6 +54,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',Category::class);
+
         $this->validate($request, [
             'category_name' => 'required|max:255',
             'color' => 'required|max:255',
@@ -84,10 +88,15 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $this->authorize('view',$category);
+
         return Inertia::render('Categories/Show', [
             'title' => $category->name,
             'item' =>  CategoryResource::make($category->append(['description'])),
-            'campaigns' => CampaignResource::collection(Campaign::where('category_id', $category->id)->orderByDesc('created_at')->paginate())
+            'campaigns' => CampaignResource::collection(Campaign::where('category_id', $category->id)->orderByDesc('created_at')->paginate()),
+            'can'=>[
+                'create_campaign'=> Auth::user()->can('create',Campaign::class),
+            ]
         ]);
     }
 
@@ -99,6 +108,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('update',$category);
+
         return Inertia::render('Categories/Edit', [
             'title' => 'Edit Category: ' . $category->name,
             'item' => CategoryResource::make($category->append(['description'])),
@@ -114,6 +125,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $this->authorize('update',$category);
+
         $this->validate($request, [
             'category_name' => 'required|max:255',
             'color' => 'required|max:255',
@@ -145,6 +158,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete',$category);
+
         DB::beginTransaction();
         try {
             $category->delete();

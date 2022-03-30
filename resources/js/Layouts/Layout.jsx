@@ -114,17 +114,17 @@ export default function Layout({ children }) {
                                     </nav>
                                 </div>
                                 <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                                    <a href="#" className="flex-shrink-0 group block">
+                                    <div className="flex-shrink-0 group block">
                                         <div className="flex items-center">
                                             <div>
-                                            <UserCircleIcon className="inline-block h-10 w-10 rounded-full stroke-current text-white" />
+                                                <UserCircleIcon className="inline-block h-10 w-10 rounded-full stroke-current text-white" />
                                             </div>
                                             <div className="ml-3">
                                                 <p className="text-base font-medium text-white">{auth.user.name}</p>
-                                                <p className="text-sm font-medium text-gray-400 group-hover:text-gray-300">View profile</p>
+                                                <Link className='text-sm font-medium text-gray-400 group-hover:text-gray-300' href='/logout' as='button' method='post'>Logout</Link>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 </div>
                             </div>
                         </Transition.Child>
@@ -165,17 +165,17 @@ export default function Layout({ children }) {
                             </nav>
                         </div>
                         <div className="flex-shrink-0 flex bg-gray-700 p-4">
-                            <a href="#" className="flex-shrink-0 w-full group block">
+                            <div className="flex-shrink-0 w-full group block">
                                 <div className="flex items-center">
                                     <div>
                                         <UserCircleIcon className="inline-block h-9 w-9 rounded-full stroke-current text-white" />
                                     </div>
                                     <div className="ml-3">
                                         <p className="text-sm font-medium text-white">{auth.user.name}</p>
-                                        <p className="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
+                                        <Link className='text-xs font-medium text-gray-300 group-hover:text-gray-200' href='/logout' as='button' method='post'>Logout</Link>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -193,18 +193,18 @@ export default function Layout({ children }) {
                     <main className="flex-1">
                         <div className="py-6">
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                                    {flash.error && (
-                                        <AlertError message={flash.error} />
-                                    )}
-                                    {flash.success && (
-                                        <AlertSuccess message={flash.success} />
-                                    )}
-                                    {flash.info && (
-                                        <AlertInfo message={flash.info} />
-                                    )}
-                                    {flash.warning && (
-                                        <AlertWarning message={flash.warning} />
-                                    )}
+                                {flash.error && (
+                                    <AlertError message={flash.error} />
+                                )}
+                                {flash.success && (
+                                    <AlertSuccess message={flash.success} />
+                                )}
+                                {flash.info && (
+                                    <AlertInfo message={flash.info} />
+                                )}
+                                {flash.warning && (
+                                    <AlertWarning message={flash.warning} />
+                                )}
                                 <div className="py-4">
                                     <section>{children}</section>
                                     {/* <div className="border-4 border-dashed border-gray-200 rounded-lg p-4">

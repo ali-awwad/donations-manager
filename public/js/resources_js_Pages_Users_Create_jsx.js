@@ -45,7 +45,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Create() {
-  var errors = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props.errors;
+  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
+      errors = _usePage$props.errors,
+      can = _usePage$props.can;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -193,7 +195,7 @@ function Create() {
             className: "mt-2 text-sm text-red-500",
             children: errors.password_confirmation
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), can.isAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "sm:col-span-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
             htmlFor: "user_type",

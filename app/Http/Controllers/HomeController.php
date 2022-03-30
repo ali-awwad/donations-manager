@@ -6,6 +6,7 @@ use App\Http\Resources\CampaignResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
@@ -44,7 +45,18 @@ class HomeController extends Controller
                 'targetValues' => $collection->all()['target'],
                 'collectedValues' => $collection->all()['collected'],
             ],
-            'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3))
+            'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
+            'can'=>[
+                'campaign'=>[
+                    'create'=>Auth::user()->can('create',Campaign::class),
+                ],
+                'donation'=>[
+                    'create'=>Auth::user()->can('create',Donation::class),
+                ],
+                'reports'=>[
+                    'view'=>true //Auth::user()->isAdmin()
+                ]
+            ]
         ]);
     }
 }

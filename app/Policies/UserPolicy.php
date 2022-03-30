@@ -43,7 +43,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -70,9 +70,6 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        if($user->id === $model->id)
-        return true;
-
         return $user->isAdmin();
     }
 

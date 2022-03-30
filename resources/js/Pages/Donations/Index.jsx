@@ -3,7 +3,7 @@ import { Link, usePage } from "@inertiajs/inertia-react";
 import DonationsTable from "./DonationsTable";
 
 export default function Index() {
-    const { items } = usePage().props;
+    const { items, can } = usePage().props;
     return (
         <>
             {items.data.length === 0 ? (
@@ -18,13 +18,15 @@ export default function Index() {
                                     All donations made so far
                                 </p>
                             </div>
-                            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <Link href={route('donations.create')}
-                                    className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-                                >
-                                    Add Donation
-                                </Link>
-                            </div>
+                            {can.create &&
+                                <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                    <Link href={route('donations.create')}
+                                        className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                                    >
+                                        Add Donation
+                                    </Link>
+                                </div>
+                            }
                         </div>
                         <DonationsTable items={items} />
                     </div>

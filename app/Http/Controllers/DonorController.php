@@ -24,6 +24,8 @@ class DonorController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny',Donor::class);
+
         return Inertia::render('Donors/Index', [
             'title' => 'Donors Page',
             'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->paginate()),
@@ -41,6 +43,8 @@ class DonorController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Donor::class);
+
         return Inertia::render('Donors/Create', [
             'title' => 'Add New Donor',
             'selected_user_id'=>request('user_id'),
@@ -56,6 +60,8 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create',Donor::class);
+
         $this->validate($request, [
             'donor_name' => 'required|max:255',
             'alias' => 'required|max:555|string',
@@ -91,6 +97,8 @@ class DonorController extends Controller
      */
     public function show(Donor $donor)
     {
+        $this->authorize('view',$donor);
+
         return Inertia::render('Donors/Show', [
             'title' => $donor->name,
             'donor' =>  DonorResource::make($donor->append(['remarks'])),
@@ -106,6 +114,8 @@ class DonorController extends Controller
      */
     public function edit(Donor $donor)
     {
+        $this->authorize('update',$donor);
+
         return Inertia::render('Donors/Edit', [
             'title' => 'Add New Donor',
             'item' => DonorResource::make($donor->append(['remarks'])),
@@ -122,6 +132,8 @@ class DonorController extends Controller
      */
     public function update(Request $request, Donor $donor)
     {
+        $this->authorize('update',$donor);
+
         $this->validate($request, [
             'donor_name' => 'required|max:255',
             'alias' => 'required|max:555|string',
@@ -157,6 +169,8 @@ class DonorController extends Controller
      */
     public function destroy(Donor $donor)
     {
+        $this->authorize('delete',$donor);
+
         DB::beginTransaction();
         try {
             $donor->delete();

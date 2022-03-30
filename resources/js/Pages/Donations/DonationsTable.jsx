@@ -52,7 +52,9 @@ export default function DonationsTable({ items }) {
                     {items.data.map((item) =>
                         <tr key={item.id}>
                             <td className="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6">
-                                <Link href={route('donations.show', item.id)} className="text-blue-400 hover:text-blue-600">{item.id}</Link>
+                                {item.can.view ? (
+                                    <Link href={route('donations.show', item.id)} className="text-blue-400 hover:text-blue-600">{item.id}</Link>
+                                ) : (<span>{item.id}</span>)}
                             </td>
                             <td className="px-3 py-4 text-sm text-gray-500">
                                 AED {item.amount}
@@ -72,18 +74,24 @@ export default function DonationsTable({ items }) {
                             <td className="hidden lg:table-cell px-3 py-4 text-sm text-gray-500">{isObject(item.donor) ? item.donor.name : item.donor}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.created_at}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                {item.can.view &&
                                 <Link href={route('donations.show', item.id)} className="btn btn-indigo mr-1">
-                                    <LinkIcon className="btn-icon" aria-hidden="true" />
-                                    View<span className="sr-only">, {item.name}</span>
-                                </Link>
+                                <LinkIcon className="btn-icon" aria-hidden="true" />
+                                View<span className="sr-only">, {item.name}</span>
+                            </Link>
+                                }
+                                {item.can.update &&
                                 <Link href={route('donations.edit', item.id)} className="btn btn-indigo mr-1">
                                     <PencilIcon className="btn-icon" aria-hidden="true" />
                                     Edit<span className="sr-only">, {item.name}</span>
                                 </Link>
+                                }
+                                {item.can.delete &&
                                 <Link as="button" method="DELETE" href={route('donations.destroy', item.id)} className="btn btn-danger">
                                     <TrashIcon className="btn-icon" aria-hidden="true" />
                                     Delete<span className="sr-only">, {item.name}</span>
                                 </Link>
+                                }
                             </td>
                         </tr>
                     )}

@@ -59,18 +59,24 @@ export default function DonorsTable({ donors }) {
                             <td className="px-3 py-4 text-sm text-gray-500">{donor.campaigns_count}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{donor.categories_count}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <Link href={route('donors.show', donor.id)} className="btn btn-indigo mr-1">
-                                    <LinkIcon className="btn-icon" aria-hidden="true" />
-                                    View<span className="sr-only">, {donor.name}</span>
-                                </Link>
-                                <Link href={route('donors.edit', donor.id)} className="btn btn-indigo mr-1">
-                                    <PencilIcon className="btn-icon" aria-hidden="true" />
-                                    Edit<span className="sr-only">, {donor.name}</span>
-                                </Link>
-                                <Link as="button" method="DELETE" href={route('donors.destroy', donor.id)} className="btn btn-danger">
-                                    <TrashIcon className="btn-icon" aria-hidden="true" />
-                                    Delete<span className="sr-only">, {donor.name}</span>
-                                </Link>
+                                {donor.can.view &&
+                                    <Link href={route('donors.show', donor.id)} className="btn btn-indigo mr-1">
+                                        <LinkIcon className="btn-icon" aria-hidden="true" />
+                                        View<span className="sr-only">, {donor.name}</span>
+                                    </Link>
+                                }
+                                {donor.can.update &&
+                                    <Link href={route('donors.edit', donor.id)} className="btn btn-indigo mr-1">
+                                        <PencilIcon className="btn-icon" aria-hidden="true" />
+                                        Edit<span className="sr-only">, {donor.name}</span>
+                                    </Link>
+                                }
+                                {donor.can.delete &&
+                                    <Link as="button" method="DELETE" href={route('donors.destroy', donor.id)} className="btn btn-danger">
+                                        <TrashIcon className="btn-icon" aria-hidden="true" />
+                                        Delete<span className="sr-only">, {donor.name}</span>
+                                    </Link>
+                                }
                             </td>
                         </tr>
                     ))}

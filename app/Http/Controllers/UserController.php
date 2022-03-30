@@ -17,11 +17,6 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->authorizeResource(User::class,'user');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -49,6 +44,9 @@ class UserController extends Controller
 
         return Inertia::render('Users/Create', [
             'title' => 'Create User',
+            'can'=>[
+                'isAdmin'=>Auth::user()->isAdmin()
+            ]
         ]);
     }
 
@@ -109,6 +107,9 @@ class UserController extends Controller
         return Inertia::render('Users/Edit', [
             'title' => $user->name,
             'item'=>UserResource::make($user),
+            'can'=>[
+                'isAdmin'=>Auth::user()->isAdmin()
+            ]
         ]);
     }
 

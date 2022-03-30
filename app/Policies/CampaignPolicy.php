@@ -18,7 +18,7 @@ class CampaignPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
@@ -30,7 +30,7 @@ class CampaignPolicy
      */
     public function view(User $user, Campaign $campaign)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**

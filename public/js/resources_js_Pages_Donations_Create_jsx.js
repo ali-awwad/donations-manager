@@ -93,17 +93,16 @@ function Create() {
   var _useState12 = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('01'),
       _useState13 = _slicedToArray(_useState12, 2),
       currentStep = _useState13[0],
-      setCurrentStep = _useState13[1];
+      setCurrentStep = _useState13[1]; // useEffect(() => {
+  //     if (selected_campaign_id) {
+  //         campaigns.data.filter((item) => {
+  //             if (item.id === parseInt(selected_campaign_id)) {
+  //                 setSelectedCampaign(item);
+  //             }
+  //         })
+  //     }
+  // }, [])
 
-  (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
-    if (selected_campaign_id) {
-      campaigns.data.filter(function (item) {
-        if (item.id === parseInt(selected_campaign_id)) {
-          setSelectedCampaign(item);
-        }
-      });
-    }
-  }, []); // todo add selected_campaign_id
 
   (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
     if (selectedCampaign) {

@@ -4,7 +4,7 @@ import { LinkIcon, PencilIcon, TrashIcon } from "@heroicons/react/outline";
 import { Link, usePage } from "@inertiajs/inertia-react"
 
 export default function Index() {
-    const { items } = usePage().props;
+    const { items, can } = usePage().props;
 
     return (
         <>
@@ -20,14 +20,16 @@ export default function Index() {
                                     This list of categories
                                 </p>
                             </div>
-                            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                <Link
-                                    href={route('categories.create')}
-                                    className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
-                                >
-                                    Add Category
-                                </Link>
-                            </div>
+                            {can.create &&
+                                <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                    <Link
+                                        href={route('categories.create')}
+                                        className="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+                                    >
+                                        Add Category
+                                    </Link>
+                                </div>
+                            }
                         </div>
                         <div className="-mx-4 mt-8 overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:-mx-6 md:mx-0 md:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
@@ -60,18 +62,24 @@ export default function Index() {
                                             </td>
                                             <td className="px-3 py-4 text-sm text-gray-500">{item.campaigns_count}</td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <Link href={route('categories.show', item.id)} className="btn btn-indigo mr-1">
-                                                    <LinkIcon className="btn-icon" aria-hidden="true" />
-                                                    View<span className="sr-only">, {item.name}</span>
-                                                </Link>
-                                                <Link href={route('categories.edit', item.id)} className="btn btn-indigo mr-1">
-                                                    <PencilIcon className="btn-icon" aria-hidden="true" />
-                                                    Edit<span className="sr-only">, {item.name}</span>
-                                                </Link>
-                                                <Link as="button" method="DELETE" href={route('categories.destroy', item.id)} className="btn btn-danger">
-                                                    <TrashIcon className="btn-icon" aria-hidden="true" />
-                                                    Delete<span className="sr-only">, {item.name}</span>
-                                                </Link>
+                                                {item.can.view &&
+                                                    <Link href={route('categories.show', item.id)} className="btn btn-indigo mr-1">
+                                                        <LinkIcon className="btn-icon" aria-hidden="true" />
+                                                        View<span className="sr-only">, {item.name}</span>
+                                                    </Link>
+                                                }
+                                                {item.can.update &&
+                                                    <Link href={route('categories.edit', item.id)} className="btn btn-indigo mr-1">
+                                                        <PencilIcon className="btn-icon" aria-hidden="true" />
+                                                        Edit<span className="sr-only">, {item.name}</span>
+                                                    </Link>
+                                                }
+                                                {item.can.delete &&
+                                                    <Link as="button" method="DELETE" href={route('categories.destroy', item.id)} className="btn btn-danger">
+                                                        <TrashIcon className="btn-icon" aria-hidden="true" />
+                                                        Delete<span className="sr-only">, {item.name}</span>
+                                                    </Link>
+                                                }
                                             </td>
                                         </tr>
                                     ))}

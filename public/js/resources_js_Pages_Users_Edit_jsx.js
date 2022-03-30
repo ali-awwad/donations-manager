@@ -47,7 +47,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Edit() {
   var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
       errors = _usePage$props.errors,
-      item = _usePage$props.item;
+      item = _usePage$props.item,
+      can = _usePage$props.can;
 
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
@@ -81,7 +82,13 @@ function Edit() {
         name: item.data.name,
         email: item.data.email
       });
-      setSelectedUserType(item.data.user_type);
+      setSelectedUserType(item.data.user_type == 'admin' ? {
+        id: 'admin',
+        name: 'Admin'
+      } : {
+        id: 'member',
+        name: 'Member'
+      });
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
@@ -203,7 +210,7 @@ function Edit() {
             className: "mt-2 text-sm text-red-500",
             children: errors.password_confirmation
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), can.isAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
           className: "sm:col-span-2",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
             htmlFor: "user_type",

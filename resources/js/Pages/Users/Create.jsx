@@ -6,24 +6,24 @@ import { usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Create() {
-    const { errors } = usePage().props
+    const { errors, can } = usePage().props
     const [selectedUserType, setSelectedUserType] = useState();
     const [userTypes, setUserTypes] = useState([
         {
-            id:'admin',
-            name:'Admin'
+            id: 'admin',
+            name: 'Admin'
         },
         {
-            id:'member',
-            name:'Member'
+            id: 'member',
+            name: 'Member'
         },
     ])
     const [values, setValues] = useState({
         name: "",
         email: "",
         password: "",
-        password_confirmation:"",
-        user_type:"",
+        password_confirmation: "",
+        user_type: "",
     })
 
     useEffect(() => {
@@ -124,15 +124,17 @@ export default function Create() {
                         {errors.password_confirmation && <p className="mt-2 text-sm text-red-500">{errors.password_confirmation}</p>}
                     </div>
 
-                    <div className="sm:col-span-2">
-                        <label htmlFor="user_type" className="block text-sm font-medium text-gray-700">
-                            User Type
-                        </label>
-                        <div className="mt-1">
-                            <MyComboBox items={userTypes} selectedItem={selectedUserType} setSelectedItem={setSelectedUserType} />
+                    {can.isAdmin &&
+                        <div className="sm:col-span-2">
+                            <label htmlFor="user_type" className="block text-sm font-medium text-gray-700">
+                                User Type
+                            </label>
+                            <div className="mt-1">
+                                <MyComboBox items={userTypes} selectedItem={selectedUserType} setSelectedItem={setSelectedUserType} />
+                            </div>
+                            {errors.user_type && <p className="mt-2 text-sm text-red-500">{errors.user_type}</p>}
                         </div>
-                        {errors.user_type && <p className="mt-2 text-sm text-red-500">{errors.user_type}</p>}
-                    </div>
+                    }
                 </div>
             </div>
 

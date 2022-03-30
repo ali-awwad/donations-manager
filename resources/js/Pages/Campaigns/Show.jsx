@@ -14,19 +14,23 @@ export default function Show() {
                 </div>
                 <div className="flex justify-between">
                     <div className="px-4 py-5 sm:px-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Campaign Information</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Campaign Information</h3>
+                        <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
                     </div>
                     <div className="px-4 py-5 sm:px-6">
-
-                        <Link href={route('campaigns.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
-                            <PencilIcon className="btn-icon" aria-hidden="true" />
-                            Edit<span className="sr-only">, {item.data.name}</span>
-                        </Link>
-                        <Link as='button' method="DELETE" href={route('campaigns.destroy', item.data.id)} className="btn btn-normal btn-danger">
-                            <TrashIcon className="btn-icon" aria-hidden="true" />
-                            Delete<span className="sr-only">, {item.data.name}</span>
-                        </Link></div>
+                        {item.data.can.update &&
+                            <Link href={route('campaigns.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
+                                <PencilIcon className="btn-icon" aria-hidden="true" />
+                                Edit<span className="sr-only">, {item.data.name}</span>
+                            </Link>
+                        }
+                        {item.data.can.delete &&
+                            <Link as='button' method="DELETE" href={route('campaigns.destroy', item.data.id)} className="btn btn-normal btn-danger">
+                                <TrashIcon className="btn-icon" aria-hidden="true" />
+                                Delete<span className="sr-only">, {item.data.name}</span>
+                            </Link>
+                        }
+                    </div>
 
                 </div>
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -46,9 +50,9 @@ export default function Show() {
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Part of Category</dt>
                             {item.data.category_id &&
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                <Link href={route('categories.show', item.data.category_id)} className="text-blue-400 hover:text-blue-600">{item.data.category}</Link>
-                            </dd>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <Link href={route('categories.show', item.data.category_id)} className="text-blue-400 hover:text-blue-600">{item.data.category}</Link>
+                                </dd>
                             }
                         </div>
                         <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

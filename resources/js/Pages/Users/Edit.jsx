@@ -6,23 +6,23 @@ import { usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Edit() {
-    const { errors, item } = usePage().props
+    const { errors, item, can } = usePage().props
     const [selectedUserType, setSelectedUserType] = useState();
     const [userTypes, setUserTypes] = useState([
         {
-            id:'admin',
-            name:'Admin'
+            id: 'admin',
+            name: 'Admin'
         },
         {
-            id:'member',
-            name:'Member'
+            id: 'member',
+            name: 'Member'
         },
     ])
     const [values, setValues] = useState({
         name: "",
         email: "",
         password: "",
-        password_confirmation:""
+        password_confirmation: ""
     })
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function Edit() {
                 name: item.data.name,
                 email: item.data.email,
             })
-            setSelectedUserType(item.data.user_type)
+            setSelectedUserType(item.data.user_type == 'admin' ? { id: 'admin', name: 'Admin' } : { id: 'member', name: 'Member' })
         }
     }, [])
 
@@ -132,15 +132,18 @@ export default function Edit() {
                         </div>
                         {errors.password_confirmation && <p className="mt-2 text-sm text-red-500">{errors.password_confirmation}</p>}
                     </div>
-                    <div className="sm:col-span-2">
-                        <label htmlFor="user_type" className="block text-sm font-medium text-gray-700">
-                            User Type
-                        </label>
-                        <div className="mt-1">
-                            <MyComboBox items={userTypes} selectedItem={selectedUserType} setSelectedItem={setSelectedUserType} />
+
+                    {can.isAdmin &&
+                        <div className="sm:col-span-2">
+                            <label htmlFor="user_type" className="block text-sm font-medium text-gray-700">
+                                User Type
+                            </label>
+                            <div className="mt-1">
+                                <MyComboBox items={userTypes} selectedItem={selectedUserType} setSelectedItem={setSelectedUserType} />
+                            </div>
+                            {errors.user_type && <p className="mt-2 text-sm text-red-500">{errors.user_type}</p>}
                         </div>
-                        {errors.user_type && <p className="mt-2 text-sm text-red-500">{errors.user_type}</p>}
-                    </div>
+                    }
                 </div>
             </div>
 

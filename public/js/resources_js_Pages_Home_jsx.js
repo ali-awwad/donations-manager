@@ -36,7 +36,8 @@ function Home() {
       categories = _usePage$props.categories,
       campaigns = _usePage$props.campaigns,
       campaigns_completion = _usePage$props.campaigns_completion,
-      categoriesTargetCollected = _usePage$props.categoriesTargetCollected;
+      categoriesTargetCollected = _usePage$props.categoriesTargetCollected,
+      can = _usePage$props.can;
   var data = {
     labels: categories.labels,
     datasets: [{
@@ -48,12 +49,14 @@ function Home() {
     }]
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      can: can
+    }), can.reports.view && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
       className: "my-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Shared_DonationsCompletion__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: campaigns_completion
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+    }), can.reports.view && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "mt-10 flex flex-wrap",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "w-full lg:w-1/4",
@@ -396,19 +399,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function StartingPoint() {
+
+function StartingPoint(_ref) {
+  var can = _ref.can;
   var items = [{
     title: 'Create a Donation',
     description: 'Start a new donation, you can choose donors and assign to campains.',
     icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_2__["default"],
     background: 'bg-pink-500',
-    href: route('donations.create')
+    href: route('donations.create'),
+    enabled: can.donation.create
   }, {
     title: 'Create a Campaign',
     description: 'start a new campaign and assign its target and choose its category.',
     icon: _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_3__["default"],
     background: 'bg-yellow-500',
-    href: route('campaigns.create')
+    href: route('campaigns.create'),
+    enabled: can.campaign.create
   }];
 
   function classNames() {
@@ -419,50 +426,54 @@ function StartingPoint() {
     return classes.filter(Boolean).join(' ');
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-      className: "text-lg font-medium text-gray-900",
-      children: "Quick Start"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-      className: "mt-1 text-sm text-gray-500",
-      children: "Use below actions to quickly start a process."
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
-      role: "list",
-      className: "mt-6 border-t border-b border-gray-200 py-6 grid grid-cols-1 gap-6 sm:grid-cols-2",
-      children: items.map(function (item, itemIdx) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-          className: "flow-root",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-            className: "relative -m-2 p-2 flex items-center space-x-4 rounded-xl hover:bg-gray-50 focus-within:ring-2 focus-within:ring-indigo-500",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-              className: classNames(item.background, 'flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-lg'),
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(item.icon, {
-                className: "h-6 w-6 text-white",
-                "aria-hidden": "true"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
-                className: "text-sm font-medium text-gray-900",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
-                  href: item.href,
-                  className: "focus:outline-none",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    className: "absolute inset-0",
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+    children: can.campaign.create || can.donation.create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+        className: "text-lg font-medium text-gray-900",
+        children: "Quick Start"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        className: "mt-1 text-sm text-gray-500",
+        children: "Use below actions to quickly start a process."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ul", {
+        role: "list",
+        className: "mt-6 border-t border-b border-gray-200 py-6 grid grid-cols-1 gap-6 sm:grid-cols-2",
+        children: items.map(function (item, itemIdx) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            children: item.enabled && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "flow-root",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                className: "relative -m-2 p-2 flex items-center space-x-4 rounded-xl hover:bg-gray-50 focus-within:ring-2 focus-within:ring-indigo-500",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                  className: classNames(item.background, 'flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-lg'),
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(item.icon, {
+                    className: "h-6 w-6 text-white",
                     "aria-hidden": "true"
-                  }), item.title, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-                    "aria-hidden": "true",
-                    children: " \u2192"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+                    className: "text-sm font-medium text-gray-900",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
+                      href: item.href,
+                      className: "focus:outline-none",
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        className: "absolute inset-0",
+                        "aria-hidden": "true"
+                      }), item.title, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                        "aria-hidden": "true",
+                        children: " \u2192"
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+                    className: "mt-1 text-sm text-gray-500",
+                    children: item.description
                   })]
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-                className: "mt-1 text-sm text-gray-500",
-                children: item.description
-              })]
-            })]
-          })
-        }, itemIdx);
-      })
-    })]
+                })]
+              })
+            })
+          }, itemIdx);
+        })
+      })]
+    })
   });
 }
 

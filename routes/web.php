@@ -10,6 +10,8 @@ use App\Models\Category;
 use App\Models\Donation;
 use App\Models\User;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -37,20 +39,22 @@ use Inertia\Inertia;
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->group(function ()
-{
+Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return redirect()->route('dashboard');
     })->name('home');
-    Route::get('/dashboard',[HomeController::class,'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 
 
-    Route::resource('users',UserController::class);
-    Route::resource('campaigns',CampaignController::class);
-    Route::resource('categories',CategoryController::class);
-    Route::resource('donations',DonationController::class);
-    Route::resource('donors',DonorController::class);
-
+    Route::resource('users', UserController::class);
+    Route::resource('campaigns', CampaignController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('donations', DonationController::class);
+    Route::resource('donors', DonorController::class);
+    // Route::post('logout', function () {
+    //     Auth::logout();
+    //     return Redirect::route('log')
+    // });
 });

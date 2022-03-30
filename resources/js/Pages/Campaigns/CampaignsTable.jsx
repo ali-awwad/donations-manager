@@ -49,18 +49,24 @@ export default function CampaignsTable({ items }) {
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.percentage}%</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.category}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex">
-                                <Link href={route('campaigns.show', item.id)} className="btn btn-indigo mr-1">
-                                    <LinkIcon className="btn-icon" aria-hidden="true" />
-                                    View<span className="sr-only">, {item.name}</span>
-                                </Link>
-                                <Link href={route('campaigns.edit', item.id)} className="btn btn-indigo mr-1">
-                                    <PencilIcon className="btn-icon" aria-hidden="true" />
-                                    Edit<span className="sr-only">, {item.name}</span>
-                                </Link>
-                                <Link as="button" method="DELETE" href={route('campaigns.destroy', item.id)} className="btn btn-danger">
-                                    <TrashIcon className="btn-icon" aria-hidden="true" />
-                                    Delete<span className="sr-only">, {item.name}</span>
-                                </Link>
+                                {item.can.view &&
+                                    <Link href={route('campaigns.show', item.id)} className="btn btn-indigo mr-1">
+                                        <LinkIcon className="btn-icon" aria-hidden="true" />
+                                        View<span className="sr-only">, {item.name}</span>
+                                    </Link>
+                                }
+                                {item.can.update &&
+                                    <Link href={route('campaigns.edit', item.id)} className="btn btn-indigo mr-1">
+                                        <PencilIcon className="btn-icon" aria-hidden="true" />
+                                        Edit<span className="sr-only">, {item.name}</span>
+                                    </Link>
+                                }
+                                {item.can.delete &&
+                                    <Link as="button" method="DELETE" href={route('campaigns.destroy', item.id)} className="btn btn-danger">
+                                        <TrashIcon className="btn-icon" aria-hidden="true" />
+                                        Delete<span className="sr-only">, {item.name}</span>
+                                    </Link>
+                                }
                             </td>
                         </tr>
                     ))}

@@ -25,15 +25,15 @@ export default function Create() {
 
     const [currentStep, setCurrentStep] = useState('01');
 
-    useEffect(() => {
-        if (selected_campaign_id) {
-            campaigns.data.filter((item) => {
-                if (item.id === parseInt(selected_campaign_id)) {
-                    setSelectedCampaign(item);
-                }
-            })
-        }
-    }, []) // todo add selected_campaign_id
+    // useEffect(() => {
+    //     if (selected_campaign_id) {
+    //         campaigns.data.filter((item) => {
+    //             if (item.id === parseInt(selected_campaign_id)) {
+    //                 setSelectedCampaign(item);
+    //             }
+    //         })
+    //     }
+    // }, [])
 
     useEffect(() => {
         if (selectedCampaign) {
