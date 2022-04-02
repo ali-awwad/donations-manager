@@ -24,14 +24,19 @@ class DonorController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Donor::class);
+        $this->authorize('viewAny', Donor::class);
+
+        $query = Donor::orderByDesc('created_at');
+        if (!Auth::user()->isAdmin()) {
+            $query->where('donors.user_id', Auth::id());
+        }
 
         return Inertia::render('Donors/Index', [
             'title' => 'Donors Page',
-            'donors' => DonorResource::collection(Donor::orderByDesc('created_at')->paginate()),
-            'can'=>[
-                'viewAny'=> Auth::user()->can('viewAny',Donor::class),
-                'create'=> Auth::user()->can('create',Donor::class),
+            'donors' => DonorResource::collection($query->paginate()),
+            'can' => [
+                'viewAny' => Auth::user()->can('viewAny', Donor::class),
+                'create' => Auth::user()->can('create', Donor::class),
             ]
         ]);
     }
@@ -43,12 +48,17 @@ class DonorController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Donor::class);
+        $this->authorize('create', Donor::class);
+
+        $query = User::orderByDesc('id');
+        if (!Auth::user()->isAdmin()) {
+            $query->where('id', Auth::id());
+        }
 
         return Inertia::render('Donors/Create', [
             'title' => 'Add New Donor',
-            'selected_user_id'=>request('user_id'),
-            'users'=>UserResource::collection(User::orderByDesc('id')->paginate())
+            'selected_user_id' => request('user_id'),
+            'users' => UserResource::collection($query->paginate())
         ]);
     }
 
@@ -60,7 +70,7 @@ class DonorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',Donor::class);
+        $this->authorize('create', Donor::class);
 
         $this->validate($request, [
             'donor_name' => 'required|max:255',
@@ -74,7 +84,9 @@ class DonorController extends Controller
             $donor->name = $request->donor_name;
             $donor->remarks = $request->remarks;
             $donor->alias = $request->alias;
-            if($request->user_id) {
+            if (!Auth::user()->isAdmin()) {
+                $donor->user_id = Auth::id();
+            } elseif ($request->user_id) {
                 $donor->user_id = $request->user_id;
             }
             $donor->save();
@@ -97,12 +109,12 @@ class DonorController extends Controller
      */
     public function show(Donor $donor)
     {
-        $this->authorize('view',$donor);
+        $this->authorize('view', $donor);
 
         return Inertia::render('Donors/Show', [
             'title' => $donor->name,
             'donor' =>  DonorResource::make($donor->append(['remarks'])),
-            'items' => DonationResource::collection(Donation::where('donor_id',$donor->id)->paginate())
+            'items' => DonationResource::collection(Donation::where('donor_id', $donor->id)->paginate())
         ]);
     }
 
@@ -114,12 +126,17 @@ class DonorController extends Controller
      */
     public function edit(Donor $donor)
     {
-        $this->authorize('update',$donor);
+        $this->authorize('update', $donor);
+
+        $query = User::orderByDesc('id');
+        if (!Auth::user()->isAdmin()) {
+            $query->where('id', Auth::id());
+        }
 
         return Inertia::render('Donors/Edit', [
             'title' => 'Add New Donor',
             'item' => DonorResource::make($donor->append(['remarks'])),
-            'users'=>UserResource::collection(User::orderByDesc('id')->paginate())
+            'users' => UserResource::collection($query->paginate())
         ]);
     }
 
@@ -132,7 +149,7 @@ class DonorController extends Controller
      */
     public function update(Request $request, Donor $donor)
     {
-        $this->authorize('update',$donor);
+        $this->authorize('update', $donor);
 
         $this->validate($request, [
             'donor_name' => 'required|max:255',
@@ -145,7 +162,9 @@ class DonorController extends Controller
             $donor->name = $request->donor_name;
             $donor->remarks = $request->remarks;
             $donor->alias = $request->alias;
-            if($request->user_id) {
+            if (!Auth::user()->isAdmin()) {
+                $donor->user_id = Auth::id();
+            } elseif ($request->user_id) {
                 $donor->user_id = $request->user_id;
             }
 
@@ -169,7 +188,7 @@ class DonorController extends Controller
      */
     public function destroy(Donor $donor)
     {
-        $this->authorize('delete',$donor);
+        $this->authorize('delete', $donor);
 
         DB::beginTransaction();
         try {

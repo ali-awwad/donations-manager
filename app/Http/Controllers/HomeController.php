@@ -15,7 +15,6 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-
         $categories = Category::get();
 
         $labels = [];

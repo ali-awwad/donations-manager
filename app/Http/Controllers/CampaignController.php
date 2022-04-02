@@ -8,6 +8,7 @@ use App\Http\Resources\DonationResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -97,11 +98,18 @@ class CampaignController extends Controller
     public function show(Campaign $campaign)
     {
         $this->authorize('view',$campaign);
+        $query = Donation::orderByDesc('id');
+        if(!Auth::user()->isAdmin()) {
+            $query->whereHas('donor',function (Builder $q)
+            {
+                $q->where('donors.user_id',Auth::id());
+            });
+        }
 
         return Inertia::render('Campaigns/Show', [
             'title'=>$campaign->name,
             'item'=>  CampaignResource::make($campaign->append(['description'])),
-            'donations'=>DonationResource::collection(Donation::where('campaign_id',$campaign->id)->orderByDesc('created_at')->paginate())
+            'donations'=>DonationResource::collection($query->where('campaign_id',$campaign->id)->paginate())
         ]);
     }
 
