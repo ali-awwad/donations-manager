@@ -171,7 +171,6 @@ class DonationController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            $donation->uuid = Str::uuid();
             $donation->description = $request->description;
             $donation->amount = $request->amount;
             $donation->campaign_id = $request->campaign_id;
