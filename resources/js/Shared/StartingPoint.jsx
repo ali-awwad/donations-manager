@@ -37,7 +37,7 @@ export default function StartingPoint({ can }) {
 
     return (
         <>
-            {can.campaign.create || can.donation.create &&
+            {(can.campaign.create || can.donation.create) &&
                 <div>
                     <h2 className="text-lg font-medium text-gray-900">Quick Start</h2>
                     <p className="mt-1 text-sm text-gray-500">
