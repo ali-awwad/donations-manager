@@ -40,9 +40,9 @@ class HomeController extends Controller
                 'values' => Campaign::pluck('donations_count'),
             ],
             'categoriesTargetCollected' => [
-                'labels' => $collection->all()['label'],
-                'targetValues' => $collection->all()['target'],
-                'collectedValues' => $collection->all()['collected'],
+                'labels' => $collection->all() ? $collection->all()['label'] : null,
+                'targetValues' => $collection->all() ? $collection->all()['target'] : null,
+                'collectedValues' => $collection->all() ? $collection->all()['collected'] : null,
             ],
             'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
             'can'=>[
