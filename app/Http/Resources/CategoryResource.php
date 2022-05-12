@@ -24,9 +24,9 @@ class CategoryResource extends JsonResource
             'color' => $this->color,
             'description'=>$this->whenAppended('description',$this->description),
             'can'=> [
-                'view'=>Auth::user()->can('view',Category::find($this->id)),
-                'update'=>Auth::user()->can('update',Category::find($this->id)),
-                'delete'=>Auth::user()->can('delete',Category::find($this->id))
+                'view'=>Auth::user()->can('view'$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }

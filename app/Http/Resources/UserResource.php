@@ -24,9 +24,9 @@ class UserResource extends JsonResource
             'verified'=>$this->verified_at ? 'Verified' : 'NA',
             'user_type'=>$this->user_type,
             'can'=> [
-                'view'=>Auth::user()->can('view',User::find($this->id)),
-                'update'=>Auth::user()->can('update',User::find($this->id)),
-                'delete'=>Auth::user()->can('delete',User::find($this->id))
+                'view'=>Auth::user()->can('view',$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }
