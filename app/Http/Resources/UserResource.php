@@ -23,6 +23,8 @@ class UserResource extends JsonResource
             'donors'=>$this->donors,
             'verified'=>$this->verified_at ? 'Verified' : 'NA',
             'user_type'=>$this->user_type,
+            // 'created_at'=>$this->created_at,
+            'created_at'=>$this->created_at_readable,
             'can'=> [
                 'view'=>Auth::user()->can('view',User::find($this->id)),
                 'update'=>Auth::user()->can('update',User::find($this->id)),

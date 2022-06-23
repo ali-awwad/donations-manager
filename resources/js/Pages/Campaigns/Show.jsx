@@ -51,7 +51,7 @@ export default function Show() {
                             <dt className="text-sm font-medium text-gray-500">Part of Category</dt>
                             {item.data.category_id &&
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <Link href={route('categories.show', item.data.category_id)} className="text-blue-400 hover:text-blue-600">{item.data.category}</Link>
+                                    <Link href={route('categories.show', item.data.category_id)} className="text-blue-400 hover:text-blue-600">{item.data.category.name}</Link>
                                 </dd>
                             }
                         </div>

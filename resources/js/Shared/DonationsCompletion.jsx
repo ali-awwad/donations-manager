@@ -13,7 +13,7 @@ export default function DonationsCompletion({data}) {
                         <dt className="text-sm font-medium text-gray-400 truncate">{item.created_at}</dt>
                         <dt className="font-medium text-gray-500 text-lg truncate"><Link className="text-blue-500" href={route('campaigns.show',item.id)}>{item.name}</Link></dt>
                         <dt className="text-sm font-medium text-gray-800 truncate">{item.donations_count} Donations</dt>
-                        <dd className={'mt-1 text-3xl font-semibold ' + (item.percentage >=80 ? 'text-green-500' : (item.percentage >= 50 ? 'text-orange-500' : 'text-red-500'))}>{item.percentage} %</dd>
+                        <dd className={'mt-1 text-3xl font-semibold ' + (item.percentage.slice(1) >=80 ? 'text-green-500' : (item.percentage.slice(1) >= 50 ? 'text-yellow-500' : 'text-red-500'))}>{item.percentage}</dd>
                     </div>
                 ))}
             </dl>

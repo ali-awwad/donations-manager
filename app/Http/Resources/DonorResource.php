@@ -29,7 +29,7 @@ class DonorResource extends JsonResource
             'user_id' => $this->user_id,
             'user' => UserResource::make($this->user),
             'remarks'=>$this->whenAppended('remarks',$this->remarks),
-            'total_donations' => friendly_money($this->donations->sum('amount')),
+            'total_donations' => __('AED').' '. friendly_money($this->donations->sum('amount')),
             'categories_count' => Category::whereIn('id', $categories)->count(),
             'campaigns_count' => Campaign::whereIn('id', $campaigns)->count(),
             'donations_count' => $this->donations_count,

@@ -33,3 +33,66 @@
 .btn-normal .btn-icon {
     @apply -ml-1 mr-2 h-5 w-5 stroke-current;
 }
+
+.btn:disabled, .btn.btn-primary:disabled, .btn.btn-primary:hover:disabled,
+.btn.disabled, .btn.btn-primary.disabled, .btn.btn-primary.disabled:hover,
+.btn.btn-warning:disabled, .btn.btn-warning:hover:disabled,
+.btn.btn-danger:disabled, .btn.btn-danger:hover:disabled,
+.btn.btn-success:disabled, .btn.btn-success:hover:disabled,
+.btn.btn-info:disabled, .btn.btn-info:hover:disabled,
+.btn.btn-cancel:disabled, .btn.btn-cancel:hover:disabled,
+button:disabled, button:hover:disabled
+  {
+    @apply bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed
+}
+
+.btn-table {
+    @apply inline-flex items-center px-2 py-1 border rounded-md shadow-sm text-xs font-medium
+}
+.btn-table-normal {
+    @apply px-3 py-2 text-sm;
+}
+.btn-table-indigo {
+    @apply border-gray-300 text-gray-700 bg-white
+}
+.btn-table-indigo:hover {
+    @apply bg-gray-50
+}
+.btn-table-indigo:focus {
+    @apply outline-none ring-2 ring-offset-2 ring-offset-gray-50 ring-purple-500
+}
+.btn-table-danger {
+    @apply border-red-800 text-white bg-red-600
+}
+.btn-table-danger:hover {
+    @apply bg-red-700
+}
+.btn-table-danger:focus {
+    @apply outline-none ring-2 ring-offset-2 ring-offset-gray-50 ring-red-500
+}
+.btn-table-icon {
+    @apply -ml-1 mr-2 h-3 w-3 stroke-current;
+}
+.btn-table-normal .btn-table-icon {
+    @apply -ml-1 mr-2 h-5 w-5 stroke-current;
+}
+.btn-table:disabled {
+    @apply bg-gray-100 text-gray-400 border-gray-300
+}
+
+.btn-table-xs {
+    @apply text-gray-400 hover:text-gray-700 focus:text-gray-900 focus:ring-2 focus:ring-gray-400;
+}
+.btn-table-xs.danger {
+    @apply text-red-400 hover:text-red-700 focus:text-red-900 focus:ring-2 focus:ring-red-400;
+}
+.btn-table-xs.success {
+    @apply text-green-400 hover:text-green-700 focus:text-green-900 focus:ring-2 focus:ring-green-400;
+}
+.btn-table-xs.warning {
+    @apply text-yellow-400 hover:text-yellow-700 focus:text-yellow-900 focus:ring-2 focus:ring-yellow-400;
+}
+.btn-table-xs.info {
+    @apply text-blue-400 hover:text-blue-700 focus:text-blue-900 focus:ring-2 focus:ring-blue-400;
+}
+

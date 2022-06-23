@@ -25,14 +25,50 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Campaign::class);
-
+        $this->authorize('viewAny', Campaign::class);
+        $query = Campaign::orderBy(
+            request('order_by') ?? 'id',
+            request('order_direction') ?? 'desc'
+        )
+        ->leftJoin('donations', 'campaigns.id','=','donations.campaign_id')
+            ->leftJoin('categories', 'categories.id', '=', 'campaigns.category_id')
+            ->select('campaigns.*', DB::raw('SUM(donations.amount) as collected'), DB::raw('(SELECT sum(donations.amount) FROM donations where donations.campaign_id = campaigns.id) / target as percentage'))
+            // ->select('campaigns.*')
+            ->when(request('search'), function ($q) {
+                return $q->where('campaigns.name', 'like', '%' . request('search') . '%')
+                ->orWhere('categories.name', 'like', '%' . request('search') . '%');
+            })
+            ->groupBy('campaigns.id')
+            ;
         return Inertia::render('Campaigns/Index', [
             'title' => 'Campaigns',
-            'items'=> CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate()),
-            'can'=>[
-                'viewAny'=> Auth::user()->can('viewAny',Campaign::class),
-                'create'=> Auth::user()->can('create',Campaign::class),
+            'items' => CampaignResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
+            'count' => Campaign::count(),
+            'initSearch' => request('search') ?? '',
+            'order_by' => request('order_by') ?? '',
+            'order_direction' => request('order_direction') ?? '',
+            'columns' => [
+                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
+                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
+                ['label' => 'Category', 'field' => 'category', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'categories']],
+                ['label' => 'Target', 'field' => 'target', 'data_type' => 'number'],
+                ['label' => 'Percentage', 'field' => 'percentage', 'data_type' => 'number'],
+                ['label' => 'Collected', 'field' => 'collected', 'data_type' => 'number'],
+                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
+            ],
+            'filters' => request()->only(['search', 'per_page']),
+            'actions' => [
+                [
+                    'name' => 'destroy',
+                    'text' => __('Delete'),
+                    'route' => 'campaigns.destroy',
+                    'method' => getRouteMethod('campaigns.destroy'),
+                    'require_selection' => true
+                ],
+            ],
+            'can' => [
+                'viewAny' => Auth::user()->can('viewAny', Campaign::class),
+                'create' => Auth::user()->can('create', Campaign::class),
             ]
         ]);
     }
@@ -44,11 +80,11 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Campaign::class);
+        $this->authorize('create', Campaign::class);
 
         return Inertia::render('Campaigns/Create', [
             'title' => 'Create Campaign',
-            'selected_category_id'=>request('category_id'),
+            'selected_category_id' => request('category_id'),
             'categories' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate())
         ]);
     }
@@ -61,7 +97,7 @@ class CampaignController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',Campaign::class);
+        $this->authorize('create', Campaign::class);
 
         $this->validate($request, [
             'campaign_name' => 'required|max:255',
@@ -97,19 +133,18 @@ class CampaignController extends Controller
      */
     public function show(Campaign $campaign)
     {
-        $this->authorize('view',$campaign);
+        $this->authorize('view', $campaign);
         $query = Donation::orderByDesc('id');
-        if(!Auth::user()->isAdmin()) {
-            $query->whereHas('donor',function (Builder $q)
-            {
-                $q->where('donors.user_id',Auth::id());
+        if (!Auth::user()->isAdmin()) {
+            $query->whereHas('donor', function (Builder $q) {
+                $q->where('donors.user_id', Auth::id());
             });
         }
 
         return Inertia::render('Campaigns/Show', [
-            'title'=>$campaign->name,
-            'item'=>  CampaignResource::make($campaign->append(['description'])),
-            'donations'=>DonationResource::collection($query->where('campaign_id',$campaign->id)->paginate())
+            'title' => $campaign->name,
+            'item' =>  CampaignResource::make($campaign->append(['description'])),
+            'donations' => DonationResource::collection($query->where('campaign_id', $campaign->id)->paginate())
         ]);
     }
 
@@ -121,7 +156,7 @@ class CampaignController extends Controller
      */
     public function edit(Campaign $campaign)
     {
-        $this->authorize('update',$campaign);
+        $this->authorize('update', $campaign);
 
         return Inertia::render('Campaigns/Edit', [
             'title' => 'Edit Category: ' . $campaign->name,
@@ -139,7 +174,7 @@ class CampaignController extends Controller
      */
     public function update(Request $request, Campaign $campaign)
     {
-        $this->authorize('update',$campaign);
+        $this->authorize('update', $campaign);
 
         $this->validate($request, [
             'campaign_name' => 'required|max:255',
@@ -174,7 +209,7 @@ class CampaignController extends Controller
      */
     public function destroy(Campaign $campaign)
     {
-        $this->authorize('delete',$campaign);
+        $this->authorize('delete', $campaign);
 
         DB::beginTransaction();
         try {
@@ -186,6 +221,6 @@ class CampaignController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
-        return Redirect::route('categories.index')->with('success', 'Item deleted successfully');
+        return Redirect::route('campaigns.index')->with('success', 'Item deleted successfully');
     }
 }

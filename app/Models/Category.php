@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 
 class Category extends Model
 {
@@ -21,7 +22,11 @@ class Category extends Model
 
     public function getCreatedAtReadableAttribute()
     {
-        return Carbon::parse($this->attributes['created_at'])->diffForHumans();
+        if (Carbon::parse($this->attributes['created_at'])->diffInDays(now()) > 7) {
+            return Carbon::parse($this->attributes['created_at'])->locale(App::getLocale())->isoFormat('Do MMMM YYYY');
+        } else {
+            return Carbon::parse($this->attributes['created_at'])->locale(App::getLocale())->diffForHumans();
+        }
     }
 
     public function scopePinId(Builder $query, int $id)

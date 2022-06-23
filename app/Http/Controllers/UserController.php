@@ -26,9 +26,39 @@ class UserController extends Controller
     {
         $this->authorize('viewAny',User::class);
 
+        $query = User::orderBy(
+            request('order_by') ?? 'id',
+            request('order_direction') ?? 'desc'
+        )
+            ->when(request('search'), function ($q) {
+                return $q->where('name', 'like', '%' . request('search') . '%')
+                ->orWhere('email', 'like', '%' . request('search') . '%');
+            });
+
         return Inertia::render('Users/Index', [
             'title' => 'Users Page',
-            'users'=> UserResource::collection(User::orderByDesc('created_at')->paginate(10)),
+            'items' => UserResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
+            'count' => User::count(),
+            'initSearch' => request('search') ?? '',
+            'order_by' => request('order_by') ?? '',
+            'order_direction' => request('order_direction') ?? '',
+            'columns' => [
+                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
+                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
+                ['label' => 'Email', 'field' => 'email', 'data_type' => 'text'],
+                // ['label' => 'Donors', 'field' => 'donors', 'data_type' => 'text'],
+                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
+            ],
+            'filters' => request()->only(['search', 'per_page']),
+            'actions' => [
+                [
+                    'name' => 'destroy',
+                    'text' => __('Delete'),
+                    'route' => 'users.destroy',
+                    'method' => getRouteMethod('users.destroy'),
+                    'require_selection' => true
+                ],
+            ],
             'can'=>[
                 'viewAny'=> Auth::user()->can('viewAny',User::class),
                 'create'=> Auth::user()->can('create',User::class),

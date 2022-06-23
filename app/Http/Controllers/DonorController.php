@@ -26,14 +26,44 @@ class DonorController extends Controller
     {
         $this->authorize('viewAny', Donor::class);
 
-        $query = Donor::orderByDesc('created_at');
+        $query = Donor::orderBy(
+            request('order_by') ?? 'created_at',
+            request('order_direction') ?? 'desc'
+        )
+            ->when(request('search'), function ($q) {
+                return $q->where('name', 'like', '%' . request('search') . '%');
+            });
+
         if (!Auth::user()->isAdmin()) {
             $query->where('donors.user_id', Auth::id());
         }
 
         return Inertia::render('Donors/Index', [
             'title' => 'Donors Page',
-            'donors' => DonorResource::collection($query->paginate()),
+            'items' => DonorResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
+            'count' => Donor::count(),
+            'initSearch' => request('search') ?? '',
+            'order_by' => request('order_by') ?? '',
+            'order_direction' => request('order_direction') ?? '',
+            'columns' => [
+                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
+                ['label' => 'Alias', 'field' => 'alias', 'data_type' => 'text'],
+                ['label' => 'Total Donations', 'field' => 'total_donations', 'data_type' => 'text'],
+                ['label' => '# Of Donations', 'field' => 'donations_count', 'data_type' => 'text'],
+                ['label' => '# of Campaigns', 'field' => 'campaigns_count', 'data_type' => 'text'],
+                ['label' => '# of Categories', 'field' => 'categories_count', 'data_type' => 'text'],
+
+            ],
+            'filters' => request()->only(['search', 'per_page']),
+            'actions' => [
+                [
+                    'name' => 'destroy',
+                    'text' => __('Delete'),
+                    'route' => 'donors.destroy',
+                    'method' => getRouteMethod('donors.destroy'),
+                    'require_selection' => true
+                ],
+            ],
             'can' => [
                 'viewAny' => Auth::user()->can('viewAny', Donor::class),
                 'create' => Auth::user()->can('create', Donor::class),

@@ -111,7 +111,7 @@ function Show() {
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_0__.Link, {
                 href: route('categories.show', item.data.category_id),
                 className: "text-blue-400 hover:text-blue-600",
-                children: item.data.category
+                children: item.data.category.name
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {

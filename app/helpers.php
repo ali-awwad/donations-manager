@@ -23,3 +23,15 @@ if(!function_exists('error_message')) {
         else return $message;
     }
 }
+
+if (!function_exists('getRouteMethod')) {
+    function getRouteMethod($namedRoute)
+    {
+        $routeCollection = Route::getRoutes();
+        if($routeCollection->hasNamedRoute($namedRoute))
+        {
+            $route = $routeCollection->getByName($namedRoute);
+            return $route->methods[0];
+        }
+    }
+}

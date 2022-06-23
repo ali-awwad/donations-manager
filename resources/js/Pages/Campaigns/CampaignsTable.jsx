@@ -46,8 +46,8 @@ export default function CampaignsTable({ items }) {
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.target}</td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.collected}</td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.percentage}%</td>
-                            <td className="px-3 py-4 text-sm text-gray-500">{item.category}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.percentage}</td>
+                            <td className="px-3 py-4 text-sm text-gray-500">{item.category.name}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex">
                                 {item.can.view &&
                                     <Link href={route('campaigns.show', item.id)} className="btn btn-indigo mr-1">

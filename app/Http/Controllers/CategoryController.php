@@ -22,13 +22,40 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',Category::class);
+        $this->authorize('viewAny', Category::class);
+        $query = Category::orderBy(
+            request('order_by') ?? 'id',
+            request('order_direction') ?? 'desc'
+        )
+            ->when(request('search'), function ($q) {
+                return $q->where('name', 'like', '%' . request('search') . '%');
+            });
         return Inertia::render('Categories/Index', [
             'title' => 'Categories',
-            'items' => CategoryResource::collection(Category::orderByDesc('created_at')->paginate(10)),
-            'can'=>[
-                'viewAny'=> Auth::user()->can('viewAny',Category::class),
-                'create'=> Auth::user()->can('create',Category::class),
+            'items' => CategoryResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
+            'count' => Category::count(),
+            'initSearch' => request('search') ?? '',
+            'order_by' => request('order_by') ?? '',
+            'order_direction' => request('order_direction') ?? '',
+            'columns' => [
+                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
+                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
+                ['label' => '# of Campaigns', 'field' => 'campaigns_count', 'data_type' => 'number'],
+                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
+            ],
+            'filters' => request()->only(['search', 'per_page']),
+            'actions' => [
+                [
+                    'name' => 'destroy',
+                    'text' => __('Delete'),
+                    'route' => 'categories.destroy',
+                    'method' => getRouteMethod('categories.destroy'),
+                    'require_selection' => true
+                ],
+            ],
+            'can' => [
+                'viewAny' => Auth::user()->can('viewAny', Category::class),
+                'create' => Auth::user()->can('create', Category::class),
             ]
         ]);
     }
@@ -40,7 +67,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',Category::class);
+        $this->authorize('create', Category::class);
         return Inertia::render('Categories/Create', [
             'title' => 'Create Category',
         ]);
@@ -54,7 +81,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',Category::class);
+        $this->authorize('create', Category::class);
 
         $this->validate($request, [
             'category_name' => 'required|max:255',
@@ -88,14 +115,14 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $this->authorize('view',$category);
+        $this->authorize('view', $category);
 
         return Inertia::render('Categories/Show', [
             'title' => $category->name,
             'item' =>  CategoryResource::make($category->append(['description'])),
             'campaigns' => CampaignResource::collection(Campaign::where('category_id', $category->id)->orderByDesc('created_at')->paginate()),
-            'can'=>[
-                'create_campaign'=> Auth::user()->can('create',Campaign::class),
+            'can' => [
+                'create_campaign' => Auth::user()->can('create', Campaign::class),
             ]
         ]);
     }
@@ -108,7 +135,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $this->authorize('update',$category);
+        $this->authorize('update', $category);
 
         return Inertia::render('Categories/Edit', [
             'title' => 'Edit Category: ' . $category->name,
@@ -125,7 +152,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $this->authorize('update',$category);
+        $this->authorize('update', $category);
 
         $this->validate($request, [
             'category_name' => 'required|max:255',
@@ -158,7 +185,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->authorize('delete',$category);
+        $this->authorize('delete', $category);
 
         DB::beginTransaction();
         try {

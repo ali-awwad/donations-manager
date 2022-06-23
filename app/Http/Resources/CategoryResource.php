@@ -22,6 +22,7 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'campaigns_count' => $this->campaigns_count,
             'color' => $this->color,
+            'created_at' => $this->created_at_readable,
             'description'=>$this->whenAppended('description',$this->description),
             'can'=> [
                 'view'=>Auth::user()->can('view',Category::find($this->id)),

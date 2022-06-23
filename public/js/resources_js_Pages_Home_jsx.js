@@ -197,9 +197,9 @@ function DonationsCompletion(_ref) {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dt", {
             className: "text-sm font-medium text-gray-800 truncate",
             children: [item.donations_count, " Donations"]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
-            className: 'mt-1 text-3xl font-semibold ' + (item.percentage >= 80 ? 'text-green-500' : item.percentage >= 50 ? 'text-orange-500' : 'text-red-500'),
-            children: [item.percentage, " %"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dd", {
+            className: 'mt-1 text-3xl font-semibold ' + (item.percentage.slice(1) >= 80 ? 'text-green-500' : item.percentage.slice(1) >= 50 ? 'text-yellow-500' : 'text-red-500'),
+            children: item.percentage
           })]
         }, item.name);
       })

@@ -98,12 +98,12 @@ function CampaignsTable(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
               children: ["AED ", item.collected]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-              children: [item.percentage, "%"]
+              children: item.percentage
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "px-3 py-4 text-sm text-gray-500",
-              children: item.category
+              children: item.category.name
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
               className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex",
               children: [item.can.view && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_1__.Link, {
