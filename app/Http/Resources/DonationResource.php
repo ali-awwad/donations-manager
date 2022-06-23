@@ -35,9 +35,9 @@ class DonationResource extends JsonResource
             'created_at' => $this->created_at_readable,
             'description'=>$this->whenAppended('description',$this->description),
             'can'=> [
-                'view'=>Auth::user()->can('view',Donation::find($this->id)),
-                'update'=>Auth::user()->can('update',Donation::find($this->id)),
-                'delete'=>Auth::user()->can('delete',Donation::find($this->id))
+                'view'=>Auth::user()->can('view',$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }

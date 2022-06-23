@@ -32,9 +32,9 @@ class CampaignResource extends JsonResource
             'description'=>$this->whenAppended('description',$this->description),
             'created_at' => $this->created_at_readable,
             'can'=> [
-                'view'=>Auth::user()->can('view',Campaign::find($this->id)),
-                'update'=>Auth::user()->can('update',Campaign::find($this->id)),
-                'delete'=>Auth::user()->can('delete',Campaign::find($this->id))
+                'view'=>Auth::user()->can('view',$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }

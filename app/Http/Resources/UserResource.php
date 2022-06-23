@@ -26,9 +26,9 @@ class UserResource extends JsonResource
             // 'created_at'=>$this->created_at,
             'created_at'=>$this->created_at_readable,
             'can'=> [
-                'view'=>Auth::user()->can('view',User::find($this->id)),
-                'update'=>Auth::user()->can('update',User::find($this->id)),
-                'delete'=>Auth::user()->can('delete',User::find($this->id))
+                'view'=>Auth::user()->can('view',$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }

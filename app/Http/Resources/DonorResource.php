@@ -34,9 +34,9 @@ class DonorResource extends JsonResource
             'campaigns_count' => Campaign::whereIn('id', $campaigns)->count(),
             'donations_count' => $this->donations_count,
             'can'=> [
-                'view'=>Auth::user()->can('view',Donor::find($this->id)),
-                'update'=>Auth::user()->can('update',Donor::find($this->id)),
-                'delete'=>Auth::user()->can('delete',Donor::find($this->id))
+                'view'=>Auth::user()->can('view',$this->resource),
+                'update'=>Auth::user()->can('update',$this->resource),
+                'delete'=>Auth::user()->can('delete',$this->resource)
             ]
         ];
     }
