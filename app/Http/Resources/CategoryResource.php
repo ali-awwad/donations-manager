@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +24,7 @@ class CategoryResource extends JsonResource
             'created_at' => $this->created_at_readable,
             'description'=>$this->whenAppended('description',$this->description),
             'can'=> [
-                'view'=>Auth::user()->can('view'$this->resource),
+                'view'=>Auth::user()->can('view',$this->resource),
                 'update'=>Auth::user()->can('update',$this->resource),
                 'delete'=>Auth::user()->can('delete',$this->resource)
             ]

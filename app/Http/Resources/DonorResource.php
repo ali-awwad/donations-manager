@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
-use App\Models\Donor;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
