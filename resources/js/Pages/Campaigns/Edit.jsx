@@ -2,30 +2,22 @@ import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Edit() {
-    const { errors, categories, item } = usePage().props
+    const { categories, item } = usePage().props
     const [selectedCategory, setSelectedCategory] = useState()
-    const [values, setValues] = useState({
-        campaign_name: "",
-        target: item.data.target * 100,
-        description: "",
-        category_id: 0,
+    const { data, setData, post, processing, errors, isDirty } = useForm({
+        _method: 'PUT', //=> In All Edit form this should be included
+        campaign_name: item.data.name,
+        target: item.data.target_raw,
+        description: item.data.description,
+        category_id: item.data.category_id,
     })
 
     useEffect(() => {
         if (item.data) {
-            setValues({
-                campaign_name: item.data.name,
-                target: item.data.target * 100,
-                description: item.data.description,
-                category_id: item.data.category_id,
-            })
-
-            console.log(item.data.target);
-
             categories.data.filter((category) => {
                 if (category.id === parseInt(item.data.category_id)) {
                     setSelectedCategory(category);
@@ -36,22 +28,19 @@ export default function Edit() {
 
     useEffect(() => {
         if (selectedCategory) {
-            setValues({ ...values, category_id: selectedCategory.id });
+            setData('category_id', selectedCategory.id);
         }
     }, [selectedCategory])
 
     function handleChange(e) {
         const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        const value = e.target.value;
+        setData(key, value);
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
-        Inertia.patch(`/campaigns/${item.data.id}`, values)
+        e.preventDefault();
+        post(`/campaigns/${item.data.id}`, data)
     }
 
     return (
@@ -59,7 +48,7 @@ export default function Edit() {
             <div className="space-y-8 divide-y divide-gray-200">
                 <div>
                     <div>
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}{isDirty && <span className="sup text-red-500">*</span>}</h3>
                         <p className="mt-1 text-sm text-gray-500">
                             In a campaign you can set the target to reach, assign it to a category, then add donations after you create it.
                         </p>
@@ -71,7 +60,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <textarea
-                                    defaultValue={values.description} onChange={handleChange}
+                                    defaultValue={data.description} onChange={handleChange}
                                     id="description"
                                     name="description"
                                     rows={3}
@@ -89,7 +78,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    defaultValue={values.campaign_name} onChange={handleChange}
+                                    defaultValue={data.campaign_name} onChange={handleChange}
                                     type="text"
                                     name="campaign_name"
                                     id="campaign_name"
@@ -115,7 +104,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    defaultValue={values.target} onChange={handleChange}
+                                    defaultValue={data.target} onChange={handleChange}
                                     type="number"
                                     min={0}
                                     name="target"
@@ -133,7 +122,7 @@ export default function Edit() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('campaigns.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={true} />
                 </div>
             </div>
         </form>

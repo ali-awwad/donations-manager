@@ -21,6 +21,7 @@ class CampaignResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'target' => __('AED').' '.friendly_money($this->target),
+            'target_raw' => $this->target,
             'category'=> [
                 'id'=>$this->category ? $this->category->id : null,
                 'name'=>$this->category ? $this->category->name : null,

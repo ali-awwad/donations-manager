@@ -205,6 +205,9 @@ export default function Layout({ children }) {
                                 {flash.warning && (
                                     <AlertWarning message={flash.warning} />
                                 )}
+                                {flash.message && (
+                                    <AlertWarning message={flash.message} />
+                                )}
                                 <div className="py-4">
                                     <section>{children}</section>
                                     {/* <div className="border-4 border-dashed border-gray-200 rounded-lg p-4">

@@ -18,12 +18,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -46,7 +40,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function Create() {
   var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
-      errors = _usePage$props.errors,
       categories = _usePage$props.categories,
       selected_category_id = _usePage$props.selected_category_id;
 
@@ -55,15 +48,18 @@ function Create() {
       selectedCategory = _useState2[0],
       setSelectedCategory = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)({
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.useForm)({
     campaign_name: "",
-    target: 1000,
+    target: null,
     description: "",
     category_id: 0
   }),
-      _useState4 = _slicedToArray(_useState3, 2),
-      values = _useState4[0],
-      setValues = _useState4[1];
+      data = _useForm.data,
+      setData = _useForm.setData,
+      post = _useForm.post,
+      processing = _useForm.processing,
+      errors = _useForm.errors,
+      isDirty = _useForm.isDirty;
 
   (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
     if (selected_category_id) {
@@ -76,23 +72,19 @@ function Create() {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
     if (selectedCategory) {
-      setValues(_objectSpread(_objectSpread({}, values), {}, {
-        category_id: selectedCategory.id
-      }));
+      setData('category_id', selectedCategory.id);
     }
   }, [selectedCategory]);
 
   function handleChange(e) {
     var key = e.target.id;
     var value = e.target.value;
-    setValues(function (values) {
-      return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
-    });
+    setData(key, value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.post('/campaigns', values);
+    post("/campaigns", data);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
@@ -100,9 +92,12 @@ function Create() {
     className: "space-y-8 divide-y divide-gray-200",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("h3", {
           className: "text-lg leading-6 font-medium text-gray-900",
-          children: "Create Campaign"
+          children: ["Create Campaign", isDirty && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+            className: "sup text-red-500",
+            children: "*"
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
           className: "mt-1 text-sm text-gray-500",
           children: "In a campaign you can set the target to reach, assign it to a category, then add donations after you create it."
@@ -118,7 +113,7 @@ function Create() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "mt-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
-              defaultValue: values.description,
+              defaultValue: data.description,
               onChange: handleChange,
               id: "description",
               name: "description",
@@ -141,7 +136,7 @@ function Create() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "mt-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.campaign_name,
+              defaultValue: data.campaign_name,
               onChange: handleChange,
               type: "text",
               name: "campaign_name",
@@ -179,12 +174,13 @@ function Create() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
             className: "mt-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.target,
+              defaultValue: data.target,
               onChange: handleChange,
               type: "number",
               min: 0,
               name: "target",
               id: "target",
+              placeholder: "In Fils, like 100000 is 1000.00 Dirham",
               autoComplete: "target",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
@@ -200,7 +196,10 @@ function Create() {
         className: "flex justify-end",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
           href: route('campaigns.index')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          loading: processing,
+          isEdit: false
+        })]
       })
     })]
   });
@@ -359,17 +358,138 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ FormSubmitButton)
 /* harmony export */ });
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/RefreshIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/PaperAirplaneIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/PencilAltIcon.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-function FormSubmitButton() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+
+
+function FormSubmitButton(_ref) {
+  var loading = _ref.loading,
+      _ref$text = _ref.text,
+      text = _ref$text === void 0 ? 'Submit' : _ref$text,
+      _ref$isEdit = _ref.isEdit,
+      isEdit = _ref$isEdit === void 0 ? false : _ref$isEdit,
+      _ref$btn = _ref.btn,
+      btn = _ref$btn === void 0 ? 'button-primary' : _ref$btn;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
     type: "submit",
-    className: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-    children: "Save"
+    disabled: loading,
+    className: "button ".concat(btn, " ml-2"),
+    children: [loading && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      className: "w-5 h-5 stroke-current mr-1 animate-spin"
+    }), !loading && !isEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      className: "w-5 h-5 rotate-90 stroke-current mr-1"
+    }), !loading && isEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "w-5 h-5 rotate-90 stroke-current mr-1"
+    }), "Save"]
   });
 }
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/PaperAirplaneIcon.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/PaperAirplaneIcon.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function PaperAirplaneIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(PaperAirplaneIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/PencilAltIcon.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/PencilAltIcon.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function PencilAltIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(PencilAltIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/RefreshIcon.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/RefreshIcon.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function RefreshIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(RefreshIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
 
 /***/ }),
 

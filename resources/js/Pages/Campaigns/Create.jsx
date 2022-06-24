@@ -2,15 +2,15 @@ import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Create() {
-    const { errors, categories, selected_category_id } = usePage().props
+    const { categories, selected_category_id } = usePage().props
     const [selectedCategory, setSelectedCategory] = useState()
-    const [values, setValues] = useState({
+    const { data, setData, post, processing, errors, isDirty } = useForm({
         campaign_name: "",
-        target: 1000,
+        target: null,
         description: "",
         category_id: 0,
     })
@@ -27,29 +27,26 @@ export default function Create() {
 
     useEffect(() => {
         if (selectedCategory) {
-            setValues({ ...values, category_id: selectedCategory.id });
+            setData('category_id',selectedCategory.id);
         }
     }, [selectedCategory])
 
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        setData(key,value);
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        Inertia.post('/campaigns', values)
+        post(`/campaigns`, data);
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8 divide-y divide-gray-200">
             <div>
                 <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Create Campaign</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Create Campaign{isDirty && <span className="sup text-red-500">*</span>}</h3>
                     <p className="mt-1 text-sm text-gray-500">
                         In a campaign you can set the target to reach, assign it to a category, then add donations after you create it.
                     </p>
@@ -61,7 +58,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <textarea
-                                defaultValue={values.description} onChange={handleChange}
+                                defaultValue={data.description} onChange={handleChange}
                                 id="description"
                                 name="description"
                                 rows={3}
@@ -79,7 +76,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.campaign_name} onChange={handleChange}
+                                defaultValue={data.campaign_name} onChange={handleChange}
                                 type="text"
                                 name="campaign_name"
                                 id="campaign_name"
@@ -105,11 +102,12 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.target} onChange={handleChange}
+                                defaultValue={data.target} onChange={handleChange}
                                 type="number"
                                 min={0}
                                 name="target"
                                 id="target"
+                                placeholder="In Fils, like 100000 is 1000.00 Dirham"
                                 autoComplete="target"
                                 className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                             />
@@ -122,7 +120,7 @@ export default function Create() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('campaigns.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={false} />
                 </div>
             </div>
         </form>

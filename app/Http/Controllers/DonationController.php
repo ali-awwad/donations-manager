@@ -60,6 +60,7 @@ class DonationController extends Controller
                 ['label' => 'Category', 'field' => 'category', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'categories']],
                 ['label' => 'Campaign', 'field' => 'campaign', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'campaigns']],
                 ['label' => 'Donor', 'field' => 'donor', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'donors']],
+                ['label' => 'Date', 'field' => 'donation_date', 'data_type' => 'datetime'],
                 ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
             ],
             'filters' => request()->only(['search', 'per_page']),
@@ -122,6 +123,7 @@ class DonationController extends Controller
             'campaign_id' => 'required|exists:campaigns,id',
             'description' => 'required|max:3000',
             'amount' => 'required|min:0|numeric',
+            'donation_date' => 'required|date|max:today',
         ]);
         DB::beginTransaction();
         try {
@@ -131,6 +133,7 @@ class DonationController extends Controller
             $donation->amount = $request->amount;
             $donation->campaign_id = $request->campaign_id;
             $donation->donor_id = $request->donor_id;
+            $donation->donation_date = $request->donation_date;
 
             $donation->save();
             DB::commit();
@@ -201,6 +204,7 @@ class DonationController extends Controller
             'campaign_id' => 'required|exists:campaigns,id',
             'description' => 'required|max:3000',
             'amount' => 'required|min:0|numeric',
+            'donation_date' => 'required|date|max:today',
         ]);
         DB::beginTransaction();
         try {
@@ -208,6 +212,7 @@ class DonationController extends Controller
             $donation->amount = $request->amount;
             $donation->campaign_id = $request->campaign_id;
             $donation->donor_id = $request->donor_id;
+            $donation->donation_date = $request->donation_date;
 
             $donation->save();
             DB::commit();

@@ -1,11 +1,16 @@
+import { PaperAirplaneIcon, PencilAltIcon, RefreshIcon } from '@heroicons/react/outline'
 import React from 'react'
 
-export default function FormSubmitButton() {
+export default function FormSubmitButton({ loading, text = 'Submit', isEdit=false, btn = 'button-primary' }) {
     return (
         <button
             type="submit"
-            className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={loading}
+            className={`button ${btn} ml-2`}
         >
+            {loading && <RefreshIcon className={`w-5 h-5 stroke-current mr-1 animate-spin`} />}
+            {(!loading && !isEdit) && <PaperAirplaneIcon className='w-5 h-5 rotate-90 stroke-current mr-1' />}
+            {(!loading && isEdit) && <PencilAltIcon className='w-5 h-5 rotate-90 stroke-current mr-1' />}
             Save
         </button>
     )

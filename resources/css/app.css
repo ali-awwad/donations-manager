@@ -2,7 +2,18 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-
+.button {
+    @apply inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md;
+}
+.button-primary {
+    @apply text-white bg-indigo-600;
+}
+.button-primary:hover {
+    @apply bg-indigo-700
+}
+.button-primary:focus {
+    @apply outline-none ring-2 ring-offset-2 ring-indigo-500;
+}
 .btn {
     @apply inline-flex items-center px-2 py-1 border rounded-md shadow-sm text-xs font-medium
 }
@@ -36,6 +47,8 @@
 
 .btn:disabled, .btn.btn-primary:disabled, .btn.btn-primary:hover:disabled,
 .btn.disabled, .btn.btn-primary.disabled, .btn.btn-primary.disabled:hover,
+.button:disabled, .button.button-primary:disabled, .button.button-primary:hover:disabled,
+.button.disabled, .button.button-primary.disabled, .button.btn-primary.disabled:hover,
 .btn.btn-warning:disabled, .btn.btn-warning:hover:disabled,
 .btn.btn-danger:disabled, .btn.btn-danger:hover:disabled,
 .btn.btn-success:disabled, .btn.btn-success:hover:disabled,

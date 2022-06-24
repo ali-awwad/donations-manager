@@ -1,40 +1,25 @@
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
-import { useEffect, useState } from "react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 
 export default function Edit() {
-    const { errors, item } = usePage().props
-    const [values, setValues] = useState({
-        category_name: "",
-        color: "",
-        description: "",
-    })
-
-    useEffect(() => {
-        if (item.data) {
-            setValues({
-                category_name: item.data.name,
-                color: item.data.color,
-                description: item.data.description,
-            })
-        }
-    }, [])
-
+    const { item } = usePage().props;
+    const { data, setData, post, processing, errors, isDirty } = useForm({
+        _method: 'PUT', //=> In All Edit form this should be included
+        category_name: item.data.name,
+        color: item.data.color,
+        description: item.data.description,
+    });
 
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        setData(key,value);
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        Inertia.patch(`/categories/${item.data.id}`, values)
+        post(`/categories/${item.data.id}`, data)
     }
 
     return (
@@ -42,7 +27,7 @@ export default function Edit() {
             <div className="space-y-8 divide-y divide-gray-200">
                 <div>
                     <div>
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}</h3>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}{isDirty && <span className="sup text-red-500">*</span>}</h3>
                         <p className="mt-1 text-sm text-gray-500">
                             A category may represent a general idea of sectors to cover, such as education, healthcare, rations and food.
                         </p>
@@ -54,7 +39,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <textarea
-                                    defaultValue={values.description} onChange={handleChange}
+                                    defaultValue={data.description} onChange={handleChange}
                                     id="description"
                                     name="description"
                                     rows={3}
@@ -72,7 +57,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    defaultValue={values.category_name} onChange={handleChange}
+                                    defaultValue={data.category_name} onChange={handleChange}
                                     type="text"
                                     name="category_name"
                                     id="category_name"
@@ -89,7 +74,7 @@ export default function Edit() {
                             </label>
                             <div className="mt-1">
                                 <input
-                                    defaultValue={values.color} onChange={handleChange}
+                                    defaultValue={data.color} onChange={handleChange}
                                     type="text"
                                     name="color"
                                     id="color"
@@ -106,7 +91,7 @@ export default function Edit() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('categories.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={true} />
                 </div>
             </div>
         </form>

@@ -175,7 +175,6 @@ class CampaignController extends Controller
     public function update(Request $request, Campaign $campaign)
     {
         $this->authorize('update', $campaign);
-
         $this->validate($request, [
             'campaign_name' => 'required|max:255',
             'target' => 'required|min:0|numeric',

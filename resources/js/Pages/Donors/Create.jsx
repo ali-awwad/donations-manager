@@ -1,19 +1,18 @@
 import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Create() {
-    const { errors, users, selected_user_id } = usePage().props
-    const [selectedUser, setSelectedUser] = useState()
-    const [values, setValues] = useState({
+    const { users, selected_user_id } = usePage().props
+    const [selectedUser, setSelectedUser] = useState();
+    const { data, setData, post, processing, errors, isDirty } = useForm({
         donor_name: "",
         alias: "",
         remarks: "",
         user_id: null,
-    })
+    });
 
     useEffect(() => {
         if (selected_user_id) {
@@ -27,22 +26,19 @@ export default function Create() {
 
     useEffect(() => {
         if (selectedUser) {
-            setValues({ ...values, user_id: selectedUser.id });
+            setData('user_id',selectedUser.id);
         }
     }, [selectedUser])
 
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        setData(key,value);
     }
 
     function handleSubmit(e) {
-        e.preventDefault()
-        Inertia.post('/donors', values)
+        e.preventDefault();
+        post('/donors', data)
     }
 
     return (
@@ -61,7 +57,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <textarea
-                                defaultValue={values.remarks} onChange={handleChange}
+                                defaultValue={data.remarks} onChange={handleChange}
                                 id="remarks"
                                 name="remarks"
                                 rows={3}
@@ -79,7 +75,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.donor_name} onChange={handleChange}
+                                defaultValue={data.donor_name} onChange={handleChange}
                                 type="text"
                                 name="donor_name"
                                 id="donor_name"
@@ -105,7 +101,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.alias} onChange={handleChange}
+                                defaultValue={data.alias} onChange={handleChange}
                                 type="text"
                                 name="alias"
                                 id="alias"
@@ -121,7 +117,7 @@ export default function Create() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('donors.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={false} />
                 </div>
             </div>
         </form>

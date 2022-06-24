@@ -2,28 +2,22 @@ import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Edit() {
-    const { errors, users, item } = usePage().props
-    const [selectedUser, setSelectedUser] = useState()
-    const [values, setValues] = useState({
-        donor_name: "",
-        alias: "",
-        remarks: "",
-        user_id: null,
-    })
+    const { users, item } = usePage().props
+    const [selectedUser, setSelectedUser] = useState();
+    const { data, setData, post, processing, errors, isDirty } = useForm({
+        _method: 'PUT', //=> In All Edit form this should be included
+        donor_name: item.data.name,
+        alias: item.data.alias,
+        remarks: item.data.remarks,
+        user_id: item.data.user_id,
+    });
 
     useEffect(() => {
         if (item.data) {
-            setValues({
-                donor_name: item.data.name,
-                alias: item.data.alias,
-                remarks: item.data.remarks,
-                user_id: item.data.user_id,
-            })
-
             users.data.filter((user) => {
                 if (user.id === parseInt(item.data.user_id)) {
                     setSelectedUser(user);
@@ -34,29 +28,26 @@ export default function Edit() {
 
     useEffect(() => {
         if (selectedUser) {
-            setValues({ ...values, user_id: selectedUser.id });
+            setData('user_id',selectedUser.id);
         }
     }, [selectedUser])
 
     function handleChange(e) {
         const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        const value = e.target.value;
+        setData(key,value);
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        Inertia.patch(`/donors/${item.data.id}`, values)
+        post(`/donors/${item.data.id}`, data)
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8 divide-y divide-gray-200">
             <div>
                 <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Edit: {item.data.name}{isDirty && <span className="sup text-red-500">*</span>}</h3>
                     <p className="mt-1 text-sm text-gray-500">
                         In a donor you can set the alias to reach, assign it to a category, then add donations after you create it.
                     </p>
@@ -68,7 +59,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <textarea
-                                defaultValue={values.remarks} onChange={handleChange}
+                                defaultValue={data.remarks} onChange={handleChange}
                                 id="remarks"
                                 name="remarks"
                                 rows={3}
@@ -86,7 +77,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.donor_name} onChange={handleChange}
+                                defaultValue={data.donor_name} onChange={handleChange}
                                 type="text"
                                 name="donor_name"
                                 id="donor_name"
@@ -112,7 +103,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.alias} onChange={handleChange}
+                                defaultValue={data.alias} onChange={handleChange}
                                 type="text"
                                 name="alias"
                                 id="alias"
@@ -128,7 +119,7 @@ export default function Edit() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('donors.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={true} />
                 </div>
             </div>
         </form>

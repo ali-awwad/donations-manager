@@ -32,6 +32,7 @@ class DonationResource extends JsonResource
                 'name'=>$this->campaign ? $this->campaign->name : null,
             ],
             'created_at' => $this->created_at_readable,
+            'donation_date' => $this->donation_date,
             'description'=>$this->whenAppended('description',$this->description),
             'can'=> [
                 'view'=>Auth::user()->can('view',$this->resource),
