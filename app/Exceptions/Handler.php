@@ -54,6 +54,11 @@ class Handler extends ExceptionHandler
                 'message' => 'The page expired, please refresh the page.',
             ]);
         }
+        if ($response->status() === 403) {
+            return back()->with([
+                'message' => 'You do not have enough permissions.',
+            ]);
+        }
 
         return $response;
     }

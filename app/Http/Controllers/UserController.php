@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny',User::class);
+        $this->authorize('viewAny', User::class);
 
         $query = User::orderBy(
             request('order_by') ?? 'id',
@@ -32,7 +32,7 @@ class UserController extends Controller
         )
             ->when(request('search'), function ($q) {
                 return $q->where('name', 'like', '%' . request('search') . '%')
-                ->orWhere('email', 'like', '%' . request('search') . '%');
+                    ->orWhere('email', 'like', '%' . request('search') . '%');
             });
 
         return Inertia::render('Users/Index', [
@@ -59,9 +59,9 @@ class UserController extends Controller
                     'require_selection' => true
                 ],
             ],
-            'can'=>[
-                'viewAny'=> Auth::user()->can('viewAny',User::class),
-                'create'=> Auth::user()->can('create',User::class),
+            'can' => [
+                'viewAny' => Auth::user()->can('viewAny', User::class),
+                'create' => Auth::user()->can('create', User::class),
             ]
         ]);
     }
@@ -73,11 +73,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
         return Inertia::render('Users/Create', [
             'title' => 'Create User',
-            'can'=>[
-                'isAdmin'=>Auth::user()->isAdmin()
+            'can' => [
+                'isAdmin' => Auth::user()->isAdmin()
             ]
         ]);
     }
@@ -90,19 +90,19 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:255'],
-            'email' => ['required','unique:users,email','email','max:255'],
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'unique:users,email', 'email', 'max:255'],
             'password' => ['required', 'confirmed', Password::min(8)],
-            'user_type'=>['required','max:7'],
+            'user_type' => ['required', 'max:7'],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $user = new User();
@@ -123,12 +123,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $this->authorize('view',$user);
+        $this->authorize('view', $user);
 
         return Inertia::render('Users/Show', [
             'title' => $user->name,
-            'item'=>UserResource::make($user),
-            'donors'=>DonorResource::collection(Donor::where('user_id',$user->id)->orderByDesc('created_at')->paginate())
+            'item' => UserResource::make($user),
+            'donors' => DonorResource::collection(Donor::where('user_id', $user->id)->orderByDesc('created_at')->paginate())
         ]);
     }
 
@@ -140,13 +140,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         return Inertia::render('Users/Edit', [
             'title' => $user->name,
-            'item'=>UserResource::make($user),
-            'can'=>[
-                'isAdmin'=>Auth::user()->isAdmin()
+            'item' => UserResource::make($user),
+            'can' => [
+                'isAdmin' => Auth::user()->isAdmin()
             ]
         ]);
     }
@@ -160,26 +160,26 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:255'],
-            'email' => ['required','unique:users,email,'.$user->id,'email','max:255'],
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'unique:users,email,' . $user->id, 'email', 'max:255'],
             'password' => ['nullable', 'confirmed', Password::min(8)],
-            'user_type'=>['required','max:7'],
+            'user_type' => ['required', 'max:7'],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
-
 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->user_type = $request->user_type;
-        if($user->password) {
+        if ($request->password) {
+            dd($request->password);
             $user->password = Hash::make($request->password);
         }
         $user->save();
@@ -195,7 +195,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('delete',$user);
+        $this->authorize('delete', $user);
 
         DB::beginTransaction();
         try {

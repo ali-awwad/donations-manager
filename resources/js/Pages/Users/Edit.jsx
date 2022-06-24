@@ -1,14 +1,22 @@
 import MyComboBox from "@/Shared/ComboBox";
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Edit() {
-    const { errors, item, can } = usePage().props
+    const { item, can } = usePage().props
     const [selectedUserType, setSelectedUserType] = useState();
-    const [userTypes, setUserTypes] = useState([
+    const { data, setData, post, processing, errors, isDirty } = useForm({
+        _method: 'PUT', //=> In All Edit form this should be included
+        name: item.data.name,
+        email: item.data.email,
+        password: null,
+        password_confirmation: null,
+        user_type: "",
+    });
+
+    const userTypes = [
         {
             id: 'admin',
             name: 'Admin'
@@ -17,49 +25,36 @@ export default function Edit() {
             id: 'member',
             name: 'Member'
         },
-    ])
-    const [values, setValues] = useState({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: ""
-    })
+    ];
 
     useEffect(() => {
         if (item.data) {
-            setValues({
-                name: item.data.name,
-                email: item.data.email,
-            })
             setSelectedUserType(item.data.user_type == 'admin' ? { id: 'admin', name: 'Admin' } : { id: 'member', name: 'Member' })
         }
     }, [])
 
     useEffect(() => {
         if (selectedUserType) {
-            setValues({ ...values, user_type: selectedUserType.id });
+            setData('user_type', selectedUserType.id);
         }
     }, [selectedUserType])
 
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        setData(key,value);
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        Inertia.patch(`/users/${item.data.id}`, values)
+        post(`/users/${item.data.id}`, data)
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8 divide-y divide-gray-200">
             <div>
                 <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">{item.data.name}</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">{item.data.name}{isDirty && <span className="sup text-red-500">*</span>}</h3>
                     <p className="mt-1 text-sm text-gray-500">
                         Update user data
                     </p>
@@ -73,7 +68,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.name} onChange={handleChange}
+                                defaultValue={data.name} onChange={handleChange}
                                 type="text"
                                 name="name"
                                 id="name"
@@ -90,7 +85,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.email} onChange={handleChange}
+                                defaultValue={data.email} onChange={handleChange}
                                 type="email"
                                 name="email"
                                 id="email"
@@ -106,7 +101,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.password} onChange={handleChange}
+                                defaultValue={data.password} onChange={handleChange}
                                 type="password"
                                 name="password"
                                 id="password"
@@ -122,7 +117,7 @@ export default function Edit() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.password_confirmation} onChange={handleChange}
+                                defaultValue={data.password_confirmation} onChange={handleChange}
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
@@ -150,7 +145,7 @@ export default function Edit() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('users.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={true} />
                 </div>
             </div>
         </form>

@@ -39,12 +39,12 @@ function classNames(...classes) {
 
 export default function Layout({ children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { title, auth, flash } = usePage().props;
+    const { title, appTitle, auth, flash } = usePage().props;
     const { component } = usePage();
 
     return (
         <>
-            <Head title={title} />
+            <Head title={`${title} - ${appTitle}`} />
             <div>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="fixed inset-0 flex z-40 md:hidden" onClose={setSidebarOpen}>

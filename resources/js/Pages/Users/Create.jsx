@@ -1,14 +1,20 @@
 import FormCancelButton from "@/Shared/FormCancelButton";
 import FormSubmitButton from "@/Shared/FormSubmitButton";
 import MyComboBox from "@/Shared/ComboBox";
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import { useEffect, useState } from "react";
 
 export default function Create() {
-    const { errors, can } = usePage().props
+    const { can } = usePage().props
     const [selectedUserType, setSelectedUserType] = useState();
-    const [userTypes, setUserTypes] = useState([
+    const { data, setData, post, processing, errors, isDirty } = useForm({
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        user_type: "",
+    });
+    const userTypes = [
         {
             id: 'admin',
             name: 'Admin'
@@ -17,40 +23,30 @@ export default function Create() {
             id: 'member',
             name: 'Member'
         },
-    ])
-    const [values, setValues] = useState({
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        user_type: "",
-    })
+    ];
 
     useEffect(() => {
         if (selectedUserType) {
-            setValues({ ...values, user_type: selectedUserType.id });
+            setData('user_type',selectedUserType.id);
         }
     }, [selectedUserType])
 
     function handleChange(e) {
         const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        const value = e.target.value;
+        setData(key,value);
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        Inertia.post('/users', values)
+        post('/users', data)
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-8 divide-y divide-gray-200">
             <div>
                 <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Create User</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Create User{isDirty && <span className="sup text-red-500">*</span>}</h3>
                     <p className="mt-1 text-sm text-gray-500">
                         Create User to login into this backend
                     </p>
@@ -64,7 +60,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.name} onChange={handleChange}
+                                defaultValue={data.name} onChange={handleChange}
                                 type="text"
                                 name="name"
                                 id="name"
@@ -81,7 +77,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.email} onChange={handleChange}
+                                defaultValue={data.email} onChange={handleChange}
                                 type="email"
                                 name="email"
                                 id="email"
@@ -97,7 +93,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.password} onChange={handleChange}
+                                defaultValue={data.password} onChange={handleChange}
                                 type="password"
                                 name="password"
                                 id="password"
@@ -113,7 +109,7 @@ export default function Create() {
                         </label>
                         <div className="mt-1">
                             <input
-                                defaultValue={values.password_confirmation} onChange={handleChange}
+                                defaultValue={data.password_confirmation} onChange={handleChange}
                                 type="password"
                                 name="password_confirmation"
                                 id="password_confirmation"
@@ -141,7 +137,7 @@ export default function Create() {
             <div className="pt-5">
                 <div className="flex justify-end">
                     <FormCancelButton href={route('categories.index')} />
-                    <FormSubmitButton />
+                    <FormSubmitButton loading={processing} isEdit={false} />
                 </div>
             </div>
         </form>

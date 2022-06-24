@@ -14,16 +14,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Shared/ComboBox */ "./resources/js/Shared/ComboBox.jsx");
 /* harmony import */ var _Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/FormCancelButton */ "./resources/js/Shared/FormCancelButton.jsx");
 /* harmony import */ var _Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Shared/FormSubmitButton */ "./resources/js/Shared/FormSubmitButton.jsx");
-/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
-/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -43,45 +36,41 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Edit() {
-  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_4__.usePage)().props,
-      errors = _usePage$props.errors,
+  var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.usePage)().props,
       item = _usePage$props.item,
       can = _usePage$props.can;
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_4__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
       selectedUserType = _useState2[0],
       setSelectedUserType = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)([{
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.useForm)({
+    _method: 'PUT',
+    //=> In All Edit form this should be included
+    name: item.data.name,
+    email: item.data.email,
+    password: null,
+    password_confirmation: null,
+    user_type: ""
+  }),
+      data = _useForm.data,
+      setData = _useForm.setData,
+      post = _useForm.post,
+      processing = _useForm.processing,
+      errors = _useForm.errors,
+      isDirty = _useForm.isDirty;
+
+  var userTypes = [{
     id: 'admin',
     name: 'Admin'
   }, {
     id: 'member',
     name: 'Member'
-  }]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      userTypes = _useState4[0],
-      setUserTypes = _useState4[1];
-
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)({
-    name: "",
-    email: "",
-    password: "",
-    password_confirmation: ""
-  }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      values = _useState6[0],
-      setValues = _useState6[1];
-
-  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
+  }];
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (item.data) {
-      setValues({
-        name: item.data.name,
-        email: item.data.email
-      });
       setSelectedUserType(item.data.user_type == 'admin' ? {
         id: 'admin',
         name: 'Admin'
@@ -91,51 +80,50 @@ function Edit() {
       });
     }
   }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
+  (0,react__WEBPACK_IMPORTED_MODULE_4__.useEffect)(function () {
     if (selectedUserType) {
-      setValues(_objectSpread(_objectSpread({}, values), {}, {
-        user_type: selectedUserType.id
-      }));
+      setData('user_type', selectedUserType.id);
     }
   }, [selectedUserType]);
 
   function handleChange(e) {
     var key = e.target.id;
     var value = e.target.value;
-    setValues(function (values) {
-      return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
-    });
+    setData(key, value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.patch("/users/".concat(item.data.id), values);
+    post("/users/".concat(item.data.id), data);
   }
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
     onSubmit: handleSubmit,
     className: "space-y-8 divide-y divide-gray-200",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h3", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h3", {
           className: "text-lg leading-6 font-medium text-gray-900",
-          children: item.data.name
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          children: [item.data.name, isDirty && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "sup text-red-500",
+            children: "*"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
           className: "mt-1 text-sm text-gray-500",
           children: "Update user data"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "sm:col-span-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             htmlFor: "name",
             className: "block text-sm font-medium text-gray-700",
             children: "Name"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.name,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              defaultValue: data.name,
               onChange: handleChange,
               type: "text",
               name: "name",
@@ -143,20 +131,20 @@ function Edit() {
               autoComplete: "name",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
-          }), errors.name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), errors.name && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.name
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "sm:col-span-3",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             htmlFor: "email",
             className: "block text-sm font-medium text-gray-700",
             children: "Email"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.email,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              defaultValue: data.email,
               onChange: handleChange,
               type: "email",
               name: "email",
@@ -164,20 +152,20 @@ function Edit() {
               autoComplete: "email",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
-          }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), errors.email && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.email
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             htmlFor: "password",
             className: "block text-sm font-medium text-gray-700",
             children: "Password"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.password,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              defaultValue: data.password,
               onChange: handleChange,
               type: "password",
               name: "password",
@@ -185,20 +173,20 @@ function Edit() {
               autoComplete: "password",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
-          }), errors.password && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), errors.password && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.password
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             htmlFor: "password_confirmation",
             className: "block text-sm font-medium text-gray-700",
             children: "Confirmation"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-              defaultValue: values.password_confirmation,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              defaultValue: data.password_confirmation,
               onChange: handleChange,
               type: "password",
               name: "password_confirmation",
@@ -206,36 +194,39 @@ function Edit() {
               autoComplete: "password_confirmation",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
-          }), errors.password_confirmation && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), errors.password_confirmation && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.password_confirmation
           })]
-        }), can.isAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        }), can.isAdmin && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "sm:col-span-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
             htmlFor: "user_type",
             className: "block text-sm font-medium text-gray-700",
             children: "User Type"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
             className: "mt-1",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__["default"], {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Shared_ComboBox__WEBPACK_IMPORTED_MODULE_0__["default"], {
               items: userTypes,
               selectedItem: selectedUserType,
               setSelectedItem: setSelectedUserType
             })
-          }), errors.user_type && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+          }), errors.user_type && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.user_type
           })]
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "pt-5",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "flex justify-end",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
           href: route('users.index')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          loading: processing,
+          isEdit: true
+        })]
       })
     })]
   });
@@ -256,7 +247,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _heroicons_react_solid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @heroicons/react/solid */ "./node_modules/@heroicons/react/solid/esm/SelectorIcon.js");
 /* harmony import */ var _heroicons_react_solid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @heroicons/react/solid */ "./node_modules/@heroicons/react/solid/esm/CheckIcon.js");
-/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/headlessui.esm.js");
+/* harmony import */ var _headlessui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @headlessui/react */ "./node_modules/@headlessui/react/dist/components/combobox/combobox.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -424,6 +415,127 @@ function FormSubmitButton(_ref) {
     }), "Save"]
   });
 }
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/components/combobox/combobox.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/components/combobox/combobox.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Combobox": () => (/* binding */ Ot)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _hooks_use_computed_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../hooks/use-computed.js */ "./node_modules/@headlessui/react/dist/hooks/use-computed.js");
+/* harmony import */ var _hooks_use_disposables_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../hooks/use-disposables.js */ "./node_modules/@headlessui/react/dist/hooks/use-disposables.js");
+/* harmony import */ var _hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../hooks/use-event.js */ "./node_modules/@headlessui/react/dist/hooks/use-event.js");
+/* harmony import */ var _hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../hooks/use-id.js */ "./node_modules/@headlessui/react/dist/hooks/use-id.js");
+/* harmony import */ var _hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/use-iso-morphic-effect.js */ "./node_modules/@headlessui/react/dist/hooks/use-iso-morphic-effect.js");
+/* harmony import */ var _hooks_use_latest_value_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../hooks/use-latest-value.js */ "./node_modules/@headlessui/react/dist/hooks/use-latest-value.js");
+/* harmony import */ var _hooks_use_outside_click_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hooks/use-outside-click.js */ "./node_modules/@headlessui/react/dist/hooks/use-outside-click.js");
+/* harmony import */ var _hooks_use_resolve_button_type_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../hooks/use-resolve-button-type.js */ "./node_modules/@headlessui/react/dist/hooks/use-resolve-button-type.js");
+/* harmony import */ var _hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../hooks/use-sync-refs.js */ "./node_modules/@headlessui/react/dist/hooks/use-sync-refs.js");
+/* harmony import */ var _hooks_use_tree_walker_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../hooks/use-tree-walker.js */ "./node_modules/@headlessui/react/dist/hooks/use-tree-walker.js");
+/* harmony import */ var _utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/calculate-active-index.js */ "./node_modules/@headlessui/react/dist/utils/calculate-active-index.js");
+/* harmony import */ var _utils_disposables_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../utils/disposables.js */ "./node_modules/@headlessui/react/dist/utils/disposables.js");
+/* harmony import */ var _utils_render_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/render.js */ "./node_modules/@headlessui/react/dist/utils/render.js");
+/* harmony import */ var _utils_bugs_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../utils/bugs.js */ "./node_modules/@headlessui/react/dist/utils/bugs.js");
+/* harmony import */ var _utils_match_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/match.js */ "./node_modules/@headlessui/react/dist/utils/match.js");
+/* harmony import */ var _utils_form_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../utils/form.js */ "./node_modules/@headlessui/react/dist/utils/form.js");
+/* harmony import */ var _utils_focus_management_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/focus-management.js */ "./node_modules/@headlessui/react/dist/utils/focus-management.js");
+/* harmony import */ var _internal_hidden_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../internal/hidden.js */ "./node_modules/@headlessui/react/dist/internal/hidden.js");
+/* harmony import */ var _internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../internal/open-closed.js */ "./node_modules/@headlessui/react/dist/internal/open-closed.js");
+/* harmony import */ var _keyboard_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../keyboard.js */ "./node_modules/@headlessui/react/dist/components/keyboard.js");
+var Se=(o=>(o[o.Open=0]="Open",o[o.Closed=1]="Closed",o))(Se||{}),Pe=(o=>(o[o.Single=0]="Single",o[o.Multi=1]="Multi",o))(Pe||{}),Ae=(o=>(o[o.Pointer=0]="Pointer",o[o.Other=1]="Other",o))(Ae||{}),Ie=(t=>(t[t.OpenCombobox=0]="OpenCombobox",t[t.CloseCombobox=1]="CloseCombobox",t[t.GoToOption=2]="GoToOption",t[t.RegisterOption=3]="RegisterOption",t[t.UnregisterOption=4]="UnregisterOption",t))(Ie||{});function q(n,a=o=>o){let o=n.activeOptionIndex!==null?n.options[n.activeOptionIndex]:null,e=(0,_utils_focus_management_js__WEBPACK_IMPORTED_MODULE_1__.sortByDomNode)(a(n.options.slice()),t=>t.dataRef.current.domRef.current),i=o?e.indexOf(o):null;return i===-1&&(i=null),{options:e,activeOptionIndex:i}}let De={[1](n){return n.dataRef.current.disabled||n.comboboxState===1?n:{...n,activeOptionIndex:null,comboboxState:1}},[0](n){if(n.dataRef.current.disabled||n.comboboxState===0)return n;let a=n.activeOptionIndex,{isSelected:o}=n.dataRef.current,e=n.options.findIndex(i=>o(i.dataRef.current.value));return e!==-1&&(a=e),{...n,comboboxState:0,activeOptionIndex:a}},[2](n,a){var i;if(n.dataRef.current.disabled||n.dataRef.current.optionsRef.current&&!n.dataRef.current.optionsPropsRef.current.static&&n.comboboxState===1)return n;let o=q(n);if(o.activeOptionIndex===null){let t=o.options.findIndex(p=>!p.dataRef.current.disabled);t!==-1&&(o.activeOptionIndex=t)}let e=(0,_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.calculateActiveIndex)(a,{resolveItems:()=>o.options,resolveActiveIndex:()=>o.activeOptionIndex,resolveId:t=>t.id,resolveDisabled:t=>t.dataRef.current.disabled});return{...n,...o,activeOptionIndex:e,activationTrigger:(i=a.trigger)!=null?i:1}},[3]:(n,a)=>{let o={id:a.id,dataRef:a.dataRef},e=q(n,t=>[...t,o]);n.activeOptionIndex===null&&n.dataRef.current.isSelected(a.dataRef.current.value)&&(e.activeOptionIndex=e.options.indexOf(o));let i={...n,...e,activationTrigger:1};return n.dataRef.current.__demoMode&&n.dataRef.current.value===void 0&&(i.activeOptionIndex=0),i},[4]:(n,a)=>{let o=q(n,e=>{let i=e.findIndex(t=>t.id===a.id);return i!==-1&&e.splice(i,1),e});return{...n,...o,activationTrigger:1}}},X=(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);X.displayName="ComboboxActionsContext";function N(n){let a=(0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(X);if(a===null){let o=new Error(`<${n} /> is missing a parent <Combobox /> component.`);throw Error.captureStackTrace&&Error.captureStackTrace(o,N),o}return a}let z=(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);z.displayName="ComboboxDataContext";function k(n){let a=(0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(z);if(a===null){let o=new Error(`<${n} /> is missing a parent <Combobox /> component.`);throw Error.captureStackTrace&&Error.captureStackTrace(o,k),o}return a}function Ee(n,a){return (0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(a.type,De,n,a)}let he=react__WEBPACK_IMPORTED_MODULE_0__.Fragment,Le=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){let{name:e,value:i,onChange:t,disabled:p=!1,__demoMode:d=!1,nullable:r=!1,multiple:u=!1,...C}=a,[f,R]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useReducer)(Ee,{dataRef:(0,react__WEBPACK_IMPORTED_MODULE_0__.createRef)(),comboboxState:d?0:1,options:[],activeOptionIndex:null,activationTrigger:1}),g=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(!1),x=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({static:!1,hold:!1}),c=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({displayValue:void 0}),m=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null),U=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null),M=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null),h=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null),D=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)((s,b)=>s===b),T=(0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(s=>(0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(l.mode,{[1]:()=>i.some(b=>D(b,s)),[0]:()=>D(i,s)}),[i]),l=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({...f,optionsPropsRef:x,inputPropsRef:c,labelRef:m,inputRef:U,buttonRef:M,optionsRef:h,value:i,disabled:p,mode:u?1:0,get activeOptionIndex(){if(g.current&&f.activeOptionIndex===null&&f.options.length>0){let s=f.options.findIndex(b=>!b.dataRef.current.disabled);if(s!==-1)return s}return f.activeOptionIndex},compare:D,isSelected:T,nullable:r,__demoMode:d}),[i,p,u,r,d,f]);(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{f.dataRef.current=l},[l]),(0,_hooks_use_outside_click_js__WEBPACK_IMPORTED_MODULE_7__.useOutsideClick)([l.buttonRef,l.inputRef,l.optionsRef],()=>R({type:1}),l.comboboxState===0);let j=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({open:l.comboboxState===0,disabled:p,activeIndex:l.activeOptionIndex,activeOption:l.activeOptionIndex===null?null:l.options[l.activeOptionIndex].dataRef.current.value}),[l,p]),v=(0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(()=>{var b;if(!l.inputRef.current)return;let s=c.current.displayValue;typeof s=="function"?l.inputRef.current.value=(b=s(i))!=null?b:"":typeof i=="string"?l.inputRef.current.value=i:l.inputRef.current.value=""},[i,l.inputRef,c]),P=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(s=>{let b=l.options.find(L=>L.id===s);!b||(K(b.dataRef.current.value),v())}),G=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{if(l.activeOptionIndex!==null){let{dataRef:s,id:b}=l.options[l.activeOptionIndex];K(s.current.value),v(),R({type:2,focus:_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Specific,id:b})}}),oe=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{R({type:0}),g.current=!0}),ne=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{R({type:1}),g.current=!1}),re=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)((s,b,L)=>(g.current=!1,s===_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Specific?R({type:2,focus:_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Specific,id:b,trigger:L}):R({type:2,focus:s,trigger:L}))),ie=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)((s,b)=>(R({type:3,id:s,dataRef:b}),()=>R({type:4,id:s}))),K=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(s=>(0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(l.mode,{[0](){return t(s)},[1](){let b=l.value.slice(),L=b.indexOf(s);return L===-1?b.push(s):b.splice(L,1),t(b)}})),ae=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({onChange:K,registerOption:ie,goToOption:re,closeCombobox:ne,openCombobox:oe,selectActiveOption:G,selectOption:P}),[]);(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{l.comboboxState===1&&v()},[v,l.comboboxState]),(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(v,[v]);let le=o===null?{}:{ref:o};return react__WEBPACK_IMPORTED_MODULE_0__.createElement(X.Provider,{value:ae},react__WEBPACK_IMPORTED_MODULE_0__.createElement(z.Provider,{value:l},react__WEBPACK_IMPORTED_MODULE_0__.createElement(_internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__.OpenClosedProvider,{value:(0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(l.comboboxState,{[0]:_internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__.State.Open,[1]:_internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__.State.Closed})},e!=null&&i!=null&&(0,_utils_form_js__WEBPACK_IMPORTED_MODULE_9__.objectToFormEntries)({[e]:i}).map(([s,b])=>react__WEBPACK_IMPORTED_MODULE_0__.createElement(_internal_hidden_js__WEBPACK_IMPORTED_MODULE_10__.Hidden,{features:_internal_hidden_js__WEBPACK_IMPORTED_MODULE_10__.Features.Hidden,...(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.compact)({key:s,as:"input",type:"hidden",hidden:!0,readOnly:!0,name:s,value:b})})),(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:le,theirProps:C,slot:j,defaultTag:he,name:"Combobox"}))))}),Me="input",_e=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){var h,D;let{value:e,onChange:i,displayValue:t,type:p="text",...d}=a,r=k("Combobox.Input"),u=N("Combobox.Input"),C=(0,_hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__.useSyncRefs)(r.inputRef,o),f=r.inputPropsRef,R=`headlessui-combobox-input-${(0,_hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__.useId)()}`,g=(0,_hooks_use_disposables_js__WEBPACK_IMPORTED_MODULE_13__.useDisposables)();(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{f.current.displayValue=t},[t,f]);let x=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(T=>{switch(T.key){case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Backspace:case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Delete:if(r.comboboxState!==0||r.mode!==0||!r.nullable)return;let l=T.currentTarget;g.requestAnimationFrame(()=>{l.value===""&&(u.onChange(null),r.optionsRef.current&&(r.optionsRef.current.scrollTop=0),u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Nothing))});break;case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Enter:if(r.comboboxState!==0)return;if(T.preventDefault(),T.stopPropagation(),r.activeOptionIndex===null){u.closeCombobox();return}u.selectActiveOption(),r.mode===0&&u.closeCombobox();break;case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.ArrowDown:return T.preventDefault(),T.stopPropagation(),(0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(r.comboboxState,{[0]:()=>{u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Next)},[1]:()=>{u.openCombobox()}});case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.ArrowUp:return T.preventDefault(),T.stopPropagation(),(0,_utils_match_js__WEBPACK_IMPORTED_MODULE_3__.match)(r.comboboxState,{[0]:()=>{u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Previous)},[1]:()=>{u.openCombobox(),g.nextFrame(()=>{r.value||u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Last)})}});case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Home:case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.PageUp:return T.preventDefault(),T.stopPropagation(),u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.First);case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.End:case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.PageDown:return T.preventDefault(),T.stopPropagation(),u.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Last);case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Escape:return r.comboboxState!==0?void 0:(T.preventDefault(),r.optionsRef.current&&!r.optionsPropsRef.current.static&&T.stopPropagation(),u.closeCombobox());case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Tab:if(r.comboboxState!==0)return;u.selectActiveOption(),u.closeCombobox();break}}),c=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(T=>{u.openCombobox(),i==null||i(T)}),m=(0,_hooks_use_computed_js__WEBPACK_IMPORTED_MODULE_15__.useComputed)(()=>{if(!!r.labelRef.current)return[r.labelRef.current.id].join(" ")},[r.labelRef.current]),U=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({open:r.comboboxState===0,disabled:r.disabled}),[r]),M={ref:C,id:R,role:"combobox",type:p,"aria-controls":(h=r.optionsRef.current)==null?void 0:h.id,"aria-expanded":r.disabled?void 0:r.comboboxState===0,"aria-activedescendant":r.activeOptionIndex===null||(D=r.options[r.activeOptionIndex])==null?void 0:D.id,"aria-multiselectable":r.mode===1?!0:void 0,"aria-labelledby":m,disabled:r.disabled,onKeyDown:x,onChange:c};return (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:M,theirProps:d,slot:U,defaultTag:Me,name:"Combobox.Input"})}),Fe="button",we=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){var x;let e=k("Combobox.Button"),i=N("Combobox.Button"),t=(0,_hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__.useSyncRefs)(e.buttonRef,o),p=`headlessui-combobox-button-${(0,_hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__.useId)()}`,d=(0,_hooks_use_disposables_js__WEBPACK_IMPORTED_MODULE_13__.useDisposables)(),r=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(c=>{switch(c.key){case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.ArrowDown:return c.preventDefault(),c.stopPropagation(),e.comboboxState===1&&i.openCombobox(),d.nextFrame(()=>{var m;return(m=e.inputRef.current)==null?void 0:m.focus({preventScroll:!0})});case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.ArrowUp:return c.preventDefault(),c.stopPropagation(),e.comboboxState===1&&(i.openCombobox(),d.nextFrame(()=>{e.value||i.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Last)})),d.nextFrame(()=>{var m;return(m=e.inputRef.current)==null?void 0:m.focus({preventScroll:!0})});case _keyboard_js__WEBPACK_IMPORTED_MODULE_14__.Keys.Escape:return e.comboboxState!==0?void 0:(c.preventDefault(),e.optionsRef.current&&!e.optionsPropsRef.current.static&&c.stopPropagation(),i.closeCombobox(),d.nextFrame(()=>{var m;return(m=e.inputRef.current)==null?void 0:m.focus({preventScroll:!0})}));default:return}}),u=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(c=>{if((0,_utils_bugs_js__WEBPACK_IMPORTED_MODULE_16__.isDisabledReactIssue7711)(c.currentTarget))return c.preventDefault();e.comboboxState===0?i.closeCombobox():(c.preventDefault(),i.openCombobox()),d.nextFrame(()=>{var m;return(m=e.inputRef.current)==null?void 0:m.focus({preventScroll:!0})})}),C=(0,_hooks_use_computed_js__WEBPACK_IMPORTED_MODULE_15__.useComputed)(()=>{if(!!e.labelRef.current)return[e.labelRef.current.id,p].join(" ")},[e.labelRef.current,p]),f=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({open:e.comboboxState===0,disabled:e.disabled}),[e]),R=a,g={ref:t,id:p,type:(0,_hooks_use_resolve_button_type_js__WEBPACK_IMPORTED_MODULE_17__.useResolveButtonType)(a,e.buttonRef),tabIndex:-1,"aria-haspopup":!0,"aria-controls":(x=e.optionsRef.current)==null?void 0:x.id,"aria-expanded":e.disabled?void 0:e.comboboxState===0,"aria-labelledby":C,disabled:e.disabled,onClick:u,onKeyDown:r};return (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:g,theirProps:R,slot:f,defaultTag:Fe,name:"Combobox.Button"})}),ke="label",Ue=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){let e=k("Combobox.Label"),i=`headlessui-combobox-label-${(0,_hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__.useId)()}`,t=(0,_hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__.useSyncRefs)(e.labelRef,o),p=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{var C;return(C=e.inputRef.current)==null?void 0:C.focus({preventScroll:!0})}),d=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({open:e.comboboxState===0,disabled:e.disabled}),[e]);return (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:{ref:t,id:i,onClick:p},theirProps:a,slot:d,defaultTag:ke,name:"Combobox.Label"})}),Be="ul",Ve=_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.Features.RenderStrategy|_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.Features.Static,je=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){var g;let{hold:e=!1,...i}=a,t=k("Combobox.Options"),p=(0,_hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__.useSyncRefs)(t.optionsRef,o),d=`headlessui-combobox-options-${(0,_hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__.useId)()}`,r=(0,_internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__.useOpenClosed)(),u=(()=>r!==null?r===_internal_open_closed_js__WEBPACK_IMPORTED_MODULE_8__.State.Open:t.comboboxState===0)();(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{var x;t.optionsPropsRef.current.static=(x=a.static)!=null?x:!1},[t.optionsPropsRef,a.static]),(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{t.optionsPropsRef.current.hold=e},[t.optionsPropsRef,e]),(0,_hooks_use_tree_walker_js__WEBPACK_IMPORTED_MODULE_18__.useTreeWalker)({container:t.optionsRef.current,enabled:t.comboboxState===0,accept(x){return x.getAttribute("role")==="option"?NodeFilter.FILTER_REJECT:x.hasAttribute("role")?NodeFilter.FILTER_SKIP:NodeFilter.FILTER_ACCEPT},walk(x){x.setAttribute("role","none")}});let C=(0,_hooks_use_computed_js__WEBPACK_IMPORTED_MODULE_15__.useComputed)(()=>{var x,c,m;return(m=(x=t.labelRef.current)==null?void 0:x.id)!=null?m:(c=t.buttonRef.current)==null?void 0:c.id},[t.labelRef.current,t.buttonRef.current]),f=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({open:t.comboboxState===0}),[t]),R={"aria-activedescendant":t.activeOptionIndex===null||(g=t.options[t.activeOptionIndex])==null?void 0:g.id,"aria-labelledby":C,role:"listbox",id:d,ref:p};return (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:R,theirProps:i,slot:f,defaultTag:Be,features:Ve,visible:u,name:"Combobox.Options"})}),Ge="li",He=(0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.forwardRefWithAs)(function(a,o){var l,j;let{disabled:e=!1,value:i,...t}=a,p=k("Combobox.Option"),d=N("Combobox.Option"),r=`headlessui-combobox-option-${(0,_hooks_use_id_js__WEBPACK_IMPORTED_MODULE_12__.useId)()}`,u=p.activeOptionIndex!==null?p.options[p.activeOptionIndex].id===r:!1,C=p.isSelected(i),f=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null),R=(0,_hooks_use_latest_value_js__WEBPACK_IMPORTED_MODULE_19__.useLatestValue)({disabled:e,value:i,domRef:f,textValue:(j=(l=f.current)==null?void 0:l.textContent)==null?void 0:j.toLowerCase()}),g=(0,_hooks_use_sync_refs_js__WEBPACK_IMPORTED_MODULE_11__.useSyncRefs)(o,f),x=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>d.selectOption(r));(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>d.registerOption(r,R),[R,r]);let c=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(!p.__demoMode);(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{if(!p.__demoMode)return;let v=(0,_utils_disposables_js__WEBPACK_IMPORTED_MODULE_20__.disposables)();return v.requestAnimationFrame(()=>{c.current=!0}),v.dispose},[]),(0,_hooks_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_6__.useIsoMorphicEffect)(()=>{if(p.comboboxState!==0||!u||!c.current||p.activationTrigger===0)return;let v=(0,_utils_disposables_js__WEBPACK_IMPORTED_MODULE_20__.disposables)();return v.requestAnimationFrame(()=>{var P,G;(G=(P=f.current)==null?void 0:P.scrollIntoView)==null||G.call(P,{block:"nearest"})}),v.dispose},[f,u,p.comboboxState,p.activationTrigger,p.activeOptionIndex]);let m=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(v=>{var P;if(e)return v.preventDefault();x(),p.mode===0&&(d.closeCombobox(),(P=p.inputRef.current)==null||P.focus({preventScroll:!0}))}),U=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{if(e)return d.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Nothing);d.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Specific,r)}),M=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{e||u||d.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Specific,r,0)}),h=(0,_hooks_use_event_js__WEBPACK_IMPORTED_MODULE_5__.useEvent)(()=>{e||!u||p.optionsPropsRef.current.hold||d.goToOption(_utils_calculate_active_index_js__WEBPACK_IMPORTED_MODULE_2__.Focus.Nothing)}),D=(0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(()=>({active:u,selected:C,disabled:e}),[u,C,e]);return (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.render)({ourProps:{id:r,ref:g,role:"option",tabIndex:e===!0?void 0:-1,"aria-disabled":e===!0?!0:void 0,"aria-selected":C===!0?!0:void 0,disabled:void 0,onClick:m,onFocus:U,onPointerMove:M,onMouseMove:M,onPointerLeave:h,onMouseLeave:h},theirProps:t,slot:D,defaultTag:Ge,name:"Combobox.Option"})}),Ot=Object.assign(Le,{Input:_e,Button:we,Label:Ue,Options:je,Option:He});
+
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/hooks/use-computed.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/hooks/use-computed.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useComputed": () => (/* binding */ i)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./use-iso-morphic-effect.js */ "./node_modules/@headlessui/react/dist/hooks/use-iso-morphic-effect.js");
+/* harmony import */ var _use_latest_value_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-latest-value.js */ "./node_modules/@headlessui/react/dist/hooks/use-latest-value.js");
+function i(e,o){let[u,t]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(e),r=(0,_use_latest_value_js__WEBPACK_IMPORTED_MODULE_1__.useLatestValue)(e);return (0,_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_2__.useIsoMorphicEffect)(()=>t(r.current),[r,t,...o]),u}
+
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/hooks/use-resolve-button-type.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/hooks/use-resolve-button-type.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useResolveButtonType": () => (/* binding */ s)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-iso-morphic-effect.js */ "./node_modules/@headlessui/react/dist/hooks/use-iso-morphic-effect.js");
+function i(t){var n;if(t.type)return t.type;let e=(n=t.as)!=null?n:"button";if(typeof e=="string"&&e.toLowerCase()==="button")return"button"}function s(t,e){let[n,u]=(0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(()=>i(t));return (0,_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_1__.useIsoMorphicEffect)(()=>{u(i(t))},[t.type,t.as]),(0,_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_1__.useIsoMorphicEffect)(()=>{n||!e.current||e.current instanceof HTMLButtonElement&&!e.current.hasAttribute("type")&&u("button")},[n,e]),n}
+
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/hooks/use-tree-walker.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/hooks/use-tree-walker.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useTreeWalker": () => (/* binding */ F)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-iso-morphic-effect.js */ "./node_modules/@headlessui/react/dist/hooks/use-iso-morphic-effect.js");
+/* harmony import */ var _utils_owner_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils/owner.js */ "./node_modules/@headlessui/react/dist/utils/owner.js");
+function F({container:e,accept:t,walk:r,enabled:c=!0}){let o=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(t),l=(0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(r);(0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(()=>{o.current=t,l.current=r},[t,r]),(0,_use_iso_morphic_effect_js__WEBPACK_IMPORTED_MODULE_1__.useIsoMorphicEffect)(()=>{if(!e||!c)return;let n=(0,_utils_owner_js__WEBPACK_IMPORTED_MODULE_2__.getOwnerDocument)(e);if(!n)return;let f=o.current,p=l.current,d=Object.assign(i=>f(i),{acceptNode:f}),u=n.createTreeWalker(e,NodeFilter.SHOW_ELEMENT,d,!1);for(;u.nextNode();)p(u.currentNode)},[e,c,o,l])}
+
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/utils/calculate-active-index.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/utils/calculate-active-index.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Focus": () => (/* binding */ a),
+/* harmony export */   "calculateActiveIndex": () => (/* binding */ x)
+/* harmony export */ });
+function f(r){throw new Error("Unexpected object: "+r)}var a=(e=>(e[e.First=0]="First",e[e.Previous=1]="Previous",e[e.Next=2]="Next",e[e.Last=3]="Last",e[e.Specific=4]="Specific",e[e.Nothing=5]="Nothing",e))(a||{});function x(r,n){let t=n.resolveItems();if(t.length<=0)return null;let l=n.resolveActiveIndex(),s=l!=null?l:-1,d=(()=>{switch(r.focus){case 0:return t.findIndex(e=>!n.resolveDisabled(e));case 1:{let e=t.slice().reverse().findIndex((i,c,u)=>s!==-1&&u.length-c-1>=s?!1:!n.resolveDisabled(i));return e===-1?e:t.length-1-e}case 2:return t.findIndex((e,i)=>i<=s?!1:!n.resolveDisabled(e));case 3:{let e=t.slice().reverse().findIndex(i=>!n.resolveDisabled(i));return e===-1?e:t.length-1-e}case 4:return t.findIndex(e=>n.resolveId(e)===r.id);case 5:return null;default:f(r)}})();return d===-1?l:d}
+
+
+/***/ }),
+
+/***/ "./node_modules/@headlessui/react/dist/utils/form.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@headlessui/react/dist/utils/form.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attemptSubmit": () => (/* binding */ p),
+/* harmony export */   "objectToFormEntries": () => (/* binding */ e)
+/* harmony export */ });
+function e(n={},r=null,t=[]){for(let[i,o]of Object.entries(n))f(t,s(r,i),o);return t}function s(n,r){return n?n+"["+r+"]":r}function f(n,r,t){if(Array.isArray(t))for(let[i,o]of t.entries())f(n,s(r,i.toString()),o);else t instanceof Date?n.push([r,t.toISOString()]):typeof t=="boolean"?n.push([r,t?"1":"0"]):typeof t=="string"?n.push([r,t]):typeof t=="number"?n.push([r,`${t}`]):t==null?n.push([r,""]):e(t,r,n)}function p(n){var t;let r=(t=n==null?void 0:n.form)!=null?t:n.closest("form");if(!!r){for(let i of r.elements)if(i.tagName==="INPUT"&&i.type==="submit"||i.tagName==="BUTTON"&&i.type==="submit"||i.nodeName==="INPUT"&&i.type==="image"){i.click();return}}}
+
 
 /***/ }),
 
