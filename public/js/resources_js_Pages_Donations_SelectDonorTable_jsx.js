@@ -84,9 +84,9 @@ function SelectDonorTable(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
               children: donor.alias
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
-              children: ["AED ", donor.total_donations]
+              children: donor.total_donations
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {

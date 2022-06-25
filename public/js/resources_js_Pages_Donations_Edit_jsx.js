@@ -565,12 +565,12 @@ function SelectCampaignTable(_ref) {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-6",
               children: item.name
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-              children: ["AED ", item.target]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("td", {
+              children: item.target
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 lg:table-cell",
-              children: ["AED ", item.collected]
+              children: item.collected
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("td", {
               className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("button", {
@@ -679,9 +679,9 @@ function SelectDonorTable(_ref) {
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
               children: donor.alias
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "hidden px-3 py-4 text-sm text-gray-500 sm:table-cell",
-              children: ["AED ", donor.total_donations]
+              children: donor.total_donations
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
               className: "py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
@@ -771,7 +771,7 @@ function FormSubmitButton(_ref) {
       className: "w-5 h-5 rotate-90 stroke-current mr-1"
     }), !loading && isEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "w-5 h-5 rotate-90 stroke-current mr-1"
-    }), "Save"]
+    }), text]
   });
 }
 

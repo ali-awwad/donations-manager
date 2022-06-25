@@ -57,10 +57,10 @@ export default function DonationsTable({ items }) {
                                 ) : (<span>{item.id}</span>)}
                             </td>
                             <td className="px-3 py-4 text-sm text-gray-500">
-                                AED {item.amount}
+                                {item.amount}
                                 <dl className="font-normal lg:hidden">
                                     <dt className="sr-only">Amount</dt>
-                                    <dd className="mt-1 truncate text-gray-700">AED {item.amount}</dd>
+                                    <dd className="mt-1 truncate text-gray-700">{item.amount}</dd>
                                     <dt className="sr-only sm:hidden">Category</dt>
                                     <dd className="mt-1 truncate text-gray-500 sm:hidden">{isObject(item.category) ? item.category.name : item.category}</dd>
                                     <dt className="sr-only sm:hidden">Campaign</dt>

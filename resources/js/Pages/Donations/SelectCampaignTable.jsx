@@ -29,8 +29,8 @@ export default function SelectCampaignTable({ campaigns, selectedCampaign, setSe
                                 {item.name}
 
                             </td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.target}</td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.collected}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.target}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.collected}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                 <button type='button' onClick={() => setSelectedCampaign(item.id)} className={`btn btn-default ${selectedCampaign===item.id ? 'border-green-600 bg-green-600 text-white' : ''}`}>
                                     <CheckIcon className='btn-icon' />

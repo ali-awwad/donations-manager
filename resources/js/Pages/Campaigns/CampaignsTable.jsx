@@ -44,8 +44,8 @@ export default function CampaignsTable({ items }) {
                                     <dd className="mt-1 truncate text-gray-500 sm:hidden">{item.slug}</dd>
                                 </dl>
                             </td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.target}</td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">AED {item.collected}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.target}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.collected}</td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{item.percentage}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{item.category.name}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex">

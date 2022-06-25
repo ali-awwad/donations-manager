@@ -84,14 +84,14 @@ function DonationsTable(_ref) {
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
               className: "px-3 py-4 text-sm text-gray-500",
-              children: ["AED ", item.amount, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("dl", {
+              children: [item.amount, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("dl", {
                 className: "font-normal lg:hidden",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("dt", {
                   className: "sr-only",
                   children: "Amount"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("dd", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("dd", {
                   className: "mt-1 truncate text-gray-700",
-                  children: ["AED ", item.amount]
+                  children: item.amount
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("dt", {
                   className: "sr-only sm:hidden",
                   children: "Category"
@@ -277,9 +277,9 @@ function Show() {
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dt", {
               className: "text-sm font-medium text-gray-500",
               children: "Total Donations"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("dd", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("dd", {
               className: "mt-1 text-sm text-gray-900",
-              children: ["AED ", donor.data.total_donations]
+              children: donor.data.total_donations
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
             className: "sm:col-span-1",

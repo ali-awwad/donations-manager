@@ -23,6 +23,24 @@
 .button-danger:focus {
     @apply outline-none ring-2 ring-offset-2 ring-red-500;
 }
+.button-teal {
+    @apply text-white bg-teal-600;
+}
+.button-teal:hover {
+    @apply bg-teal-700
+}
+.button-teal:focus {
+    @apply outline-none ring-2 ring-offset-2 ring-teal-500;
+}
+.button-gray {
+    @apply text-white bg-gray-600;
+}
+.button-gray:hover {
+    @apply bg-gray-700
+}
+.button-gray:focus {
+    @apply outline-none ring-2 ring-offset-2 ring-gray-500;
+}
 .btn {
     @apply inline-flex items-center px-2 py-1 border rounded-md shadow-sm text-xs font-medium
 }

@@ -39,7 +39,7 @@ export default function Show() {
                         </div>
                         <div className="sm:col-span-1">
                             <dt className="text-sm font-medium text-gray-500">Total Donations</dt>
-                            <dd className="mt-1 text-sm text-gray-900">AED {donor.data.total_donations}</dd>
+                            <dd className="mt-1 text-sm text-gray-900">{donor.data.total_donations}</dd>
                         </div>
                         <div className="sm:col-span-1">
                             <dt className="text-sm font-medium text-gray-500"># of donations</dt>

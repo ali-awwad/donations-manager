@@ -209,7 +209,7 @@ function FormSubmitButton(_ref) {
       className: "w-5 h-5 rotate-90 stroke-current mr-1"
     }), !loading && isEdit && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_4__["default"], {
       className: "w-5 h-5 rotate-90 stroke-current mr-1"
-    }), "Save"]
+    }), text]
   });
 }
 

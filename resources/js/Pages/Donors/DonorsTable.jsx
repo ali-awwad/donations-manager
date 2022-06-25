@@ -54,7 +54,7 @@ export default function DonorsTable({ donors }) {
                                 </dl>
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{donor.alias}</td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">AED {donor.total_donations}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{donor.total_donations}</td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{donor.donations_count}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{donor.campaigns_count}</td>
                             <td className="px-3 py-4 text-sm text-gray-500">{donor.categories_count}</td>

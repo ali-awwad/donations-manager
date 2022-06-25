@@ -42,7 +42,7 @@ export default function SelectDonorTable({ donors, selectedDonor, setSelectedDon
                                 </dl>
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{donor.alias}</td>
-                            <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">AED {donor.total_donations}</td>
+                            <td className="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{donor.total_donations}</td>
                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                 <button type='button' onClick={() => setSelectedDonor(donor.id)} className={`btn btn-default ${selectedDonor===donor.id ? 'border-green-600 bg-green-600 text-white' : ''}`}>
                                     <CheckIcon className='btn-icon' />

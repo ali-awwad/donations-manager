@@ -140,7 +140,7 @@ class DonationController extends Controller
             $donor = Donor::find($request->donor_id);
             $campaign = Campaign::find($request->campaign_id);
             $donor->campaigns()->syncWithoutDetaching([$campaign->id]);
-            $donor->category()->syncWithoutDetaching([$campaign->category_id]);
+            $donor->categories()->syncWithoutDetaching([$campaign->category_id]);
 
             DB::commit();
         } catch (\Throwable $th) {
