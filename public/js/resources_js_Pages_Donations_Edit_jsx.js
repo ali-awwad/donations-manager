@@ -15,6 +15,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Shared/FormCancelButton */ "./resources/js/Shared/FormCancelButton.jsx");
 /* harmony import */ var _Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Shared/FormSubmitButton */ "./resources/js/Shared/FormSubmitButton.jsx");
 /* harmony import */ var _Shared_SearchInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/Shared/SearchInput */ "./resources/js/Shared/SearchInput.jsx");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/ChevronLeftIcon.js");
+/* harmony import */ var _heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @heroicons/react/outline */ "./node_modules/@heroicons/react/outline/esm/ChevronRightIcon.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
@@ -22,12 +24,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SelectCampaignTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./SelectCampaignTable */ "./resources/js/Pages/Donations/SelectCampaignTable.jsx");
 /* harmony import */ var _SelectDonorTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SelectDonorTable */ "./resources/js/Pages/Donations/SelectDonorTable.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -52,11 +48,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Create() {
-  var _useState11;
 
+function Create() {
   var _usePage$props = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__.usePage)().props,
-      errors = _usePage$props.errors,
       donors = _usePage$props.donors,
       campaigns = _usePage$props.campaigns,
       item = _usePage$props.item;
@@ -81,38 +75,37 @@ function Create() {
       selectedDonor = _useState8[0],
       setSelectedDonor = _useState8[1];
 
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)((_useState11 = {
-    donor_id: "",
-    description: "",
-    campaign_id: 0
-  }, _defineProperty(_useState11, "donor_id", 0), _defineProperty(_useState11, "amount", null), _useState11)),
-      _useState10 = _slicedToArray(_useState9, 2),
-      values = _useState10[0],
-      setValues = _useState10[1];
+  var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_5__.useForm)({
+    _method: 'PUT',
+    //=> In All Edit form this should be included
+    donor_id: item.data.donor.id,
+    campaign_id: item.data.campaign.id,
+    category_id: item.data.category.id,
+    description: item.data.description,
+    amount: item.data.amount_raw,
+    donation_date: item.data.donation_date
+  }),
+      data = _useForm.data,
+      setData = _useForm.setData,
+      post = _useForm.post,
+      processing = _useForm.processing,
+      errors = _useForm.errors,
+      isDirty = _useForm.isDirty;
 
-  var _useState12 = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('01'),
-      _useState13 = _slicedToArray(_useState12, 2),
-      currentStep = _useState13[0],
-      setCurrentStep = _useState13[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_6__.useState)('01'),
+      _useState10 = _slicedToArray(_useState9, 2),
+      currentStep = _useState10[0],
+      setCurrentStep = _useState10[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
     if (item.data) {
-      setValues({
-        donor_id: item.data.donor.id,
-        campaign_id: item.data.campaign.id,
-        category_id: item.data.category.id,
-        description: item.data.description,
-        amount: item.data.amount * 100
-      });
       setSelectedCampaign(item.data.campaign.id);
       setSelectedDonor(item.data.donor.id);
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
     if (selectedCampaign) {
-      setValues(_objectSpread(_objectSpread({}, values), {}, {
-        campaign_id: selectedCampaign
-      }));
+      setData('campaign_id', selectedCampaign);
     }
   }, [selectedCampaign]);
   (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
@@ -150,23 +143,19 @@ function Create() {
   }, [searchCampaign]);
   (0,react__WEBPACK_IMPORTED_MODULE_6__.useEffect)(function () {
     if (selectedDonor) {
-      setValues(_objectSpread(_objectSpread({}, values), {}, {
-        donor_id: selectedDonor
-      }));
+      setData('donor_id', selectedDonor);
     }
   }, [selectedDonor]);
 
   function handleChange(e) {
     var key = e.target.id;
     var value = e.target.value;
-    setValues(function (values) {
-      return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
-    });
+    setData(key, value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_4__.Inertia.post('/donations', values);
+    post("/donations/".concat(item.data.id), data);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("form", {
@@ -174,9 +163,12 @@ function Create() {
     className: "space-y-8 divide-y divide-gray-200",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("h3", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("h3", {
           className: "text-lg leading-6 font-medium text-gray-900",
-          children: "Add new Donation"
+          children: ["Edit Donation ", item.data.uuid, " ", isDirty && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("span", {
+            className: "sup text-red-500",
+            children: "*"
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
           className: "mt-1 text-sm text-gray-500",
           children: "Its great to make change and leave a good mark."
@@ -195,7 +187,7 @@ function Create() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "mt-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("textarea", {
-              defaultValue: values.description,
+              defaultValue: data.description,
               onChange: handleChange,
               id: "description",
               name: "description",
@@ -218,7 +210,7 @@ function Create() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
             className: "mt-1",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
-              defaultValue: values.amount,
+              defaultValue: data.amount,
               onChange: handleChange,
               type: "number",
               placeholder: "1000 will be stored as 10.00",
@@ -231,6 +223,28 @@ function Create() {
           }), errors.amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
             children: errors.amount
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+          className: "sm:col-span-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("label", {
+            htmlFor: "target",
+            className: "block text-sm font-medium text-gray-700",
+            children: "Donation Date"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+            className: "mt-1",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("input", {
+              defaultValue: data.donation_date,
+              onChange: handleChange,
+              id: "donation_date",
+              name: "donation_date",
+              required: true,
+              type: "date",
+              autoComplete: "off",
+              className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+            })
+          }), errors.donation_date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+            className: "mt-2 text-sm text-red-500",
+            children: errors.donation_date
           })]
         })]
       }), currentStep === '02' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
@@ -274,7 +288,31 @@ function Create() {
         className: "flex justify-end",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Shared_FormCancelButton__WEBPACK_IMPORTED_MODULE_1__["default"], {
           href: route('donations.index')
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+        }), currentStep != '01' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("button", {
+          onClick: function onClick() {
+            return setCurrentStep(currentStep == '03' ? '02' : '01');
+          },
+          type: "button",
+          disabled: processing,
+          className: "button button-gray ml-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_11__["default"], {
+            className: "w-5 h-5 stroke-current mr-1"
+          }), "Previous"]
+        }), currentStep != '03' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("button", {
+          onClick: function onClick() {
+            return setCurrentStep(currentStep == '01' ? '02' : '03');
+          },
+          type: "button",
+          disabled: processing,
+          className: "button button-teal ml-2",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_heroicons_react_outline__WEBPACK_IMPORTED_MODULE_12__["default"], {
+            className: "w-5 h-5 stroke-current mr-1"
+          }), "Next"]
+        }), currentStep == '03' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_Shared_FormSubmitButton__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          loading: processing,
+          isEdit: false,
+          text: "Submit"
+        })]
       })
     })]
   });
@@ -973,6 +1011,74 @@ function CheckIcon(props, svgRef) {
 }
 
 const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(CheckIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/ChevronLeftIcon.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/ChevronLeftIcon.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function ChevronLeftIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M15 19l-7-7 7-7"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(ChevronLeftIcon);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
+
+/***/ }),
+
+/***/ "./node_modules/@heroicons/react/outline/esm/ChevronRightIcon.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/@heroicons/react/outline/esm/ChevronRightIcon.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+
+function ChevronRightIcon(props, svgRef) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("svg", Object.assign({
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    strokeWidth: 2,
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    ref: svgRef
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    d: "M9 5l7 7-7 7"
+  }));
+}
+
+const ForwardRef = react__WEBPACK_IMPORTED_MODULE_0__.forwardRef(ChevronRightIcon);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ForwardRef);
 
 /***/ }),

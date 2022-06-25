@@ -152,7 +152,7 @@ export default function Create() {
                                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>
-                            {errors.amount && <p className="mt-2 text-sm text-red-500">{errors.amount}</p>}
+                            {errors.donation_date && <p className="mt-2 text-sm text-red-500">{errors.donation_date}</p>}
                         </div>
 
 

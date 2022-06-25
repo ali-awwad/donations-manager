@@ -237,9 +237,9 @@ function Create() {
               autoComplete: "off",
               className: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             })
-          }), errors.amount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
+          }), errors.donation_date && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("p", {
             className: "mt-2 text-sm text-red-500",
-            children: errors.amount
+            children: errors.donation_date
           })]
         })]
       }), currentStep === '02' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {

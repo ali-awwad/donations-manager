@@ -7,6 +7,7 @@ import { DonationsPerCampaignChart } from '@/Shared/DonationsPerCampaignChart';
 import DonationsCompletion from '@/Shared/DonationsCompletion';
 import StartingPoint from '@/Shared/StartingPoint';
 import { CategoryByTargetAndCollected } from '@/Shared/CategoryByTargetAndCollected';
+import { DonationsTimeLine } from '@/Shared/Charts/DonationsTimeLine';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
             {can.reports.view &&
                 <div className="my-4">
                     <DonationsCompletion data={campaigns_completion} />
+                    {/* <DonationsTimeLine /> */}
                 </div>
             }
             {can.reports.view &&
