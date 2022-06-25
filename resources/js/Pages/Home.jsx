@@ -31,7 +31,7 @@ export default function Home() {
             {can.reports.view &&
                 <div className="my-4">
                     <DonationsCompletion data={campaigns_completion} />
-                    <DonationsTimeLine />
+                    {/* <DonationsTimeLine /> */}
                 </div>
             }
             {can.reports.view &&

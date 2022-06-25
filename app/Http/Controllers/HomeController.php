@@ -44,22 +44,22 @@ class HomeController extends Controller
                 'collectedValues' => $collection->all() ? $collection->all()['collected'] : null,
             ],
             'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
-            'donationsData'=>
-                [
-                    'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
-                    ->groupBy('year', 'month','monthNumber')
-                    ->orderBy('monthNumber', 'asc')
-                    ->orderBy('year', 'asc')
-                    ->get(),
-                    // TODO : below omitts the months without donor results.
-                    'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
-                    ->groupBy('year', 'month','monthNumber')
-                    ->orderBy('monthNumber', 'asc')
-                    ->orderBy('year', 'asc')
-                    ->whereIn('donor_id',Donor::where('user_id',Auth::id())->pluck('id'))
-                    ->get(),
-                ]
-            ,
+            // 'donationsData'=>
+            //     [
+            //         'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+            //         ->groupBy('year', 'month','monthNumber')
+            //         ->orderBy('monthNumber', 'asc')
+            //         ->orderBy('year', 'asc')
+            //         ->get(),
+            //         // TODO : below omitts the months without donor results.
+            //         'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+            //         ->groupBy('year', 'month','monthNumber')
+            //         ->orderBy('monthNumber', 'asc')
+            //         ->orderBy('year', 'asc')
+            //         ->whereIn('donor_id',Donor::where('user_id',Auth::id())->pluck('id'))
+            //         ->get(),
+            //     ]
+            // ,
             'can' => [
                 'campaign' => [
                     'create' => Auth::user()->can('create', Campaign::class),
