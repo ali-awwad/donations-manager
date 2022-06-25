@@ -136,7 +136,7 @@ export default function Create() {
 
             <div className="pt-5">
                 <div className="flex justify-end">
-                    <FormCancelButton href={route('categories.index')} />
+                    <FormCancelButton href={route('users.index')} />
                     <FormSubmitButton loading={processing} isEdit={false} />
                 </div>
             </div>

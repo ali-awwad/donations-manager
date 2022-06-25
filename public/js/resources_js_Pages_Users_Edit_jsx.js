@@ -306,7 +306,7 @@ function MyComboBox(_ref) {
           return setQuery(event.target.value);
         },
         displayValue: function displayValue(item) {
-          return item.name;
+          return item ? item.name : 'Please Select';
         }
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_headlessui_react__WEBPACK_IMPORTED_MODULE_2__.Combobox.Button, {
         className: "absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none",

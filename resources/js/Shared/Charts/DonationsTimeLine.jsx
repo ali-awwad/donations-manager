@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { random } from 'lodash';
+import { usePage } from '@inertiajs/inertia-react';
 
 ChartJS.register(
   CategoryScale,
@@ -32,26 +32,30 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: 'Donations timeline',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-
-
 export function DonationsTimeLine() {
+    const {donationsData } = usePage().props;
     const data = {
-        labels,
+        labels: donationsData.all.map((record)=> record.month + '-' + record.year),
         datasets: [
           {
             fill: true,
-            label: 'Dataset 2',
-            data: labels.map(() => random(10)),
+            label: 'Total Donations',
+            data: donationsData.all.map((record)=> record.data),
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
           },
+        //   {
+        //     fill: true,
+        //     label: 'My Donations',
+        //     data: donationsData.currentUserDonors.map((record)=> record.data),
+        //     borderColor: 'rgb(255, 153, 0)',
+        //     backgroundColor: 'rgba(255, 153, 0, 0.9)',
+        //   },
         ],
       };
   return <Line options={options} data={data} />;

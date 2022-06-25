@@ -25,7 +25,7 @@ export default function MyComboBox({items, label, selectedItem, setSelectedItem}
         autoComplete="off"
           className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
           onChange={(event) => setQuery(event.target.value)}
-          displayValue={(item) => item.name}
+          displayValue={(item) => item ? item.name : 'Please Select'}
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
