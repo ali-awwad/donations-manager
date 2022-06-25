@@ -26,19 +26,6 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->group(function () {
@@ -53,8 +40,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('donations', DonationController::class);
     Route::resource('donors', DonorController::class);
-    // Route::post('logout', function () {
-    //     Auth::logout();
-    //     return Redirect::route('log')
-    // });
+    Route::post('fix', [HomeController::class,'fixCampaignCategoryCount'])->name('fixCampaignCategoryCount');
 });

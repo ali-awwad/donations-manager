@@ -136,6 +136,12 @@ class DonationController extends Controller
             $donation->donation_date = $request->donation_date;
 
             $donation->save();
+
+            $donor = Donor::find($request->donor_id);
+            $campaign = Campaign::find($request->campaign_id);
+            $donor->campaigns()->syncWithoutDetaching([$campaign->id]);
+            $donor->category()->syncWithoutDetaching([$campaign->category_id]);
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();

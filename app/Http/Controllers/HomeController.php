@@ -6,9 +6,11 @@ use App\Http\Resources\CampaignResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use App\Models\Donor;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -20,13 +22,10 @@ class HomeController extends Controller
         $labels = [];
         foreach ($categories as $key => $category) {
             $labels['label'][] = $category->name;
-            $labels['target'][] = friendly_money(Campaign::where('category_id',$category->id)->sum('target'));
-            $labels['collected'][] = friendly_money(Donation::whereIn('campaign_id',Campaign::where('category_id',$category->id)->pluck('id')->values())->sum('amount'));
+            $labels['target'][] = friendly_money(Campaign::where('category_id', $category->id)->sum('target'));
+            $labels['collected'][] = friendly_money(Donation::whereIn('campaign_id', Campaign::where('category_id', $category->id)->pluck('id')->values())->sum('amount'));
         }
         $collection = collect($labels);
-
-        // dd($collection->all()['label']);
-        // dd($collection);
 
         return Inertia::render('Home', [
             'title' => 'My Dashboard',
@@ -45,17 +44,40 @@ class HomeController extends Controller
                 'collectedValues' => $collection->all() ? $collection->all()['collected'] : null,
             ],
             'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
-            'can'=>[
-                'campaign'=>[
-                    'create'=>Auth::user()->can('create',Campaign::class),
+            'can' => [
+                'campaign' => [
+                    'create' => Auth::user()->can('create', Campaign::class),
                 ],
-                'donation'=>[
-                    'create'=>Auth::user()->can('create',Donation::class),
+                'donation' => [
+                    'create' => Auth::user()->can('create', Donation::class),
                 ],
-                'reports'=>[
-                    'view'=>true //Auth::user()->isAdmin()
+                'reports' => [
+                    'view' => true //Auth::user()->isAdmin()
                 ]
             ]
         ]);
+    }
+
+    public function fixCampaignCategoryCount(Request $request)
+    {
+        abort_if(!Auth::user()->isAdmin(), 403);
+
+        $donors = Donor::get();
+
+        DB::beginTransaction();
+        try {
+            foreach ($donors as $donor) {
+                $campaigns = Donation::where('donor_id', $donor->id)->pluck('campaign_id')->toArray();
+                $donor->campaigns()->syncWithoutDetaching($campaigns);
+                $categories = Campaign::whereIn('id', $campaigns)->pluck('category_id')->toArray();
+                $donor->categories()->syncWithoutDetaching($categories);
+            }
+            DB::commit();
+            return back()->with('success','Sync process completed successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error',error_message($th->getMessage()));
+        }
+
     }
 }

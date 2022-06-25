@@ -26,6 +26,15 @@ export default function Index() {
                         >
                             Add Donor
                         </Link>
+                        <Link href={route('fixCampaignCategoryCount')}
+                            as="button"
+                            type="button"
+                            onBefore={()=>confirm('you are about to sync campaign and category count to all donors, proceed?')}
+                            method="post"
+                            className="ml-2 button button-danger"
+                        >
+                            Sync Category and Campaign Count
+                        </Link>
                     </div>
                 }
             </div>

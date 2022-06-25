@@ -13,12 +13,21 @@ class Donor extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $withCount = ['donations'];
+    protected $withCount = ['donations','categories','campaigns'];
 
     public function donations()
     {
         return $this->hasMany(Donation::class);
     }
+    public function campaigns()
+    {
+        return $this->belongsToMany(Campaign::class);
+    }
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

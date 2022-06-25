@@ -18,9 +18,6 @@ class DonorResource extends JsonResource
      */
     public function toArray($request)
     {
-        $campaigns = Donation::where('donor_id', $this->id)->pluck('campaign_id')->toArray();
-        $categories = Campaign::whereIn('id',$campaigns)->pluck('category_id')->toArray();
-
         return [
             'id' => $this->id,
             'alias' => $this->alias,
@@ -29,8 +26,8 @@ class DonorResource extends JsonResource
             'user' => UserResource::make($this->user),
             'remarks'=>$this->whenAppended('remarks',$this->remarks),
             'total_donations' => __('AED').' '. friendly_money($this->donations->sum('amount')),
-            'categories_count' => Category::whereIn('id', $categories)->count(),
-            'campaigns_count' => Campaign::whereIn('id', $campaigns)->count(),
+            'categories_count' => $this->categories_count,
+            'campaigns_count'=> $this->campaigns_count,
             'donations_count' => $this->donations_count,
             'can'=> [
                 'view'=>Auth::user()->can('view',$this->resource),

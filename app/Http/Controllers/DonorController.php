@@ -30,6 +30,7 @@ class DonorController extends Controller
             request('order_by') ?? 'created_at',
             request('order_direction') ?? 'desc'
         )
+
             ->when(request('search'), function ($q) {
                 return $q->where('name', 'like', '%' . request('search') . '%');
             });

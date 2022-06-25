@@ -221,13 +221,23 @@ function Index() {
           className: "mt-2 text-sm text-gray-700",
           children: "A list of all the donors in your account including their name, title, email and role."
         })]
-      }), can.create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      }), can.create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         className: "mt-4 sm:mt-0 sm:ml-16 sm:flex-none",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.Link, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.Link, {
           href: route('donors.create'),
           className: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto",
           children: "Add Donor"
-        })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.Link, {
+          href: route('fixCampaignCategoryCount'),
+          as: "button",
+          type: "button",
+          onBefore: function onBefore() {
+            return confirm('you are about to sync campaign and category count to all donors, proceed?');
+          },
+          method: "post",
+          className: "ml-2 button button-danger",
+          children: "Sync Category and Campaign Count"
+        })]
       })]
     }), can.viewAny ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
       children: [count > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_Shared_Table_Table__WEBPACK_IMPORTED_MODULE_2__["default"], {
