@@ -171,9 +171,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var chart_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! chart.js */ "./node_modules/chart.js/dist/chart.esm.js");
-/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/dist/index.js");
+/* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/dist/index.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
 
 
 
@@ -194,13 +217,62 @@ var options = {
 };
 function DonationsTimeLine() {
   var donationsData = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.usePage)().props.donationsData;
+
+  function classNames() {
+    for (var _len = arguments.length, classes = new Array(_len), _key = 0; _key < _len; _key++) {
+      classes[_key] = arguments[_key];
+    }
+
+    return classes.filter(Boolean).join(' ');
+  }
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      tabs = _useState2[0],
+      setTabs = _useState2[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (donationsData && donationsData.all && donationsData.all.length > 0) {
+      updateLabels();
+    }
+  }, []);
+
+  function updateLabels() {
+    var year = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var currentLoopedYear = 0;
+    var newTabs = tabs.length ? tabs : donationsData.all;
+    var updatedTabs = newTabs.map(function (record) {
+      if (currentLoopedYear != record.year) {
+        currentLoopedYear = record.year;
+        return {
+          year: record.year,
+          current: year == record.year ? true : false
+        };
+      }
+    });
+    var finalTabs = updatedTabs.filter(function (tab) {
+      return tab;
+    });
+
+    if (!tabs.length) {
+      setTabs(function (prev) {
+        return [{
+          year: 'Max',
+          current: year ? false : true
+        }].concat(_toConsumableArray(finalTabs));
+      });
+    } else {
+      setTabs(finalTabs);
+    }
+  }
+
   var data = {
     labels: donationsData.all.map(function (record) {
       return record.month + '-' + record.year;
     }),
     datasets: [{
       fill: true,
-      label: 'Total Donations',
+      label: donationsData.label,
       data: donationsData.all.map(function (record) {
         return record.data;
       }),
@@ -215,9 +287,64 @@ function DonationsTimeLine() {
     //   },
     ]
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_4__.Line, {
-    options: options,
-    data: data
+
+  function handleYearSelection(e) {
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_3__.Inertia.get(route(route().current(), route().params), {
+      year: e.target ? e.target.value : e
+    }, {
+      replace: true,
+      preserveState: true,
+      preserveScroll: true,
+      onFinish: function onFinish() {
+        return updateLabels(e.target ? e.target.value : e);
+      }
+    });
+  }
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [tabs.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      className: "mt-6 border-t border-gray-200 pt-6",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+        className: "sm:hidden",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+          htmlFor: "tabs",
+          className: "sr-only",
+          children: "Select a tab"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
+          id: "tabs",
+          name: "tabs",
+          className: "block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md",
+          defaultValue: tabs.find(function (tab) {
+            return tab.current;
+          }).year,
+          onChange: handleYearSelection,
+          children: tabs.map(function (tab) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+              children: tab.year
+            }, tab.year);
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        className: "hidden sm:block",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("nav", {
+          className: "flex space-x-4",
+          "aria-label": "Tabs",
+          children: tabs.map(function (tab) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              onClick: function onClick() {
+                return handleYearSelection(tab.year);
+              },
+              className: classNames(tab.current ? 'bg-indigo-100 text-indigo-700' : 'text-gray-500 hover:text-gray-700', 'px-3 py-2 font-medium text-sm rounded-md'),
+              "aria-current": tab.current ? 'page' : undefined,
+              children: tab.year
+            }, tab.year);
+          })
+        })
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_chartjs_2__WEBPACK_IMPORTED_MODULE_5__.Line, {
+      options: options,
+      data: data
+    })]
   });
 }
 
@@ -313,6 +440,15 @@ function DonationsPerCampaignChart(_ref) {
       title: {
         display: true,
         text: 'Number of Donations per Campaign'
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          callback: function callback(val, index) {
+            return this.getLabelForValue(val).substring(0, 10);
+          }
+        }
       }
     }
   };

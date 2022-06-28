@@ -20,6 +20,8 @@ class CampaignFactory extends Factory
             'slug'=>$this->faker->slug,
             'target'=>$this->faker->randomDigitNotZero()*100000,
             'category_id'=>Category::inRandomOrder()->first()->id,
+            'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
+            'updated_at'=>$date,
         ];
     }
 }

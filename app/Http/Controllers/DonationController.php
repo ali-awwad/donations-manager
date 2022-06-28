@@ -30,7 +30,7 @@ class DonationController extends Controller
         $this->authorize('viewAny', Donation::class);
 
         $query = Donation::orderBy(
-            request('order_by') ?? 'id',
+            request('order_by') ?? 'donation_date',
             request('order_direction') ?? 'desc'
         )
             ->leftJoin('donors', 'donors.id', '=', 'donations.donor_id')
@@ -52,8 +52,8 @@ class DonationController extends Controller
             'items' => DonationResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Donation::count(),
             'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? '',
-            'order_direction' => request('order_direction') ?? '',
+            'order_by' => request('order_by') ?? 'donation_date',
+            'order_direction' => request('order_direction') ?? 'desc',
             'columns' => [
                 ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
                 ['label' => 'amount', 'field' => 'amount', 'data_type' => 'text'],

@@ -15,9 +15,11 @@ class CategoryFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'color' => $this->faker->colorName,
+            'color' => $this->faker->rgbCssColor(),
             'description' => $this->faker->sentence,
-            'slug'=>$this->faker->slug
+            'slug'=>$this->faker->slug,
+            'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
+            'updated_at'=>$date,
         ];
     }
 }

@@ -19,6 +19,8 @@ class DonorFactory extends Factory
             'alias' => $this->faker->colorName,
             'remarks' => $this->faker->paragraph(10),
             'user_id'=>User::inRandomOrder()->first()->id,
+            'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
+            'updated_at'=>$date,
         ];
     }
 }

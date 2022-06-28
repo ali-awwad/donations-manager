@@ -21,10 +21,12 @@ class DatabaseSeeder extends Seeder
                 'user_type'=>'admin',
             ]
         );
-        \App\Models\Category::factory(3)->create();
+        \App\Models\Category::factory(1)->create(['name'=>'Health']);
+        \App\Models\Category::factory(1)->create(['name'=>'Education']);
+        \App\Models\Category::factory(1)->create(['name'=>'Food']);
         \App\Models\Campaign::factory(7)->create();
         \App\Models\Donor::factory(15)->create();
-        \App\Models\Donation::factory(40)->create();
+        \App\Models\Donation::factory(130)->create();
 
 
     }

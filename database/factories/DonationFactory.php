@@ -23,7 +23,9 @@ class DonationFactory extends Factory
             'donor_id'=>Donor::inRandomOrder()->first()->id,
             'amount'=>$this->faker->randomDigitNotZero()*10000,
             'description'=>$this->faker->paragraph(4),
-            'donation_date'=>$this->faker->dateTimeThisMonth(),
+            'donation_date'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
+            'created_at'=>$date,
+            'updated_at'=>$date,
             'uuid'=>Str::uuid()
         ];
     }

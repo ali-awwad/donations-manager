@@ -99,9 +99,9 @@ function FormSteps(_ref) {
     setSteps(updatedSteps);
   }, [currentStep]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "bg-white lg:border-t lg:border-b lg:border-gray-200",
+    className: "lg:bg-white lg:border-t lg:border-b lg:border-gray-200",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("nav", {
-      className: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
+      className: "mx-auto max-w-7xl lg:px-8",
       "aria-label": "Progress",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("ol", {
         role: "list",
@@ -111,7 +111,7 @@ function FormSteps(_ref) {
             onClick: function onClick() {
               return changeStep(step.id);
             },
-            className: "relative overflow-hidden lg:flex-1",
+            className: "".concat(currentStep != step.id ? 'hidden lg:block' : '', " relative bg-white lg:bg-transparent overflow-hidden lg:flex-1"),
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
               className: classNames(stepIdx === 0 ? 'border-b-0 rounded-t-md' : '', stepIdx === steps.length - 1 ? 'border-t-0 rounded-b-md' : '', 'border border-gray-200 overflow-hidden lg:border-0'),
               children: [step.status === 'complete' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {

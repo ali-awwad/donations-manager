@@ -6,14 +6,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
-use App\Models\Category;
-use App\Models\Donation;
-use App\Models\User;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +26,6 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('dashboard');
     })->name('home');
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-
-
     Route::resource('users', UserController::class);
     Route::resource('campaigns', CampaignController::class);
     Route::resource('categories', CategoryController::class);

@@ -35,7 +35,7 @@ class HomeController extends Controller
                 'values' => Category::pluck('campaigns_count'),
             ],
             'campaigns' => [
-                'labels' => Campaign::pluck('name'),
+                'labels' => Campaign::pluck('name'),//select(DB::raw("LEFT(name, 16) as short_name"))
                 'values' => Campaign::pluck('donations_count'),
             ],
             'categoriesTargetCollected' => [
@@ -44,22 +44,27 @@ class HomeController extends Controller
                 'collectedValues' => $collection->all() ? $collection->all()['collected'] : null,
             ],
             'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
-            // 'donationsData'=>
-            //     [
-            //         'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
-            //         ->groupBy('year', 'month','monthNumber')
-            //         ->orderBy('monthNumber', 'asc')
-            //         ->orderBy('year', 'asc')
-            //         ->get(),
-            //         // TODO : below omitts the months without donor results.
-            //         'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
-            //         ->groupBy('year', 'month','monthNumber')
-            //         ->orderBy('monthNumber', 'asc')
-            //         ->orderBy('year', 'asc')
-            //         ->whereIn('donor_id',Donor::where('user_id',Auth::id())->pluck('id'))
-            //         ->get(),
-            //     ]
-            // ,
+            'donationsData'=>
+                [
+                    'label'=>'Total Donations '.__(config('services.currency')),
+                    'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+                    ->when(request('year') && request('year')!='Max',function ($q)
+                    {
+                        $q->whereYear('donation_date',request('year'));
+                    })
+                    ->groupBy('year', 'month','monthNumber')
+                    ->orderBy('year', 'asc')
+                    ->orderBy('monthNumber', 'asc')
+                    ->get(),
+                    // TODO : below omitts the months without donor results.
+                    'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+                    ->groupBy('year', 'month','monthNumber')
+                    ->orderBy('monthNumber', 'asc')
+                    ->orderBy('year', 'asc')
+                    ->whereIn('donor_id',Donor::where('user_id',Auth::id())->pluck('id'))
+                    ->get(),
+                ]
+            ,
             'can' => [
                 'campaign' => [
                     'create' => Auth::user()->can('create', Campaign::class),

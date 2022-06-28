@@ -44,8 +44,8 @@ class DonorController extends Controller
             'items' => DonorResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Donor::count(),
             'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? '',
-            'order_direction' => request('order_direction') ?? '',
+            'order_by' => request('order_by') ?? 'created_at',
+            'order_direction' => request('order_direction') ?? 'desc',
             'columns' => [
                 ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
                 ['label' => 'Alias', 'field' => 'alias', 'data_type' => 'text'],

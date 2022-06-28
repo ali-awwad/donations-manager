@@ -35,8 +35,8 @@ class CategoryController extends Controller
             'items' => CategoryResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Category::count(),
             'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? '',
-            'order_direction' => request('order_direction') ?? '',
+            'order_by' => request('order_by') ?? 'id',
+            'order_direction' => request('order_direction') ?? 'desc',
             'columns' => [
                 ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
                 ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
