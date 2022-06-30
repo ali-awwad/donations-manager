@@ -33,7 +33,7 @@ export default function Index() {
                             method="post"
                             className="ml-2 button button-danger"
                         >
-                            Sync Category and Campaign Count
+                            Sync Count
                         </Link>
                     </div>
                 }

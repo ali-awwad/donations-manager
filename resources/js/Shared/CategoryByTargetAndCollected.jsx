@@ -27,7 +27,7 @@ export function CategoryByTargetAndCollected({labels, targetData, collectedData}
             position: 'top',
           },
           title: {
-            display: true,
+            display: false,
             text: 'Categories by Target and Actually Collected',
           },
         },

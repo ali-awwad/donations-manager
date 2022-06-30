@@ -133,7 +133,7 @@ function CategoryByTargetAndCollected(_ref) {
         position: 'top'
       },
       title: {
-        display: true,
+        display: false,
         text: 'Categories by Target and Actually Collected'
       }
     }
@@ -210,7 +210,7 @@ var options = {
       position: 'top'
     },
     title: {
-      display: true,
+      display: false,
       text: 'Donations timeline'
     }
   }
@@ -304,7 +304,10 @@ function DonationsTimeLine() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     children: [tabs.length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "mt-6 border-t border-gray-200 pt-6",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+        className: "text-xl text-center text-indigo-500",
+        children: "Donations"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "sm:hidden",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
           htmlFor: "tabs",
@@ -438,7 +441,7 @@ function DonationsPerCampaignChart(_ref) {
         position: 'top'
       },
       title: {
-        display: true,
+        display: false,
         text: 'Number of Donations per Campaign'
       }
     },

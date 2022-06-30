@@ -27,7 +27,7 @@ export function DonationsPerCampaignChart({ labels, dsData }) {
                 position: 'top',
             },
             title: {
-                display: true,
+                display: false,
                 text: 'Number of Donations per Campaign',
             },
         },

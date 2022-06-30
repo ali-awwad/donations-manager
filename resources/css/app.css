@@ -135,4 +135,3 @@ button:disabled, button:hover:disabled
 .btn-table-xs.info {
     @apply text-blue-400 hover:text-blue-700 focus:text-blue-900 focus:ring-2 focus:ring-blue-400;
 }
-

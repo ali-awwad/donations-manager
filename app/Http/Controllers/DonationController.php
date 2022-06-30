@@ -56,7 +56,7 @@ class DonationController extends Controller
             'order_direction' => request('order_direction') ?? 'desc',
             'columns' => [
                 ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'amount', 'field' => 'amount', 'data_type' => 'text'],
+                ['label' => 'Amount', 'field' => 'amount', 'data_type' => 'text'],
                 ['label' => 'Category', 'field' => 'category', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'categories']],
                 ['label' => 'Campaign', 'field' => 'campaign', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'campaigns']],
                 ['label' => 'Donor', 'field' => 'donor', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'donors']],
@@ -252,6 +252,6 @@ class DonationController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
-        return Redirect::route('donors.index')->with('success', 'Item deleted successfully');
+        return Redirect::route('donations.index')->with('success', 'Item deleted successfully');
     }
 }

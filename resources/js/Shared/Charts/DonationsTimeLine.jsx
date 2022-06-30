@@ -32,7 +32,7 @@ export const options = {
             position: 'top',
         },
         title: {
-            display: true,
+            display: false,
             text: 'Donations timeline',
         },
     },
@@ -101,6 +101,7 @@ export function DonationsTimeLine() {
         <div>
             {tabs.length && (
                 <div className="mt-6 border-t border-gray-200 pt-6">
+                    <h3 className='text-xl text-center text-indigo-500'>Donations</h3>
                     <div className="sm:hidden">
                         <label htmlFor="tabs" className="sr-only">
                             Select a tab

@@ -47,14 +47,14 @@ class HomeController extends Controller
             'donationsData'=>
                 [
                     'label'=>'Total Donations '.__(config('services.currency')),
-                    'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+                    'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) monthName, month(donation_date) month, sum(amount) / 100 data')
                     ->when(request('year') && request('year')!='Max',function ($q)
                     {
                         $q->whereYear('donation_date',request('year'));
                     })
-                    ->groupBy('year', 'month','monthNumber')
+                    ->groupBy('year', 'month','monthName')
                     ->orderBy('year', 'asc')
-                    ->orderBy('monthNumber', 'asc')
+                    ->orderBy('month', 'asc')
                     ->get(),
                     // TODO : below omitts the months without donor results.
                     'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
