@@ -13,7 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(3)->create();
         \App\Models\User::factory(1)->create(
             [
                 'name'=>'Demo Account',
@@ -21,6 +20,7 @@ class DatabaseSeeder extends Seeder
                 'user_type'=>'admin',
             ]
         );
+        \App\Models\User::factory(3)->create();
         \App\Models\Category::factory(1)->create(['name'=>'Health']);
         \App\Models\Category::factory(1)->create(['name'=>'Education']);
         \App\Models\Category::factory(1)->create(['name'=>'Food']);

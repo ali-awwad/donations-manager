@@ -26,8 +26,7 @@ class HomeController extends Controller
             $labels['collected'][] = friendly_money(Donation::whereIn('campaign_id', Campaign::where('category_id', $category->id)->pluck('id')->values())->sum('amount'));
         }
         $collection = collect($labels);
-
-        return Inertia::render('Home', [
+        $data = [
             'title' => 'My Dashboard',
             'categories' => [
                 'labels' => Category::pluck('name'),
@@ -35,7 +34,7 @@ class HomeController extends Controller
                 'values' => Category::pluck('campaigns_count'),
             ],
             'campaigns' => [
-                'labels' => Campaign::pluck('name'),//select(DB::raw("LEFT(name, 16) as short_name"))
+                'labels' => Campaign::pluck('name'), //select(DB::raw("LEFT(name, 16) as short_name"))
                 'values' => Campaign::pluck('donations_count'),
             ],
             'categoriesTargetCollected' => [
@@ -43,40 +42,48 @@ class HomeController extends Controller
                 'targetValues' => $collection->all() ? $collection->all()['target'] : null,
                 'collectedValues' => $collection->all() ? $collection->all()['collected'] : null,
             ],
-            'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->paginate(3)),
-            'donationsData'=>
-                [
-                    'label'=>'Total Donations '.__(config('services.currency')),
-                    'all'=> Donation::selectRaw('year(donation_date) year, monthname(donation_date) monthName, month(donation_date) month, sum(amount) / 100 data')
-                    ->when(request('year') && request('year')!='Max',function ($q)
-                    {
-                        $q->whereYear('donation_date',request('year'));
+            'campaigns_completion' => CampaignResource::collection(Campaign::orderByDesc('created_at')->take(6)->get()),
+            'donationsData' =>
+            [
+                'label' => 'Total Donations ' . __(config('services.currency')),
+                'all' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) monthName, month(donation_date) month, sum(amount) / 100 data')
+                    ->when(request('year') && request('year') != 'Max', function ($q) {
+                        $q->whereYear('donation_date', request('year'));
                     })
-                    ->groupBy('year', 'month','monthName')
+                    ->groupBy('year', 'month', 'monthName')
                     ->orderBy('year', 'asc')
                     ->orderBy('month', 'asc')
                     ->get(),
-                    // TODO : below omitts the months without donor results.
-                    'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
-                    ->groupBy('year', 'month','monthNumber')
+                // TODO : below omitts the months without donor results.
+                'currentUserDonors' => Donation::selectRaw('year(donation_date) year, monthname(donation_date) month, month(donation_date) monthNumber, sum(amount) / 100 data')
+                    ->groupBy('year', 'month', 'monthNumber')
                     ->orderBy('monthNumber', 'asc')
                     ->orderBy('year', 'asc')
-                    ->whereIn('donor_id',Donor::where('user_id',Auth::id())->pluck('id'))
+                    ->whereIn('donor_id', Donor::where('user_id', Auth::id())->pluck('id'))
                     ->get(),
-                ]
-            ,
+            ],
             'can' => [
-                'campaign' => [
+                'campaigns' => [
                     'create' => Auth::user()->can('create', Campaign::class),
                 ],
-                'donation' => [
+                'donations' => [
                     'create' => Auth::user()->can('create', Donation::class),
+                ],
+                'categories' => [
+                    'create' => Auth::user()->can('create', Category::class),
+                ],
+                'donors' => [
+                    'create' => Auth::user()->can('create', Donor::class),
                 ],
                 'reports' => [
                     'view' => true //Auth::user()->isAdmin()
                 ]
             ]
-        ]);
+        ];
+        if(!Category::count() || !Campaign::count() || !Donor::count()) {
+            $data['flash'] = ['info'=>'Note: To Get started, you need to create, at least a category, a campaign, and a donor.'];
+        }
+        return Inertia::render('Home', $data);
     }
 
     public function fixCampaignCategoryCount(Request $request)
@@ -94,11 +101,10 @@ class HomeController extends Controller
                 $donor->categories()->syncWithoutDetaching($categories);
             }
             DB::commit();
-            return back()->with('success','Sync process completed successfully.');
+            return back()->with('success', 'Sync process completed successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return back()->with('error',error_message($th->getMessage()));
+            return back()->with('error', error_message($th->getMessage()));
         }
-
     }
 }

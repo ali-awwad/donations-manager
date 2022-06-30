@@ -1,12 +1,8 @@
 import {
-    CalendarIcon,
-    ClockIcon,
     CurrencyDollarIcon,
     GiftIcon,
-    PhotographIcon,
-    TableIcon,
-    ViewBoardsIcon,
-    ViewListIcon,
+    TagIcon,
+    UsersIcon,
 } from '@heroicons/react/outline'
 import { Link } from '@inertiajs/inertia-react'
 
@@ -18,7 +14,7 @@ export default function StartingPoint({ can }) {
             icon: CurrencyDollarIcon,
             background: 'bg-pink-500',
             href: route('donations.create'),
-            enabled: can.donation.create
+            enabled: can.donations.create
         },
         {
             title: 'Create a Campaign',
@@ -26,7 +22,23 @@ export default function StartingPoint({ can }) {
             icon: GiftIcon,
             background: 'bg-yellow-500',
             href: route('campaigns.create'),
-            enabled: can.campaign.create
+            enabled: can.campaigns.create
+        },
+        {
+            title: 'Create a Category',
+            description: 'Create a category, such as Education, Health, Food ... etc.',
+            icon: TagIcon,
+            background: 'bg-indigo-500',
+            href: route('categories.create'),
+            enabled: can.categories.create
+        },
+        {
+            title: 'Create a Donor',
+            description: 'Create the donor accounts.',
+            icon: UsersIcon,
+            background: 'bg-green-500',
+            href: route('donors.create'),
+            enabled: can.donors.create
         },
 
     ]
@@ -37,7 +49,7 @@ export default function StartingPoint({ can }) {
 
     return (
         <>
-            {(can.campaign.create || can.donation.create) &&
+            {(can.campaigns.create || can.donations.create) &&
                 <div>
                     <h2 className="text-lg font-medium text-gray-900">Quick Start</h2>
                     <p className="mt-1 text-sm text-gray-500">

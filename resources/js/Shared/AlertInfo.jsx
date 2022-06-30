@@ -10,11 +10,6 @@ export default function AlertInfo({message}) {
         </div>
         <div className="ml-3 flex-1 md:flex md:justify-between">
           <p className="text-sm text-blue-700">{message}</p>
-          <p className="mt-3 text-sm md:mt-0 md:ml-6">
-            <a href="#" className="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600">
-              Details <span aria-hidden="true">&rarr;</span>
-            </a>
-          </p>
         </div>
       </div>
     </div>
