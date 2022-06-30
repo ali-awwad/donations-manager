@@ -28,7 +28,7 @@ export default function Home() {
     return (
         <div>
             <StartingPoint can={can} />
-            {(can.reports.view && campaigns_completion.data && campaigns_completion.data.data) &&
+            {(can.reports.view && campaigns_completion.data && campaigns_completion.data.length>0) &&
                 <div className="my-4">
                     <DonationsCompletion data={campaigns_completion} />
                     <DonationsTimeLine />

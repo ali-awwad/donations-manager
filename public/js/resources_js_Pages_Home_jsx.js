@@ -53,7 +53,7 @@ function Home() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Shared_StartingPoint__WEBPACK_IMPORTED_MODULE_5__["default"], {
       can: can
-    }), can.reports.view && campaigns_completion.data && campaigns_completion.data.data && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+    }), can.reports.view && campaigns_completion.data && campaigns_completion.data.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "my-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Shared_DonationsCompletion__WEBPACK_IMPORTED_MODULE_4__["default"], {
         data: campaigns_completion
