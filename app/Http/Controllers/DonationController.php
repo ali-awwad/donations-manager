@@ -10,6 +10,7 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Donor;
+use App\Traits\GenericTableColumns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,16 +21,11 @@ use Inertia\Inertia;
 
 class DonationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $this->authorize('viewAny', Donation::class);
+    use GenericTableColumns;
 
-        $query = Donation::orderBy(
+    public function initQuery()
+    {
+        return Donation::orderBy(
             request('order_by') ?? 'donation_date',
             request('order_direction') ?? 'desc'
         )
@@ -42,42 +38,31 @@ class DonationController extends Controller
                     ->orWhere('categories.name', 'like', '%' . request('search') . '%')
                     ->orWhere('donors.name', 'like', '%' . request('search') . '%');
             });
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $this->authorize('viewAny', Donation::class);
+
+        $query = $this->initQuery();
         if (!Auth::user()->isAdmin()) {
             $query->whereHas('donor', function (Builder $q) {
                 $q->where('donors.user_id', Auth::id());
             });
         }
-        return Inertia::render('Donations/Index', [
+        return Inertia::render('Donations/Index', array_merge([
             'title' => 'Donations',
             'items' => DonationResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Donation::count(),
-            'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? 'donation_date',
-            'order_direction' => request('order_direction') ?? 'desc',
-            'columns' => [
-                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'Amount', 'field' => 'amount', 'data_type' => 'text'],
-                ['label' => 'Category', 'field' => 'category', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'categories']],
-                ['label' => 'Campaign', 'field' => 'campaign', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'campaigns']],
-                ['label' => 'Donor', 'field' => 'donor', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'donors']],
-                ['label' => 'Date', 'field' => 'donation_date', 'data_type' => 'datetime'],
-                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
-            ],
-            'filters' => request()->only(['search', 'per_page']),
-            'actions' => [
-                [
-                    'name' => 'destroy',
-                    'text' => __('Delete'),
-                    'route' => 'donations.destroy',
-                    'method' => getRouteMethod('donations.destroy'),
-                    'require_selection' => true
-                ],
-            ],
             'can' => [
                 'viewAny' => Auth::user()->can('viewAny', Donation::class),
                 'create' => Auth::user()->can('create', Donation::class),
             ]
-        ]);
+        ], $this->settings('donations')));
     }
 
     /**
@@ -238,13 +223,14 @@ class DonationController extends Controller
      * @param  \App\Models\Donation  $donation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Donation $donation)
+    public function destroy($ids)
     {
-        $this->authorize('delete', $donation);
-
+        foreach (explode(',',$ids) as $id) {
+            $this->authorize('delete', Donation::find($id));
+        }
         DB::beginTransaction();
         try {
-            $donation->delete();
+            Donation::destroy(explode(',',$ids));
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -252,6 +238,9 @@ class DonationController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
+        if(url()->previous()==route('donations.show',$ids))
         return Redirect::route('donations.index')->with('success', 'Item deleted successfully');
+        else
+        return back()->with('success', 'Item deleted successfully');
     }
 }

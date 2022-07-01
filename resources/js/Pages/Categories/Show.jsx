@@ -1,10 +1,13 @@
+import EmptyIndex from '@/Shared/EmptyIndex';
+import Table from '@/Shared/Table/Table';
 import { PencilIcon, TrashIcon } from '@heroicons/react/outline';
 import { Link, usePage } from '@inertiajs/inertia-react'
-import React from 'react'
+import React, { useState } from 'react'
 import CampaignsTable from '../Campaigns/CampaignsTable';
 
 export default function Show() {
-    const { item, campaigns, can } = usePage().props;
+    const { item, count, can } = usePage().props;
+    const [selectedItems, setSelectedItems] = useState([]);
 
     return (
         <>
@@ -14,19 +17,21 @@ export default function Show() {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Category Information</h3>
                         <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
                     </div>
-                    <div className="px-4 py-5 sm:px-6">
+                    <div>
+                    <div className="flex flex-nowrap px-4 py-5 sm:px-6">
                         {item.data.can.update &&
                             <Link href={route('categories.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
                                 <PencilIcon className="btn-icon" aria-hidden="true" />
-                                Edit<span className="sr-only">, {item.data.name}</span>
+                                <span className="hidden lg:inline">Edit</span>
                             </Link>
                         }
                         {item.data.can.delete &&
                             <Link as='button' method="DELETE" href={route('categories.destroy', item.data.id)} className="btn btn-normal btn-danger">
                                 <TrashIcon className="btn-icon" aria-hidden="true" />
-                                Delete<span className="sr-only">, {item.data.name}</span>
+                                <span className="hidden lg:inline">Delete</span>
                             </Link>
                         }
+                    </div>
                     </div>
                 </div>
 
@@ -76,8 +81,8 @@ export default function Show() {
                         </div>
                     }
                 </div>
-                {/* <h2 className="text-lg font-medium text-gray-900">Campaigns</h2> */}
-                <CampaignsTable items={campaigns}></CampaignsTable>
+                {count > 0 && <Table baseRoute="campaigns" selectedItems={selectedItems} setSelectedItems={setSelectedItems} />}
+                {count == 0 && <EmptyIndex signular="campaign" plural="campaigns" routeName="campaigns.create" />}
             </div>
         </>
     )

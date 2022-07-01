@@ -4,7 +4,6 @@ import Forbidden from "@/Shared/Errors/Forbidden";
 import Table from "@/Shared/Table/Table";
 import { Link, usePage } from "@inertiajs/inertia-react"
 import { useState } from "react";
-import DonorsTable from "./DonorsTable";
 
 export default function Index() {
     const { count, can } = usePage().props;

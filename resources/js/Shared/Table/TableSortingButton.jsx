@@ -38,6 +38,7 @@ export default function TableSortingButton({ field, label, dataType, objectData,
                 { order_by: orderByField, page: 1, order_direction: (isOrderDesc ? 'desc' : 'asc') },
                 {
                     preserveState: true,
+                    preserveScroll:true,
                     only: ['items'],
                     onFinish: () => {
                         setFetchingData(false);

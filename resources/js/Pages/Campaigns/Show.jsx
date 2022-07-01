@@ -17,19 +17,21 @@ export default function Show() {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Campaign Information</h3>
                         <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {item.data.name}</p>
                     </div>
-                    <div className="px-4 py-5 sm:px-6">
-                        {item.data.can.update &&
-                            <Link href={route('campaigns.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
-                                <PencilIcon className="btn-icon" aria-hidden="true" />
-                                Edit<span className="sr-only">, {item.data.name}</span>
-                            </Link>
-                        }
-                        {item.data.can.delete &&
-                            <Link as='button' method="DELETE" href={route('campaigns.destroy', item.data.id)} className="btn btn-normal btn-danger">
-                                <TrashIcon className="btn-icon" aria-hidden="true" />
-                                Delete<span className="sr-only">, {item.data.name}</span>
-                            </Link>
-                        }
+                    <div>
+                        <div className="flex flex-nowrap px-4 py-5 sm:px-6">
+                            {item.data.can.update &&
+                                <Link href={route('campaigns.edit', item.data.id)} className="btn btn-normal btn-indigo mr-1">
+                                    <PencilIcon className="btn-icon" aria-hidden="true" />
+                                    <span className="hidden lg:inline">Edit</span>
+                                </Link>
+                            }
+                            {item.data.can.delete &&
+                                <Link as='button' method="DELETE" href={route('campaigns.destroy', item.data.id)} className="btn btn-normal btn-danger">
+                                    <TrashIcon className="btn-icon" aria-hidden="true" />
+                                    <span className="hidden lg:inline">Delete</span>
+                                </Link>
+                            }
+                        </div>
                     </div>
 
                 </div>

@@ -6,6 +6,7 @@ use App\Http\Resources\DonorResource;
 use App\Http\Resources\UserResource;
 use App\Models\Donor;
 use App\Models\User;
+use App\Traits\GenericTableColumns;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
+    use GenericTableColumns;
     /**
      * Display a listing of the resource.
      *
@@ -35,35 +37,18 @@ class UserController extends Controller
                     ->orWhere('email', 'like', '%' . request('search') . '%');
             });
 
-        return Inertia::render('Users/Index', [
-            'title' => 'Users Page',
-            'items' => UserResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
-            'count' => User::count(),
-            'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? 'created_at',
-            'order_direction' => request('order_direction') ?? 'desc',
-            'columns' => [
-                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
-                ['label' => 'Email', 'field' => 'email', 'data_type' => 'text'],
-                // ['label' => 'Donors', 'field' => 'donors', 'data_type' => 'text'],
-                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
+        return Inertia::render('Users/Index', array_merge(
+            [
+                'title' => 'Users Page',
+                'items' => UserResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
+                'count' => User::count(),
+                'can' => [
+                    'viewAny' => Auth::user()->can('viewAny', User::class),
+                    'create' => Auth::user()->can('create', User::class),
+                ]
             ],
-            'filters' => request()->only(['search', 'per_page']),
-            'actions' => [
-                [
-                    'name' => 'destroy',
-                    'text' => __('Delete'),
-                    'route' => 'users.destroy',
-                    'method' => getRouteMethod('users.destroy'),
-                    'require_selection' => true
-                ],
-            ],
-            'can' => [
-                'viewAny' => Auth::user()->can('viewAny', User::class),
-                'create' => Auth::user()->can('create', User::class),
-            ]
-        ]);
+            $this->settings('users')
+        ));
     }
 
     /**
@@ -125,11 +110,25 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
 
-        return Inertia::render('Users/Show', [
+        $query = Donor::orderBy(
+            request('order_by') ?? 'created_at',
+            request('order_direction') ?? 'desc'
+        )
+
+            ->when(request('search'), function ($q) {
+                return $q->where('name', 'like', '%' . request('search') . '%');
+            });
+
+        if (!Auth::user()->isAdmin()) {
+            $query->where('donors.user_id', Auth::id());
+        }
+
+        return Inertia::render('Users/Show', array_merge([
             'title' => $user->name,
             'item' => UserResource::make($user),
-            'donors' => DonorResource::collection(Donor::where('user_id', $user->id)->orderByDesc('created_at')->paginate())
-        ]);
+            'count' => Donor::where('user_id', $user->id)->count(),
+            'items' => DonorResource::collection($query->where('user_id', $user->id)->orderByDesc('created_at')->paginate())
+        ],$this->settings('donors')));
     }
 
     /**
@@ -193,13 +192,14 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($ids)
     {
-        $this->authorize('delete', $user);
-
+        foreach (explode(',',$ids) as $id) {
+            $this->authorize('delete', User::find($id));
+        }
         DB::beginTransaction();
         try {
-            $user->delete();
+            User::destroy(explode(',',$ids));
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -207,6 +207,9 @@ class UserController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
+        if(url()->previous()==route('users.show',$ids))
         return Redirect::route('users.index')->with('success', 'Item deleted successfully');
+        else
+        return back()->with('success', 'Item deleted successfully');
     }
 }

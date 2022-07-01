@@ -8,6 +8,7 @@ use App\Http\Resources\DonationResource;
 use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
+use App\Traits\GenericTableColumns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,24 @@ use Inertia\Inertia;
 
 class CampaignController extends Controller
 {
+    use GenericTableColumns;
+
+    public function initQuery()
+    {
+        return Campaign::orderBy(
+            request('order_by') ?? 'id',
+            request('order_direction') ?? 'desc'
+        )
+            ->leftJoin('donations', 'campaigns.id', '=', 'donations.campaign_id')
+            ->leftJoin('categories', 'categories.id', '=', 'campaigns.category_id')
+            ->select('campaigns.*', DB::raw('SUM(donations.amount) as collected'), DB::raw('(SELECT sum(donations.amount) FROM donations where donations.campaign_id = campaigns.id) / target as percentage'))
+            // ->select('campaigns.*')
+            ->when(request('search'), function ($q) {
+                return $q->where('campaigns.name', 'like', '%' . request('search') . '%')
+                    ->orWhere('categories.name', 'like', '%' . request('search') . '%');
+            })
+            ->groupBy('campaigns.id');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,51 +45,16 @@ class CampaignController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Campaign::class);
-        $query = Campaign::orderBy(
-            request('order_by') ?? 'id',
-            request('order_direction') ?? 'desc'
-        )
-        ->leftJoin('donations', 'campaigns.id','=','donations.campaign_id')
-            ->leftJoin('categories', 'categories.id', '=', 'campaigns.category_id')
-            ->select('campaigns.*', DB::raw('SUM(donations.amount) as collected'), DB::raw('(SELECT sum(donations.amount) FROM donations where donations.campaign_id = campaigns.id) / target as percentage'))
-            // ->select('campaigns.*')
-            ->when(request('search'), function ($q) {
-                return $q->where('campaigns.name', 'like', '%' . request('search') . '%')
-                ->orWhere('categories.name', 'like', '%' . request('search') . '%');
-            })
-            ->groupBy('campaigns.id')
-            ;
-        return Inertia::render('Campaigns/Index', [
+        $query = $this->initQuery();
+        return Inertia::render('Campaigns/Index', array_merge([
             'title' => 'Campaigns',
             'items' => CampaignResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Campaign::count(),
-            'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? 'id',
-            'order_direction' => request('order_direction') ?? 'desc',
-            'columns' => [
-                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
-                ['label' => 'Category', 'field' => 'category', 'data_type' => 'object', 'object_data' => ['id' => 'id', 'name' => 'name', 'type' => 'categories']],
-                ['label' => 'Target', 'field' => 'target', 'data_type' => 'number'],
-                ['label' => 'Percentage', 'field' => 'percentage', 'data_type' => 'number'],
-                ['label' => 'Collected', 'field' => 'collected', 'data_type' => 'number'],
-                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
-            ],
-            'filters' => request()->only(['search', 'per_page']),
-            'actions' => [
-                [
-                    'name' => 'destroy',
-                    'text' => __('Delete'),
-                    'route' => 'campaigns.destroy',
-                    'method' => getRouteMethod('campaigns.destroy'),
-                    'require_selection' => true
-                ],
-            ],
             'can' => [
                 'viewAny' => Auth::user()->can('viewAny', Campaign::class),
                 'create' => Auth::user()->can('create', Campaign::class),
             ]
-        ]);
+        ], $this->settings('campaigns')));
     }
 
     /**
@@ -206,13 +190,14 @@ class CampaignController extends Controller
      * @param  \App\Models\Campaign  $campaign
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Campaign $campaign)
+    public function destroy($ids)
     {
-        $this->authorize('delete', $campaign);
-
+        foreach (explode(',', $ids) as $id) {
+            $this->authorize('delete', Campaign::find($id));
+        }
         DB::beginTransaction();
         try {
-            $campaign->delete();
+            Campaign::destroy(explode(',', $ids));
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -220,6 +205,9 @@ class CampaignController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
-        return Redirect::route('campaigns.index')->with('success', 'Item deleted successfully');
+        if (url()->previous() == route('campaigns.show', $ids))
+            return Redirect::route('campaigns.index')->with('success', 'Item deleted successfully');
+        else
+            return back()->with('success', 'Item deleted successfully');
     }
 }

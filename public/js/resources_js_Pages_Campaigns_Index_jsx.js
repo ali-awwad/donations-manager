@@ -819,6 +819,7 @@ function PerPageFilter(_ref) {
     }, {
       replace: true,
       preserveState: true,
+      preserveScroll: true,
       onFinish: function onFinish() {
         return setFetchingData(false);
       }
@@ -1182,7 +1183,7 @@ function Table(_ref) {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "overflow-hidden overflow-x-auto relative",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("table", {
-                className: "table-fixed divide-y divide-gray-300",
+                className: "min-w-full table-fixed divide-y divide-gray-300",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("thead", {
                   className: "bg-gray-50",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
@@ -1423,6 +1424,7 @@ function TableSortingButton(_ref) {
         order_direction: isOrderDesc ? 'desc' : 'asc'
       }, {
         preserveState: true,
+        preserveScroll: true,
         only: ['items'],
         onFinish: function onFinish() {
           setFetchingData(false);

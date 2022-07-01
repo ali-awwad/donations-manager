@@ -19,6 +19,7 @@ class Donor extends Model
     {
         return $this->hasMany(Donation::class);
     }
+
     public function campaigns()
     {
         return $this->belongsToMany(Campaign::class);

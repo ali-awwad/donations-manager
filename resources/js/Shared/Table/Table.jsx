@@ -79,7 +79,7 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
                         <SearchFilter routeParams={routeParams} fetchingData={fetchingData} setFetchingData={setFetchingData} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
                         <div className='relative'>
                             <div className="overflow-hidden overflow-x-auto relative">
-                                <table className={`table-fixed divide-y divide-gray-300`}>
+                                <table className={`min-w-full table-fixed divide-y divide-gray-300`}>
                                     <thead className="bg-gray-50">
                                         <tr>
                                             <th scope="col" className="relative w-12 px-6 sm:w-16 sm:px-8">

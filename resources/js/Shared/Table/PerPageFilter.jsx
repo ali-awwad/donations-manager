@@ -23,6 +23,7 @@ export default function PerPageFilter({fetchingData, setFetchingData}) {
       Inertia.get(route(route().current(),route().params), { per_page: option.value, page:1 }, {
         replace: true,
         preserveState: true,
+        preserveScroll:true,
         onFinish: () => setFetchingData(false)
     });
   }

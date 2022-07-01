@@ -26,6 +26,7 @@ class DonorResource extends JsonResource
             'user' => UserResource::make($this->user),
             'remarks'=>$this->whenAppended('remarks',$this->remarks),
             'total_donations' => __(config('services.currency')).' '. friendly_money($this->donations->sum('amount')),
+            // 'total_donations' => $this->total_donations,
             'categories_count' => $this->categories_count,
             'campaigns_count'=> $this->campaigns_count,
             'donations_count' => $this->donations_count,

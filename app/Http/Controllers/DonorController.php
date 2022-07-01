@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Donation;
 use App\Models\Donor;
 use App\Models\User;
+use App\Traits\GenericTableColumns;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ use Inertia\Inertia;
 
 class DonorController extends Controller
 {
+    use GenericTableColumns;
     /**
      * Display a listing of the resource.
      *
@@ -141,12 +143,16 @@ class DonorController extends Controller
     public function show(Donor $donor)
     {
         $this->authorize('view', $donor);
-
-        return Inertia::render('Donors/Show', [
+        $query = (new DonationController)->initQuery();
+        return Inertia::render('Donors/Show', array_merge([
             'title' => $donor->name,
-            'donor' =>  DonorResource::make($donor->append(['remarks'])),
-            'items' => DonationResource::collection(Donation::where('donor_id', $donor->id)->paginate())
-        ]);
+            'item' =>  DonorResource::make($donor->append(['remarks'])),
+            'items' => DonationResource::collection($query->where('donor_id', $donor->id)->paginate()),
+            'count'=> Donation::where('donor_id', $donor->id)->count(),
+            'can' => [
+                'create_donation' => Auth::user()->can('create', Donation::class),
+            ]
+        ],$this->settings('donations')));
     }
 
     /**
@@ -217,13 +223,14 @@ class DonorController extends Controller
      * @param  \App\Models\Donor  $donor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Donor $donor)
+    public function destroy($ids)
     {
-        $this->authorize('delete', $donor);
-
+        foreach (explode(',',$ids) as $id) {
+            $this->authorize('delete', Donor::find($id));
+        }
         DB::beginTransaction();
         try {
-            $donor->delete();
+            Donor::destroy(explode(',',$ids));
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -231,6 +238,9 @@ class DonorController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
+        if(url()->previous()==route('donors.show',$ids))
         return Redirect::route('donors.index')->with('success', 'Item deleted successfully');
+        else
+        return back()->with('success', 'Item deleted successfully');
     }
 }

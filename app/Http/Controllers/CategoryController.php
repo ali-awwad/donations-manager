@@ -6,6 +6,7 @@ use App\Http\Resources\CampaignResource;
 use App\Http\Resources\CategoryResource;
 use App\Models\Campaign;
 use App\Models\Category;
+use App\Traits\GenericTableColumns;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,7 @@ use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
+    use GenericTableColumns;
     /**
      * Display a listing of the resource.
      *
@@ -30,34 +32,15 @@ class CategoryController extends Controller
             ->when(request('search'), function ($q) {
                 return $q->where('name', 'like', '%' . request('search') . '%');
             });
-        return Inertia::render('Categories/Index', [
+        return Inertia::render('Categories/Index', array_merge( [
             'title' => 'Categories',
             'items' => CategoryResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
             'count' => Category::count(),
-            'initSearch' => request('search') ?? '',
-            'order_by' => request('order_by') ?? 'id',
-            'order_direction' => request('order_direction') ?? 'desc',
-            'columns' => [
-                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
-                ['label' => '# of Campaigns', 'field' => 'campaigns_count', 'data_type' => 'number'],
-                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
-            ],
-            'filters' => request()->only(['search', 'per_page']),
-            'actions' => [
-                [
-                    'name' => 'destroy',
-                    'text' => __('Delete'),
-                    'route' => 'categories.destroy',
-                    'method' => getRouteMethod('categories.destroy'),
-                    'require_selection' => true
-                ],
-            ],
             'can' => [
                 'viewAny' => Auth::user()->can('viewAny', Category::class),
                 'create' => Auth::user()->can('create', Category::class),
             ]
-        ]);
+        ],$this->settings('categories')));
     }
 
     /**
@@ -117,14 +100,17 @@ class CategoryController extends Controller
     {
         $this->authorize('view', $category);
 
-        return Inertia::render('Categories/Show', [
+        $query = (new CampaignController)->initQuery();
+
+        return Inertia::render('Categories/Show', array_merge([
             'title' => $category->name,
             'item' =>  CategoryResource::make($category->append(['description'])),
-            'campaigns' => CampaignResource::collection(Campaign::where('category_id', $category->id)->orderByDesc('created_at')->paginate()),
+            'items' => CampaignResource::collection($query->where('category_id', $category->id)->orderByDesc('created_at')->paginate()),
+            'count' => Campaign::where('category_id', $category->id)->count(),
             'can' => [
                 'create_campaign' => Auth::user()->can('create', Campaign::class),
             ]
-        ]);
+        ],$this->settings('campaigns')));
     }
 
     /**
@@ -183,13 +169,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($ids)
     {
-        $this->authorize('delete', $category);
-
+        foreach (explode(',',$ids) as $id) {
+            $this->authorize('delete', Category::find($id));
+        }
         DB::beginTransaction();
         try {
-            $category->delete();
+            Category::destroy(explode(',',$ids));
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -197,6 +184,9 @@ class CategoryController extends Controller
                 'error' => error_message($th->getMessage()),
             ]);
         }
+        if(url()->previous()==route('categories.show',$ids))
         return Redirect::route('categories.index')->with('success', 'Item deleted successfully');
+        else
+        return back()->with('success', 'Item deleted successfully');
     }
 }

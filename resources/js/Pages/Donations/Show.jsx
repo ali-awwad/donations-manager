@@ -14,15 +14,18 @@ export default function Show() {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Donation Information</h3>
                         <p className="mt-1 max-w-2xl text-sm text-gray-500">Below info for {donation.data.uuid}</p>
                     </div>
-                    <div className="px-4 py-5 sm:px-6">
-                        <Link href={route('donations.edit', donation.data.id)} className="btn btn-normal btn-indigo mr-1">
-                            <PencilIcon className="btn-icon" aria-hidden="true" />
-                            Edit<span className="sr-only">, {donation.data.uuid}</span>
-                        </Link>
-                        <Link as='button' method="DELETE" href={route('donations.destroy', donation.data.id)} className="btn btn-normal btn-danger">
-                            <TrashIcon className="btn-icon" aria-hidden="true" />
-                            Delete<span className="sr-only">, {donation.data.uuid}</span>
-                        </Link></div>
+                    <div>
+                        <div className="px-4 flex flex-nowrap py-5 sm:px-6">
+                            <Link href={route('donations.edit', donation.data.id)} className="btn btn-normal btn-indigo mr-1">
+                                <PencilIcon className="btn-icon" aria-hidden="true" />
+                                <span className="hidden lg:inline">Edit</span>
+                            </Link>
+                            <Link as='button' method="DELETE" href={route('donations.destroy', donation.data.id)} className="btn btn-normal btn-danger">
+                                <TrashIcon className="btn-icon" aria-hidden="true" />
+                                <span className="hidden lg:inline">Delete</span>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
