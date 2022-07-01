@@ -118,18 +118,22 @@ class CampaignController extends Controller
     public function show(Campaign $campaign)
     {
         $this->authorize('view', $campaign);
-        $query = Donation::orderByDesc('id');
+        $query = (new DonationController)->initQuery();
         if (!Auth::user()->isAdmin()) {
             $query->whereHas('donor', function (Builder $q) {
                 $q->where('donors.user_id', Auth::id());
             });
         }
 
-        return Inertia::render('Campaigns/Show', [
+        return Inertia::render('Campaigns/Show', array_merge([
             'title' => $campaign->name,
             'item' =>  CampaignResource::make($campaign->append(['description'])),
-            'donations' => DonationResource::collection($query->where('campaign_id', $campaign->id)->paginate())
-        ]);
+            'items' => DonationResource::collection($query->where('campaign_id', $campaign->id)->paginate()),
+            'count'=>Donation::where('campaign_id', $campaign->id)->count(),
+            'can' => [
+                'create_donation' => Auth::user()->can('create', Donation::class),
+            ]
+        ],$this->settings('donations')));
     }
 
     /**

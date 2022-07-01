@@ -193,7 +193,7 @@ function Show() {
               'donor_id': item.data.id
             }),
             className: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto",
-            children: "Create Campaign"
+            children: "Create Donation"
           })
         })]
       }), count > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Shared_Table_Table__WEBPACK_IMPORTED_MODULE_1__["default"], {
