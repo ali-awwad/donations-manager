@@ -41,7 +41,7 @@ class CampaignPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -53,7 +53,7 @@ class CampaignPolicy
      */
     public function update(User $user, Campaign $campaign)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class CampaignPolicy
      */
     public function delete(User $user, Campaign $campaign)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -77,7 +77,7 @@ class CampaignPolicy
      */
     public function restore(User $user, Campaign $campaign)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -89,6 +89,6 @@ class CampaignPolicy
      */
     public function forceDelete(User $user, Campaign $campaign)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 }

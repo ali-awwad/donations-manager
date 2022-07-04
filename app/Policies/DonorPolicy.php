@@ -33,7 +33,7 @@ class DonorPolicy
         if($user->id == $donor->user_id)
         return true;
 
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -59,7 +59,7 @@ class DonorPolicy
         if($user->id == $donor->user_id)
         return true;
 
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -74,7 +74,7 @@ class DonorPolicy
         if($user->id == $donor->user_id)
         return true;
 
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -86,7 +86,7 @@ class DonorPolicy
      */
     public function restore(User $user, Donor $donor)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 
     /**
@@ -98,6 +98,6 @@ class DonorPolicy
      */
     public function forceDelete(User $user, Donor $donor)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->isSuperAdmin();
     }
 }

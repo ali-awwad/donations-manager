@@ -119,7 +119,7 @@ class CampaignController extends Controller
     {
         $this->authorize('view', $campaign);
         $query = (new DonationController)->initQuery();
-        // if (!Auth::user()->isAdmin()) {
+        // if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
         //     $query->whereHas('donor', function (Builder $q) {
         //         $q->where('donors.user_id', Auth::id());
         //     });

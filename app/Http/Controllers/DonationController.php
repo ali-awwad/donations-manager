@@ -49,7 +49,7 @@ class DonationController extends Controller
         $this->authorize('viewAny', Donation::class);
 
         $query = $this->initQuery();
-        // if (!Auth::user()->isAdmin()) {
+        // if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
         //     $query->whereHas('donor', function (Builder $q) {
         //         $q->where('donors.user_id', Auth::id());
         //     });
@@ -75,7 +75,7 @@ class DonationController extends Controller
         $this->authorize('create', Donation::class);
 
         $query = Donor::orderByDesc('created_at');
-        if (!Auth::user()->isAdmin()) {
+        if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
             $query->where('donors.user_id', Auth::id());
         }
 

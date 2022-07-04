@@ -32,4 +32,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('donations', DonationController::class);
     Route::resource('donors', DonorController::class);
     Route::post('fix', [HomeController::class,'fixCampaignCategoryCount'])->name('fixCampaignCategoryCount');
+    Route::post('fix-empty-tenant', [HomeController::class,'fixTenant'])->name('fixTenant');
 });

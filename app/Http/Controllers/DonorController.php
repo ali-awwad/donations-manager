@@ -37,7 +37,7 @@ class DonorController extends Controller
                 return $q->where('name', 'like', '%' . request('search') . '%');
             });
 
-        // if (!Auth::user()->isAdmin()) {
+        // if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
         //     $query->where('donors.user_id', Auth::id());
         // }
 
@@ -84,7 +84,7 @@ class DonorController extends Controller
         $this->authorize('create', Donor::class);
 
         $query = User::tenant()->orderByDesc('id');
-        if (!Auth::user()->isAdmin()) {
+        if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
             $query->where('id', Auth::id());
         }
 
@@ -117,7 +117,7 @@ class DonorController extends Controller
             $donor->name = $request->donor_name;
             $donor->remarks = $request->remarks;
             $donor->alias = $request->alias;
-            if (!Auth::user()->isAdmin()) {
+            if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
                 $donor->user_id = Auth::id();
             } elseif ($request->user_id) {
                 $donor->user_id = $request->user_id;
@@ -166,7 +166,7 @@ class DonorController extends Controller
         $this->authorize('update', $donor);
 
         $query = User::tenant()->orderByDesc('id');
-        if (!Auth::user()->isAdmin()) {
+        if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
             $query->where('id', Auth::id());
         }
 
@@ -199,7 +199,7 @@ class DonorController extends Controller
             $donor->name = $request->donor_name;
             $donor->remarks = $request->remarks;
             $donor->alias = $request->alias;
-            if (!Auth::user()->isAdmin()) {
+            if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
                 $donor->user_id = Auth::id();
             } elseif ($request->user_id) {
                 $donor->user_id = $request->user_id;

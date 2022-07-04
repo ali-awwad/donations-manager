@@ -7,10 +7,12 @@ use App\Models\Campaign;
 use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Donor;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -80,15 +82,15 @@ class HomeController extends Controller
                 ]
             ]
         ];
-        if(!Category::count() || !Campaign::count() || !Donor::count()) {
-            $data['flash'] = ['info'=>'Note: To Get started, you need to create, at least a category, a campaign, and a donor.'];
+        if (!Category::count() || !Campaign::count() || !Donor::count()) {
+            $data['flash'] = ['info' => 'Note: To Get started, you need to create, at least a category, a campaign, and a donor.'];
         }
         return Inertia::render('Home', $data);
     }
 
     public function fixCampaignCategoryCount(Request $request)
     {
-        abort_if(!Auth::user()->isAdmin(), 403);
+        abort_if(!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin(), 403);
 
         $donors = Donor::get();
 
@@ -102,6 +104,25 @@ class HomeController extends Controller
             }
             DB::commit();
             return back()->with('success', 'Sync process completed successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', error_message($th->getMessage()));
+        }
+    }
+
+    public function fixTenant(Request $request)
+    {
+        abort_if(!Auth::user()->isSuperAdmin(), 403);
+        DB::beginTransaction();
+        try {
+            $tenant = Str::uuid();
+            User::where('tenant', null)->update(['tenant' => $tenant, 'updated_at' => DB::raw('updated_at')]);
+            Donor::withoutGlobalScope('tenant')->where('tenant', null)->update(['tenant' => $tenant, 'updated_at' => DB::raw('updated_at')]);
+            Donation::withoutGlobalScope('tenant')->where('tenant', null)->update(['tenant' => $tenant, 'updated_at' => DB::raw('updated_at')]);
+            Category::withoutGlobalScope('tenant')->where('tenant', null)->update(['tenant' => $tenant, 'updated_at' => DB::raw('updated_at')]);
+            Campaign::withoutGlobalScope('tenant')->where('tenant', null)->update(['tenant' => $tenant, 'updated_at' => DB::raw('updated_at')]);
+            DB::commit();
+            return back()->with('success', 'Tenants Group Keys process completed successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return back()->with('error', error_message($th->getMessage()));

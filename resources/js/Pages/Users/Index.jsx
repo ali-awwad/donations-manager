@@ -23,6 +23,17 @@ export default function Users() {
                         >
                             Add user
                         </Link>
+                        {can.fixTenant &&
+                            <Link href={route('fixTenant')}
+                                as="button"
+                                type="button"
+                                onBefore={() => confirm('you are fill in uuid into empty tenants?')}
+                                method="post"
+                                className="ml-2 button button-danger"
+                            >
+                                Fix Tenants
+                            </Link>
+                        }
                     </div>
                 }
             </div>

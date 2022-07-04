@@ -46,6 +46,7 @@ class UserController extends Controller
                 'can' => [
                     'viewAny' => Auth::user()->can('viewAny', User::class),
                     'create' => Auth::user()->can('create', User::class),
+                    'fixTenant' => Auth::user()->isSuperAdmin(),
                 ]
             ],
             $this->settings('users')
@@ -120,7 +121,7 @@ class UserController extends Controller
                 return $q->where('name', 'like', '%' . request('search') . '%');
             });
 
-        if (!Auth::user()->isAdmin()) {
+        if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
             $query->where('donors.user_id', Auth::id());
         }
 
