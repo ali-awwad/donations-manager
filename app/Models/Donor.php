@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Multitenantable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\App;
 
 class Donor extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Multitenantable;
 
     protected $withCount = ['donations','categories','campaigns'];
 

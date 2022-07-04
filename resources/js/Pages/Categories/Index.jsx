@@ -17,7 +17,7 @@ export default function Index() {
                         This list of categories
                     </p>
                 </div>
-                {can.create &&
+                {(can.create && count>0) &&
                     <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                         <Link
                             href={route('categories.create')}

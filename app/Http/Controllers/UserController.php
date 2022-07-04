@@ -28,13 +28,14 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $query = User::orderBy(
+        $query = User::tenant()->orderBy(
             request('order_by') ?? 'created_at',
             request('order_direction') ?? 'desc'
         )
             ->when(request('search'), function ($q) {
                 return $q->where('name', 'like', '%' . request('search') . '%')
-                    ->orWhere('email', 'like', '%' . request('search') . '%');
+                    ->orWhere('email', 'like', '%' . request('search') . '%')
+                    ->orWhere('tenant', 'like', '%' . request('search') . '%');
             });
 
         return Inertia::render('Users/Index', array_merge(

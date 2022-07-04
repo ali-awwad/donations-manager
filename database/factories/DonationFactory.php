@@ -26,7 +26,8 @@ class DonationFactory extends Factory
             'donation_date'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
             'created_at'=>$date,
             'updated_at'=>$date,
-            'uuid'=>Str::uuid()
+            'uuid'=>Str::uuid(),
+            'tenant'=>'12232-2111-555',
         ];
     }
 }

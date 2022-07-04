@@ -60,7 +60,7 @@ function Index() {
           className: "mt-2 text-sm text-gray-700",
           children: "This list of categories"
         })]
-      }), can.create && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), can.create && count > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "mt-4 sm:mt-0 sm:ml-16 sm:flex-none",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__.Link, {
           href: route('categories.create'),

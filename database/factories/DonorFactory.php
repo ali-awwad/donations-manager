@@ -21,6 +21,7 @@ class DonorFactory extends Factory
             'user_id'=>User::inRandomOrder()->first()->id,
             'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
             'updated_at'=>$date,
+            'tenant'=>'12232-2111-555',
         ];
     }
 }

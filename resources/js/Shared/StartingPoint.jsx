@@ -57,7 +57,7 @@ export default function StartingPoint({ can }) {
                     </p>
                     <ul role="list" className="mt-6 border-t border-b border-gray-200 py-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
                         {items.map((item, itemIdx) => (
-                            <div key={itemIdx}>
+                            <div key={itemIdx} className={`${item.enabled ? '' : 'hidden'}`}>
                                 {item.enabled &&
                                     <li className="flow-root">
                                         <div className="relative -m-2 p-2 flex items-center space-x-4 rounded-xl hover:bg-gray-50 focus-within:ring-2 focus-within:ring-indigo-500">

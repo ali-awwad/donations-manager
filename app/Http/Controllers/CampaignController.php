@@ -119,11 +119,11 @@ class CampaignController extends Controller
     {
         $this->authorize('view', $campaign);
         $query = (new DonationController)->initQuery();
-        if (!Auth::user()->isAdmin()) {
-            $query->whereHas('donor', function (Builder $q) {
-                $q->where('donors.user_id', Auth::id());
-            });
-        }
+        // if (!Auth::user()->isAdmin()) {
+        //     $query->whereHas('donor', function (Builder $q) {
+        //         $q->where('donors.user_id', Auth::id());
+        //     });
+        // }
 
         return Inertia::render('Campaigns/Show', array_merge([
             'title' => $campaign->name,

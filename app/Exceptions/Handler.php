@@ -59,6 +59,11 @@ class Handler extends ExceptionHandler
                 'message' => 'You do not have enough permissions.',
             ]);
         }
+        if ($response->status() === 500) {
+            return back()->with([
+                'info' => 'Something Went Wrong.',
+            ]);
+        }
 
         return $response;
     }

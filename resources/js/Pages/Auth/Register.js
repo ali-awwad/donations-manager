@@ -12,6 +12,7 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        tenant:'',
     });
 
     useEffect(() => {
@@ -90,6 +91,20 @@ export default function Register() {
                         className="mt-1 block w-full"
                         handleChange={onHandleChange}
                         required
+                    />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="tenant" value="Joining Group?" />
+                    <p className='text-xs'>If you are joining specific group, please type their "Group Key".
+                        Otherwise, leave it empty to start your own group.</p>
+                    <Input
+                        type="text"
+                        name="tenant"
+                        value={data.tenant}
+                        className="mt-1 block w-full"
+                        autoComplete="off"
+                        handleChange={onHandleChange}
                     />
                 </div>
 

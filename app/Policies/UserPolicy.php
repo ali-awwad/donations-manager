@@ -31,8 +31,10 @@ class UserPolicy
     {
         if($user->id === $model->id)
         return true;
+        if($user->isAdmin() && $user->tenant === $model->tenant)
+        return true;
 
-        return $user->isAdmin();
+        return $user->isSuperAdmin();
     }
 
     /**
@@ -43,7 +45,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isSuperAdmin() || $user->isAdmin();
     }
 
     /**
@@ -58,7 +60,10 @@ class UserPolicy
         if($user->id === $model->id)
         return true;
 
-        return $user->isAdmin();
+        if($user->isAdmin() && $user->tenant === $model->tenant)
+        return true;
+
+        return $user->isSuperAdmin();
     }
 
     /**
@@ -70,7 +75,9 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->isAdmin();
+        if($user->isAdmin() && $user->tenant === $model->tenant)
+        return true;
+        return $user->isSuperAdmin();
     }
 
     /**
@@ -82,7 +89,9 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        return $user->isAdmin();
+        if($user->isAdmin() && $user->tenant === $model->tenant)
+        return true;
+        return $user->isSuperAdmin();
     }
 
     /**
@@ -94,6 +103,8 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        return $user->isAdmin();
+        if($user->isAdmin() && $user->tenant === $model->tenant)
+        return true;
+        return $user->isSuperAdmin();
     }
 }

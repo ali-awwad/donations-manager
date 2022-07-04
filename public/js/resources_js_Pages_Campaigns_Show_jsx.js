@@ -162,7 +162,7 @@ function Show() {
             className: "mt-2 text-sm text-gray-700",
             children: ["This is a list of all donations under ", item.data.name]
           })]
-        }), can.create_donation && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+        }), can.create_donation && count > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "mt-4 sm:mt-0 sm:ml-16 sm:flex-none",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Link, {
             href: route('donations.create', {

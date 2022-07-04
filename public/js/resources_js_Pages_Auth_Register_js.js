@@ -245,7 +245,8 @@ function Register() {
     name: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    tenant: ''
   }),
       data = _useForm.data,
       setData = _useForm.setData,
@@ -330,6 +331,22 @@ function Register() {
           className: "mt-1 block w-full",
           handleChange: onHandleChange,
           required: true
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "mt-4",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Label__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          forInput: "tenant",
+          value: "Joining Group?"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          className: "text-xs",
+          children: "If you are joining specific group, please type their \"Group Key\". Otherwise, leave it empty to start your own group."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Components_Input__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          type: "text",
+          name: "tenant",
+          value: data.tenant,
+          className: "mt-1 block w-full",
+          autoComplete: "off",
+          handleChange: onHandleChange
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "flex items-center justify-end mt-4",

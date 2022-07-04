@@ -49,11 +49,11 @@ class DonationController extends Controller
         $this->authorize('viewAny', Donation::class);
 
         $query = $this->initQuery();
-        if (!Auth::user()->isAdmin()) {
-            $query->whereHas('donor', function (Builder $q) {
-                $q->where('donors.user_id', Auth::id());
-            });
-        }
+        // if (!Auth::user()->isAdmin()) {
+        //     $query->whereHas('donor', function (Builder $q) {
+        //         $q->where('donors.user_id', Auth::id());
+        //     });
+        // }
         return Inertia::render('Donations/Index', array_merge([
             'title' => 'Donations',
             'items' => DonationResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),

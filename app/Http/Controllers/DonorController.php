@@ -37,9 +37,9 @@ class DonorController extends Controller
                 return $q->where('name', 'like', '%' . request('search') . '%');
             });
 
-        if (!Auth::user()->isAdmin()) {
-            $query->where('donors.user_id', Auth::id());
-        }
+        // if (!Auth::user()->isAdmin()) {
+        //     $query->where('donors.user_id', Auth::id());
+        // }
 
         return Inertia::render('Donors/Index', [
             'title' => 'Donors Page',
@@ -83,7 +83,7 @@ class DonorController extends Controller
     {
         $this->authorize('create', Donor::class);
 
-        $query = User::orderByDesc('id');
+        $query = User::tenant()->orderByDesc('id');
         if (!Auth::user()->isAdmin()) {
             $query->where('id', Auth::id());
         }
@@ -165,7 +165,7 @@ class DonorController extends Controller
     {
         $this->authorize('update', $donor);
 
-        $query = User::orderByDesc('id');
+        $query = User::tenant()->orderByDesc('id');
         if (!Auth::user()->isAdmin()) {
             $query->where('id', Auth::id());
         }

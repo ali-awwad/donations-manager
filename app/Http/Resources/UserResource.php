@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'user_type'=>$this->user_type,
             // 'created_at'=>$this->created_at,
             'created_at'=>$this->created_at_readable,
+            'tenant'=>$this->tenant,
             'can'=> [
                 'view'=>Auth::user()->can('view',$this->resource),
                 'update'=>Auth::user()->can('update',$this->resource),

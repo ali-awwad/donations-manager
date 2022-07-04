@@ -48,6 +48,10 @@ export default function Show() {
                             <dt className="text-sm font-medium text-gray-500">User Type</dt>
                             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold">{item.data.user_type}</dd>
                         </div>
+                        <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Group Key</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 font-semibold">{item.data.tenant}</dd>
+                        </div>
                     </dl>
                 </div>
             </div>

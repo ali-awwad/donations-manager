@@ -22,6 +22,7 @@ class CampaignFactory extends Factory
             'category_id'=>Category::inRandomOrder()->first()->id,
             'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
             'updated_at'=>$date,
+            'tenant'=>'12232-2111-555',
         ];
     }
 }

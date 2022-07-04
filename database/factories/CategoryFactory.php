@@ -20,6 +20,7 @@ class CategoryFactory extends Factory
             'slug'=>$this->faker->slug,
             'created_at'=>$date = $this->faker->dateTimeBetween('-3 years','now'),
             'updated_at'=>$date,
+            'tenant'=>'12232-2111-555',
         ];
     }
 }
