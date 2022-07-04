@@ -22,6 +22,11 @@ class UserObserver
             $user->save();
         }
 
+        elseif($user->id===1) {
+            $user->tenant = Str::uuid();
+            $user->user_type = 'superAdmin';
+            $user->save();
+        }
         elseif(!$user->tenant) {
             $user->tenant = Str::uuid();
             $user->user_type = 'admin';
