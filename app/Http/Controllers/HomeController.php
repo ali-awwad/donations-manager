@@ -88,6 +88,11 @@ class HomeController extends Controller
         return Inertia::render('Home', $data);
     }
 
+    public function homePage()
+    {
+        return Inertia::render('LandingPage');
+    }
+
     public function fixCampaignCategoryCount(Request $request)
     {
         abort_if(!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin(), 403);

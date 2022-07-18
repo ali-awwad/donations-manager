@@ -7,7 +7,7 @@ import { InertiaProgress } from '@inertiajs/progress'
 createInertiaApp({
     resolve: async name => {
         const page = (await import(`./Pages/${name}`)).default;
-        if (page.layout === undefined && !name.startsWith('Auth/')) {
+        if (page.layout === undefined && !name.startsWith('Auth/') && !name.startsWith('LandingPage')) {
             page.layout  = page.layout ?? (p => <Layout children={p} />);
           }
 

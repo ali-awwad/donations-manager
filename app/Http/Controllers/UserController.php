@@ -64,7 +64,7 @@ class UserController extends Controller
         return Inertia::render('Users/Create', [
             'title' => 'Create User',
             'can' => [
-                'isAdmin' => Auth::user()->isAdmin()
+                'isAdmin' => Auth::user()->isAdmin() || Auth::user()->isSuperAdmin()
             ]
         ]);
     }
@@ -147,7 +147,7 @@ class UserController extends Controller
             'title' => $user->name,
             'item' => UserResource::make($user),
             'can' => [
-                'isAdmin' => Auth::user()->isAdmin()
+                'isAdmin' => Auth::user()->isAdmin() || Auth::user()->isSuperAdmin()
             ]
         ]);
     }

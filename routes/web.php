@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('app')->group(function () {
     Route::get('/', function () {
         return redirect()->route('dashboard');
     })->name('home');
@@ -34,3 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::post('fix', [HomeController::class,'fixCampaignCategoryCount'])->name('fixCampaignCategoryCount');
     Route::post('fix-empty-tenant', [HomeController::class,'fixTenant'])->name('fixTenant');
 });
+
+Route::get('/', [HomeController::class, 'homePage'])->name('homePage');

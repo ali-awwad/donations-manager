@@ -10,6 +10,8 @@ This a donation manager still in dev phase ,
 
 - Managing the donors, campaigns, categories, and donations
 
+- Multi Tenancy, at the registration you can choose if you are joining other tenant (Group Key) or create new one.
+
 ## Dependencies
 
 - PHP 7.3 and up
@@ -22,11 +24,13 @@ This a donation manager still in dev phase ,
 
  - clone the project
  
+ - cd into the application
+ 
  - run `composer install`
  
- - `touch .env` and configure your .env with the right database name / user / password
+ - `cp .env.example .env` and configure your .env with the right database name / user / password
  
- - for demo , you can create a `database.sqlite` and use it
+ - Database must be MySQL
  
  - run `php artisan key:generate`
  
@@ -35,4 +39,8 @@ This a donation manager still in dev phase ,
  - the end point for login is `/login`
  
  - you can login with `admin@example.com` as email and `password` as passowrd
+
+ ## Notes
+
+ First user created will be the super admin, however, to change it to other user you must do it manually from the database.
  

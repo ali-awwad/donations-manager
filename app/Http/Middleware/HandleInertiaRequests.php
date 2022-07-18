@@ -35,6 +35,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'appTitle'=>config('app.name'),
+            'logo'=>asset('manage-my-donations.png'),
             'auth' => [
                 'user' => $request->user() ? [
                     'id'=>$request->user()->id,
