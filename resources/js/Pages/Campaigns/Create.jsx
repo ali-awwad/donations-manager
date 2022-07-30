@@ -39,7 +39,7 @@ export default function Create() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post(`/campaigns`, data);
+        post(route('campaigns.store'), data);
     }
 
     return (

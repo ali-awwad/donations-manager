@@ -1,11 +1,5 @@
 import { ButtonLink } from '@/Components/LandingComponents/Button'
 import { Container } from '@/Components/LandingComponents/Container'
-import logoLaravel from '@/LandingImages/logos/laravel.svg'
-import logoMirage from '@/LandingImages/logos/mirage.svg'
-import logoStatamic from '@/LandingImages/logos/statamic.svg'
-import logoStaticKit from '@/LandingImages/logos/statickit.svg'
-import logoTransistor from '@/LandingImages/logos/transistor.svg'
-import logoTuple from '@/LandingImages/logos/tuple.svg'
 
 export function Hero() {
   return (

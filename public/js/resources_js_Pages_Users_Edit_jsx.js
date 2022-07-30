@@ -94,7 +94,7 @@ function Edit() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    post("/users/".concat(item.data.id), data);
+    post(route('users.update', item.data.id), data);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {

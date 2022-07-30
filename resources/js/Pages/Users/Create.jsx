@@ -39,7 +39,7 @@ export default function Create() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post('/users', data)
+        post(route('users.store'), data)
     }
 
     return (

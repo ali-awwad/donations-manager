@@ -2,11 +2,10 @@
 
 import { ButtonLink } from '@/Components/LandingComponents/Button'
 import { Container } from '@/Components/LandingComponents/Container'
-import backgroundImage from '@/LandingImages/background-call-to-action.jpg'
 import { usePage } from '@inertiajs/inertia-react'
 
 export function CallToAction() {
-    const {appTitle} = usePage().props;
+    const {appTitle, backgroundImage} = usePage().props;
   return (
     <section
       id="get-started-today"

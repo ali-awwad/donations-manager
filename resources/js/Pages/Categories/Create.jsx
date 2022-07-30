@@ -17,7 +17,7 @@ export default function Create() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        post('/categories', data);
+        post(route('categories.store'), data);
     }
 
     return (

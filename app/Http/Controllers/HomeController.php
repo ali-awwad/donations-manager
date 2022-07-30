@@ -90,7 +90,27 @@ class HomeController extends Controller
 
     public function homePage()
     {
-        return Inertia::render('LandingPage');
+        return Inertia::render('LandingPage',[
+            'backgroundImage'=>asset('images/LandingImages/background-call-to-action.jpg'),
+            'avatarImage1'=>asset('images/LandingImages/avatars/avatar-1.png'),
+            'avatarImage2'=>asset('images/LandingImages/avatars/avatar-2.png'),
+            'avatarImage3'=>asset('images/LandingImages/avatars/avatar-3.png'),
+            'avatarImage4'=>asset('images/LandingImages/avatars/avatar-4.png'),
+            'avatarImage5'=>asset('images/LandingImages/avatars/avatar-5.png'),
+
+            'backgroundFeaturesImage'=>asset('images/LandingImages/background-features.jpg'),
+            'screenshotHome'=>asset('images/LandingImages/screenshots/home.jpg'),
+            'screenshotUsers'=>asset('images/LandingImages/screenshots/users.jpg'),
+            'screenshotDonations'=>asset('images/LandingImages/screenshots/donations.jpg'),
+            'screenshotCharts'=>asset('images/LandingImages/screenshots/charts.jpg'),
+
+            'screenshotCreate'=>asset('images/LandingImages/screenshots/create.jpg'),
+            'screenshotDonations'=>asset('images/LandingImages/screenshots/donations-2.jpg'),
+            'screenshotCampaigns'=>asset('images/LandingImages/screenshots/campaigns.jpg'),
+
+            'backgroundFaqImage'=>asset('images/LandingImages/background-faqs.jpg'),
+
+        ]);
     }
 
     public function fixCampaignCategoryCount(Request $request)

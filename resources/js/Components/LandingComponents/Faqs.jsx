@@ -1,7 +1,7 @@
 // import Image from 'next/image'
 
 import { Container } from '@/Components/LandingComponents/Container'
-import backgroundImage from '@/LandingImages/background-faqs.jpg'
+import { usePage } from '@inertiajs/inertia-react'
 
 const faqs = [
   [
@@ -58,6 +58,7 @@ const faqs = [
 ]
 
 export function Faqs() {
+    const {backgroundFaqImage} = usePage().props;
   return (
     <section
       id="faq"
@@ -68,7 +69,7 @@ export function Faqs() {
         Frequently asked questions
       </h2>
         <img
-          src={backgroundImage}
+          src={backgroundFaqImage}
           alt=""
           width={1558}
           height={946}

@@ -148,7 +148,7 @@ function Create() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    post('/donations', data);
+    post(route('donations.store'), data);
   }
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("form", {

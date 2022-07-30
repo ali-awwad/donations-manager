@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import { ButtonLink } from '@/Components/LandingComponents/Button'
 import { Container } from '@/Components/LandingComponents/Container'
-import { Logo } from '@/Components/LandingComponents/Logo'
 
 function MobileNavigation() {
   return (

@@ -93,7 +93,7 @@ export default function Create() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post(`/donations/${item.data.id}`, data);
+        post(route('donations.update',item.data.id), data);
     }
 
     return (

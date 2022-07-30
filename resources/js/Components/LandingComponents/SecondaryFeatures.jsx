@@ -4,41 +4,9 @@ import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
 
 import { Container } from '@/Components/LandingComponents/Container'
-import screenshotCreate from '@/LandingImages/screenshots/create.jpg'
-import screenshotDonations from '@/LandingImages/screenshots/donations-2.jpg'
-import screenshotCampaigns from '@/LandingImages/screenshots/campaigns.jpg'
-import { CakeIcon, PencilAltIcon, RefreshIcon, TagIcon } from '@heroicons/react/outline'
-import { PlusIcon } from '@heroicons/react/solid'
+import { CakeIcon, PencilAltIcon, TagIcon } from '@heroicons/react/outline'
 import { usePage } from '@inertiajs/inertia-react'
 
-const features = [
-  {
-    name: 'Categories & Campaigns',
-    summary: 'Organize your donations using campaigns.',
-    description:
-      'Have as many Campaigns as needed, you can ditribute them across different Categories.',
-    image: screenshotCampaigns,
-    icon: TagIcon,
-  },
-  {
-    name: 'Donors & Donations',
-    summary:
-      'Never lose track of your donations.',
-    description:
-      'Simple management tool that enables you to filter through your donations by donor name, category name ..., and even sort them by different fields.',
-    image: screenshotDonations,
-    icon: CakeIcon,
-  },
-  {
-    name: 'Easy to Start',
-    summary:
-      'Easily start your donations using simple form.',
-    description:
-      'Our form creation tool helps you add donations easily once you have your category, campaign, and donor names set.',
-    image: screenshotCreate,
-    icon: PencilAltIcon,
-  },
-]
 
 function Feature({ feature, isActive, className, ...props }) {
   return (
@@ -73,6 +41,39 @@ function Feature({ feature, isActive, className, ...props }) {
 }
 
 function FeaturesMobile() {
+    const {screenshotCreate,
+        screenshotDonations,
+        screenshotCampaigns} = usePage().props;
+    const features = [
+      {
+        name: 'Categories & Campaigns',
+        summary: 'Organize your donations using campaigns.',
+        description:
+          'Have as many Campaigns as needed, you can ditribute them across different Categories.',
+        image: screenshotCampaigns,
+        icon: TagIcon,
+      },
+      {
+        name: 'Donors & Donations',
+        summary:
+          'Never lose track of your donations.',
+        description:
+          'Simple management tool that enables you to filter through your donations by donor name, category name ..., and even sort them by different fields.',
+        image: screenshotDonations,
+        icon: CakeIcon,
+      },
+      {
+        name: 'Easy to Start',
+        summary:
+          'Easily start your donations using simple form.',
+        description:
+          'Our form creation tool helps you add donations easily once you have your category, campaign, and donor names set.',
+        image: screenshotCreate,
+        icon: PencilAltIcon,
+      },
+    ]
+
+
   return (
     <div className="-mx-4 mt-20 space-y-10 overflow-hidden px-4 sm:-mx-6 sm:px-6 lg:hidden">
       {features.map((feature) => (
@@ -96,6 +97,39 @@ function FeaturesMobile() {
 }
 
 function FeaturesDesktop() {
+    const {screenshotCreate,
+        screenshotDonations,
+        screenshotCampaigns} = usePage().props;
+    const features = [
+      {
+        name: 'Categories & Campaigns',
+        summary: 'Organize your donations using campaigns.',
+        description:
+          'Have as many Campaigns as needed, you can ditribute them across different Categories.',
+        image: screenshotCampaigns,
+        icon: TagIcon,
+      },
+      {
+        name: 'Donors & Donations',
+        summary:
+          'Never lose track of your donations.',
+        description:
+          'Simple management tool that enables you to filter through your donations by donor name, category name ..., and even sort them by different fields.',
+        image: screenshotDonations,
+        icon: CakeIcon,
+      },
+      {
+        name: 'Easy to Start',
+        summary:
+          'Easily start your donations using simple form.',
+        description:
+          'Our form creation tool helps you add donations easily once you have your category, campaign, and donor names set.',
+        image: screenshotCreate,
+        icon: PencilAltIcon,
+      },
+    ]
+
+
   return (
     <Tab.Group as="div" className="hidden lg:mt-20 lg:block">
       {({ selectedIndex }) => (

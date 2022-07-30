@@ -40,7 +40,7 @@ export default function Edit() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post(`/donors/${item.data.id}`, data)
+        post(route('donors.update',item.data.id), data)
     }
 
     return (

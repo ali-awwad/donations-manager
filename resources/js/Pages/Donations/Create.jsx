@@ -84,7 +84,7 @@ export default function Create() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post('/donations', data)
+        post(route('donations.store'), data)
     }
 
     return (

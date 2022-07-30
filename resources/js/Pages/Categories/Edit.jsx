@@ -19,7 +19,7 @@ export default function Edit() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        post(`/categories/${item.data.id}`, data)
+        post(route('categories.update',item.data.id), data)
     }
 
     return (
