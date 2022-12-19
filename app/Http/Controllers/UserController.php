@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Donor;
 use App\Models\User;
 use App\Traits\GenericTableColumns;
+use App\Traits\Grids\UserGrid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,18 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    use GenericTableColumns;
+    use UserGrid;
+
+    public function initQuery()
+    {
+        return User::tenant()->orderByRequest(request('order_by'), request('order_direction'))
+            ->when(request('search'), function ($q) {
+                return $q->where('name', 'like', '%' . request('search') . '%')
+                    ->orWhere('email', 'like', '%' . request('search') . '%')
+                    ->orWhere('tenant', 'like', '%' . request('search') . '%');
+            });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -28,28 +40,22 @@ class UserController extends Controller
     {
         $this->authorize('viewAny', User::class);
 
-        $query = User::tenant()->orderBy(
-            request('order_by') ?? 'created_at',
-            request('order_direction') ?? 'desc'
-        )
-            ->when(request('search'), function ($q) {
-                return $q->where('name', 'like', '%' . request('search') . '%')
-                    ->orWhere('email', 'like', '%' . request('search') . '%')
-                    ->orWhere('tenant', 'like', '%' . request('search') . '%');
-            });
+
 
         return Inertia::render('Users/Index', array_merge(
             [
                 'title' => 'Users Page',
-                'items' => UserResource::collection($query->paginate(request('per_page', 10))->appends(request()->all())),
-                'count' => User::count(),
+                'items' => UserResource::collection(
+                    $this->initQuery()->paginate(request()->input('per_page', 10))->appends(request()->all())
+                ),
+                'count' => User::tenant()->count(),
                 'can' => [
                     'viewAny' => Auth::user()->can('viewAny', User::class),
                     'create' => Auth::user()->can('create', User::class),
                     'fixTenant' => Auth::user()->isSuperAdmin(),
                 ]
             ],
-            $this->settings('users')
+            $this->gridSettings()
         ));
     }
 
@@ -130,7 +136,7 @@ class UserController extends Controller
             'item' => UserResource::make($user),
             'count' => Donor::where('user_id', $user->id)->count(),
             'items' => DonorResource::collection($query->where('user_id', $user->id)->orderByDesc('created_at')->paginate())
-        ],$this->settings('donors')));
+        ],$this->gridSettings()));
     }
 
     /**

@@ -27,16 +27,7 @@ trait GenericTableColumns
 
     public function columns($table)
     {
-        if($table=='users') {
-            return [
-                ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
-                ['label' => 'Name', 'field' => 'name', 'data_type' => 'text'],
-                ['label' => 'Email', 'field' => 'email', 'data_type' => 'text'],
-                // ['label' => 'Donors', 'field' => 'donors', 'data_type' => 'text'],
-                ['label' => 'Created At', 'field' => 'created_at', 'data_type' => 'datetime'],
-            ];
-        }
-        elseif ($table=='donations') {
+        if ($table=='donations') {
             return [
                 ['label' => 'ID', 'field' => 'id', 'data_type' => 'number'],
                 ['label' => 'Amount', 'field' => 'amount', 'data_type' => 'text'],

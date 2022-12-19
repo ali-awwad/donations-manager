@@ -1,5 +1,5 @@
 
-import { DocumentDuplicateIcon, PencilIcon, RefreshIcon, TrashIcon, ZoomInIcon } from '@heroicons/react/outline'
+import { DatabaseIcon, DocumentDuplicateIcon, DownloadIcon, IdentificationIcon, PencilIcon, RefreshIcon, TrashIcon, UserGroupIcon, ZoomInIcon } from '@heroicons/react/outline'
 import { Inertia } from '@inertiajs/inertia'
 import { Link, usePage } from '@inertiajs/inertia-react'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -46,7 +46,7 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
         Inertia.delete(
             route(`${baseRoute}.destroy`, routeParams.concat([id])),
             {
-                onBefore: () => confirm(`you are about to delete ${nice_name ?? 'this'} item?`),
+                onBefore: () => confirm(`you are about to delete [${nice_name ?? 'this'}] item?`),
                 onStart: () => setDeleting(id),
                 onFinish: () => {
                     setDeleting(0)
@@ -73,9 +73,9 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
 
     return (
         <div className={`mt-8 flex flex-col ${count > 0 ? '' : 'hidden'}`}>
-            <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div className=" sm:-mx-6 lg:-mx-8">
                 <div className="min-w-full py-2 align-middle md:px-6 lg:px-8">
-                    <div className="bg-gray-50 relative overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                    <div className="bg-gray-50 pt-2 relative shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                         <SearchFilter routeParams={routeParams} fetchingData={fetchingData} setFetchingData={setFetchingData} selectedItems={selectedItems} setSelectedItems={setSelectedItems} />
                         <div className='relative'>
                             <div className="overflow-hidden overflow-x-auto relative">
@@ -93,7 +93,7 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
                                             </th>
                                             {columns.map((col, index) =>
                                                 <th key={col.label} scope={col.field} className={`px-3 py-3.5 text-left text-sm font-semibold text-gray-900`}>
-                                                    <TableSortingButton dataType={col.data_type} objectData={col.object_data} setFetchingData={setFetchingData} setSelectedItems={setSelectedItems} key={col.label} field={col.field} label={col.label} sortingBy={sortingBy} setSortingBy={setSortingBy} />
+                                                    <TableSortingButton dataType={col.data_type} objectData={col.object_data} setFetchingData={setFetchingData} setSelectedItems={setSelectedItems} key={col.label} field={col.field} label={col.label} sortingBy={sortingBy} setSortingBy={setSortingBy} sortable={col.sortable} />
                                                 </th>
                                             )}
 
@@ -127,17 +127,41 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
 
 
                                                 {columns.map((col, index) =>
-                                                    <td key={index} className={classNames(
+                                                    <td style={{'maxWidth':'13rem'}} key={index} className={classNames(
                                                         index === 0 ? 'font-medium text-gray-900' : '',
-                                                        'whitespace-nowrap py-4 pr-3 text-sm max-w-xs truncate',
+                                                        'whitespace-nowrap py-4 pr-3 text-sm truncate',
                                                         (index === 0 && selectedItems.includes(item.id)) ? 'text-indigo-600' : ''
                                                     )}>
-                                                        <DataField column={col} item={item} routeParams={routeParams} />
+                                                        <DataField column={col} item={item} routeParams={routeParams} baseRoute={baseRoute} />
                                                     </td>
                                                 )}
 
                                                 <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                     <div className="flex justify-end w-full">
+                                                        {(item.can.beImpersonated && route().has(`impersonate`, routeParams.concat([item.id]))) &&
+                                                            <Link title='Impersonate' onBefore={()=>confirm(`you are about to impersonal ${item.nice_name ?? 'this'} item users?`)} href={route(`impersonate`, routeParams.concat([item.id]))} className="btn-table-xs success mr-1">
+                                                                <IdentificationIcon className="w-6 h-6" aria-hidden="true" />
+                                                                <span className="sr-only">Impersonate</span>
+                                                            </Link>
+                                                        }
+                                                        {(item.can.addUser && route().has(`${baseRoute}.add_users`, routeParams.concat([item.id]))) &&
+                                                            <Link title='Add Users' onBefore={()=>confirm(`you are about to update ${item.nice_name ?? 'this'} item users?`)} href={route(`${baseRoute}.add_users`, routeParams.concat([item.id]))} className="btn-table-xs success mr-1">
+                                                                <UserGroupIcon className="w-6 h-6" aria-hidden="true" />
+                                                                <span className="sr-only">Add Users</span>
+                                                            </Link>
+                                                        }
+                                                        {(item.can.view && route().has(`${baseRoute}.import_check_file_keys`, routeParams.concat([item.id]))) &&
+                                                            <Link title='Import' onBefore={()=>confirm(`you are about to import ${item.nice_name ?? 'this'} item?`)} href={route(`${baseRoute}.import_check_file_keys`, routeParams.concat([item.id]))} className="btn-table-xs warning mr-1">
+                                                                <DatabaseIcon className="w-6 h-6" aria-hidden="true" />
+                                                                <span className="sr-only">Import</span>
+                                                            </Link>
+                                                        }
+                                                        {(item.can.view && route().has(`${baseRoute}.download`, routeParams.concat([item.id]))) &&
+                                                            <a title='Download' target="_blank" href={route(`${baseRoute}.download`, routeParams.concat([item.id]))} className="btn-table-xs mr-1">
+                                                                <DownloadIcon className="w-6 h-6" aria-hidden="true" />
+                                                                <span className="sr-only">Download</span>
+                                                            </a>
+                                                        }
                                                         {(item.can.view && route().has(`${baseRoute}.show`, routeParams.concat([item.id]))) &&
                                                             <Link title='View' href={route(`${baseRoute}.show`, routeParams.concat([item.id]))} className="btn-table-xs mr-1">
                                                                 <ZoomInIcon className="w-6 h-6" aria-hidden="true" />
@@ -152,7 +176,7 @@ export default function Table({ baseRoute, selectedItems, setSelectedItems, rout
                                                                 {replicating === item.id &&
                                                                     <RefreshIcon className="animate-spin w-6 h-6" aria-hidden="true" />
                                                                 }
-                                                                <span className="sr-only">Delete</span>
+                                                                <span className="sr-only">Replicate</span>
                                                             </button>
                                                         }
                                                         {(item.can.update && route().has(`${baseRoute}.edit`, routeParams.concat([item.id]))) &&

@@ -1,62 +1,62 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 import { PaperAirplaneIcon, RefreshIcon } from '@heroicons/react/outline';
-import { Link } from '@inertiajs/inertia-react';
-import { Inertia } from '@inertiajs/inertia';
+import { useForm } from '@inertiajs/inertia-react';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Actions({ actions, selectedItems, setSelectedItems, setFetchingData, routeParams=[] }) {
-    const [selected, setSelected] = useState({name:'none',method:'',route:'',text:'-- Select Action --'});
+export default function Actions({ actions, selectedItems, setSelectedItems, setFetchingData, routeParams = [] }) {
+    const [selected, setSelected] = useState({ name: 'none', method: '', route: '', text: '-- Select Action --' });
     const [newActions, setNewActions] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const { data, setData, get, post, delete:destroy, processing } = useForm({
 
-    useEffect(()=> {
-        setNewActions([{name:'none',method:'',route:'',text:'-- Select Action --'},...actions])
-    },[])
+        button: '',
+    })
+
+    useEffect(() => {
+        setNewActions([{ name: 'none', method: '', route: '', text: '-- Select Action --' }, ...actions])
+    }, [])
+
+    useEffect(() => {
+        setData('button', selected.name)
+    }, [selected])
 
 
     function handleClick(event) {
         event.preventDefault();
 
         if (selected.method === 'GET') {
-            Inertia.get(route(`${selected.route}`))
+            get(route(`${selected.route}`))
         }
-        else if (selected.name === 'reset') {
-            Inertia.post(route(`${selected.route}`), { button: 'reset' }, {
-                preserveState:true,
-                preserveScroll:true,
-                onBefore: () => confirm(`you are about to delete all items and replace them with the default. Proceed?`),
-                onStart: () => setLoading(true), onFinish: () => {
-                    setLoading(false);
-                    setFetchingData(false);
-                    setSelectedItems([]);
-                }
-            });
-        }
+
         else if (selected.method === 'POST') {
-            Inertia.post(route(`${selected.route}`, routeParams.concat(selectedItems.toString())),{button:selected.name}, {
-                preserveState:true,
-                preserveScroll:true,
-                onBefore: () => confirm(`This action with affect the selected [${selectedItems.length}] item(s). Proceed?`),
-                onStart: () => setLoading(true), onFinish: () => {
-                    setLoading(false);
+            let warningMsg = '';
+            if (selected.name === 'reset') {
+                warningMsg = `you are about to delete all items and replace them with the default. Proceed?`;
+            }
+            else {
+                warningMsg = `This action with affect the selected [${selectedItems.length}] item(s). Proceed?`
+            }
+
+            post(route(`${selected.route}`, routeParams.concat(selectedItems.toString())), {
+                preserveState: true,
+                preserveScroll: true,
+                onBefore: () => confirm(warningMsg),
+                onSuccess: () => {
                     setFetchingData(false);
                     setSelectedItems([]);
                 }
             });
         }
         else if (selected.method === 'DELETE') {
-            Inertia.delete(route(`${selected.route}`, routeParams.concat(selectedItems.toString())), {
-                preserveState:true,
-                preserveScroll:true,
+            destroy(route(`${selected.route}`, routeParams.concat(selectedItems.toString())), {
+                preserveState: true,
+                preserveScroll: true,
                 onBefore: () => confirm(`you are about to delete [${selectedItems.length}] item(s)?`),
-                onStart: () => setLoading(true), onFinish: () => {
-                    setLoading(false);
+                onSuccess: () => {
                     setFetchingData(false);
                     setSelectedItems([]);
                 }
@@ -85,7 +85,7 @@ export default function Actions({ actions, selectedItems, setSelectedItems, setF
                                 leaveTo="opacity-0"
                             >
                                 <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-60 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                    {newActions.map((action) => (
+                                    {newActions.filter(act => route().has(`${act.route}`)).map((action) => (
                                         <Listbox.Option
                                             key={action.name}
                                             className={({ active }) =>
@@ -125,11 +125,11 @@ export default function Actions({ actions, selectedItems, setSelectedItems, setF
             </Listbox>
             <button
                 onClick={(event) => handleClick(event)}
-                disabled={(!route().has(`${selected.route}`) || loading || (selectedItems.length === 0 && selected.require_selection == true))}
-                className={`flex items-center rounded border ${loading ? 'bg-gray-200 text-gray-300 border-gray-400' : 'border-blue-600 bg-blue-500 text-white'} ml-1 px-2 text-sm`}
+                disabled={(!route().has(`${selected.route}`) || processing || (selectedItems.length === 0 && selected.require_selection == true))}
+                className={`flex items-center rounded border ${processing ? 'bg-gray-200 text-gray-300 border-gray-400' : 'border-blue-600 bg-blue-500 text-white'} ml-1 px-2 text-sm`}
             >
-                {loading && <RefreshIcon className={`animate-spin w-4 h-4 stroke-current inline`} />}
-                {!loading && <PaperAirplaneIcon className='inline w-4 h-4 rotate-90 stroke-current' />}
+                {processing && <RefreshIcon className={`animate-spin w-4 h-4 stroke-current inline`} />}
+                {!processing && <PaperAirplaneIcon className='inline w-4 h-4 rotate-90 stroke-current' />}
             </button>
         </div>
     )

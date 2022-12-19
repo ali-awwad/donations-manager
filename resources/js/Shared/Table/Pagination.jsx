@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/inertia-react'
 
 export default function Pagination({ meta, links, fetchingData, setFetchingData }) {
     return (
-        <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div className="bg-white px-4 py-3 flex items-center justify-between border-t rounded-b-md border-gray-200 sm:px-6">
             <div className="flex-1 flex justify-between sm:hidden">
                 <Link onFinish={()=> setFetchingData(false)} preserveScroll preserveState href={links.prev} className={`relative inline-flex items-center px-2 py-2 rounded-l-md border ${links.prev ? 'bg-white border-gray-300' : 'bg-gray-50 border-gray-100'} text-sm font-medium text-gray-500 hover:bg-gray-50`}>
                     <span className="sr-only">Previous</span>
