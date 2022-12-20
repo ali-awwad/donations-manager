@@ -7,18 +7,18 @@ import { InertiaProgress } from '@inertiajs/progress'
 createInertiaApp({
     resolve: async name => {
         const page = (await import(`./Pages/${name}`)).default;
-        if (page.layout === undefined && !name.startsWith('Auth/') && !name.startsWith('LandingPage')) {
-            page.layout  = page.layout ?? (p => <Layout children={p} />);
-          }
+        if (page.layout === undefined && !name.startsWith('Auth/') && !name.startsWith('LandingPage') && !name.startsWith('Errors/')) {
+            page.layout = page.layout ?? (p => <Layout children={p} />);
+        }
 
         return page;
     },
     setup({ el, App, props }) {
         render(<App {...props} />, el)
     },
-    title: title => parseInt(title)!==1 ? `${title}` : `Donation Manager`
+    title: title => parseInt(title) !== 1 ? `${title}` : `Donation Manager`
 })
 
 InertiaProgress.init({
-    color:'red'
+    color: 'red'
 })
