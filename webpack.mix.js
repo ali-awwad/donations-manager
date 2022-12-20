@@ -18,31 +18,32 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('tailwindcss'),
     ])
+    .webpackConfig(require('./webpack.config'));
 
-if (mix.inProduction()) {
-    const ASSET_URL = process.env.ASSET_URL + "/";
+// if (mix.inProduction()) {
+//     const ASSET_URL = process.env.ASSET_URL + "/";
 
-    mix.webpackConfig(webpack => {
-        return {
-            resolve: {
-                alias: {
-                    '@': path.resolve('resources/js'),
-                },
-            },
-            plugins: [
-                new webpack.DefinePlugin({
-                    "process.env.ASSET_PATH": JSON.stringify(ASSET_URL)
-                })
-            ],
-            output: {
-                publicPath: ASSET_URL
-            }
-        };
-    });
-}
-else {
-    mix.webpackConfig(require('./webpack.config'));
-}
+//     mix.webpackConfig(webpack => {
+//         return {
+//             resolve: {
+//                 alias: {
+//                     '@': path.resolve('resources/js'),
+//                 },
+//             },
+//             plugins: [
+//                 new webpack.DefinePlugin({
+//                     "process.env.ASSET_PATH": JSON.stringify(ASSET_URL)
+//                 })
+//             ],
+//             output: {
+//                 publicPath: ASSET_URL
+//             }
+//         };
+//     });
+// }
+// else {
+//     mix.webpackConfig(require('./webpack.config'));
+// }
 // if (mix.inProduction()) {
 //     mix.version();
 // }
