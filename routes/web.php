@@ -36,3 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route::get('/', [HomeController::class, 'homePage'])->name('homePage');
+Route::get('/text-to-analyze', function ()
+{
+    return view('ezoneproducts');
+})->name('homePage');
