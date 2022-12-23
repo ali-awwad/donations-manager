@@ -40,3 +40,7 @@ Route::get('/text-to-analyze', function ()
 {
     return view('ezoneproducts');
 })->name('homePage');
+Route::get('/text-to-analyze-100', function ()
+{
+    return view('ezoneproducts100');
+})->name('homePage2');
