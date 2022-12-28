@@ -278,8 +278,8 @@ function Login(_ref) {
       canResetPassword = _ref.canResetPassword;
 
   var _useForm = (0,_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_7__.useForm)({
-    email: '',
-    password: '',
+    email: 'admin@example.com',
+    password: 'password',
     remember: ''
   }),
       data = _useForm.data,
