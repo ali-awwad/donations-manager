@@ -553,7 +553,7 @@ function Hero() {
           className: "relative",
           children: "made simple"
         })]
-      })]
+      }), ' ', "with DoGood."]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
       className: "mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700",
       children: "Most donation managements out there are accurate, but hard to use. We make the opposite trade-off, and hope you don\u2019t get audited."
@@ -561,7 +561,7 @@ function Hero() {
       className: "mt-10 flex justify-center space-x-6",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_Components_LandingComponents_Button__WEBPACK_IMPORTED_MODULE_0__.ButtonLink, {
         href: "/register",
-        children: "Get started"
+        children: "Get started today"
       })
     })]
   });
