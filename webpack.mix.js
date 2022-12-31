@@ -18,8 +18,10 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config')) //=> comment this line to get support for Vapor
+    ;
 
+// => uncomment all the below to get support for Vapor
 // if (mix.inProduction()) {
 //     const ASSET_URL = process.env.ASSET_URL + "/";
 

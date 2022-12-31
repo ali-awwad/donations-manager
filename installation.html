@@ -1,70 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Donation Admin Panel</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DoGood - Donation Admin Panel</title>
 </head>
+
 <body>
-  <p>
+    <p>
 
-      Donation Admin Panel is a management tool to help you track the donations and which categories they are going to.
-  </p>
+        DoGood Donation Admin Panel is a management tool to help you track the donations and which categories they are
+        going to.
+    </p>
 
-<p>
-  Donation Admin Panel is very helpful when you have a group of individuals having a few common causes that you want to help with, yet you want to donate wisely to specific sectors.
-</p>
+    <p>
+        DoGood Donation Admin Panel is very helpful when you have a group of individuals having a few common causes that
+        you want to help with, yet you want to donate wisely to specific sectors.
+    </p>
 
-<p>
-  As an example, usually a group of people would like to donate to certain areas, such as Health, Education, and Housing. You can create these three categories in the admin panel, then assign to each categories more specific campaigns. Like you and your friends decide to start a campaign of helping 100 student to pay their university loans for 2023, and another campaign for the next year as well.
-</p>
+    <p>
+        As an example, usually a group of people would like to donate to certain areas, such as Health, Education, and
+        Housing. You can create these three categories in the admin panel, then assign to each categories more specific
+        campaigns. Like you and your friends decide to start a campaign of helping 100 student to pay their university
+        loans for 2023, and another campaign for the next year as well.
+    </p>
 
-<p>
-  This gives you the insights where your money are going to and how much you and your colleagues have provided in each category.
-</p>
+    <p>
+        This gives you the insights where your money are going to and how much you and your colleagues have provided in
+        each category.
+    </p>
 
-<p style="font-size: 1.3rem;">
-    To use the demo:
-    <br>
-    email:admin@example.com
-    <br>
-    password:password
-</p>
+    <h3>Demo Account:</h3>
+    <p>
+        <strong>
+            Demo:
+        </strong>
+        <a href="https://devpointed-donation-demo.herokuapp.com/" target="_blank" rel="noopener noreferrer">
+            https://devpointed-donation-demo.herokuapp.com/
+        </a>
+        <br>
+        <strong>
+            Email:
+        </strong>
+        admin@example.com
+        <br>
+        <strong>
+            password:
+        </strong>
+        password
+    </p>
 
-<h3>Features:</h3>
+    <h3>Features:</h3>
     <ul>
-      <li>Dashboard and charts for donations and campaigns</li>
-      <li>Managing the donors, campaigns, categories, and donations</li>
-      <li>Multi Tenancy, at the registration you can choose if you are joining other tenant (Group Key) or create new one.</li>
+        <li>Dashboard and charts for donations and campaigns</li>
+        <li>Managing the donors, campaigns, categories, and donations</li>
+        <li>Multi Tenancy, at the registration you can choose if you are joining other tenant (Group Key) or create new
+            one.</li>
+        <li>Responsive Design using Tailwindcss.</li>
+        <li>Ready to be published on Laravel Vapor with just few commands changed.</li>
     </ul>
 
-<h3>Dependencies:</h3>
+    <h3>Dependencies:</h3>
     <ul>
-      <li>PHP 7.3 and up</li>
-      <li>This app is based on Laravel 8 + Inertia JS + React JS + Tailwindcss</li>
-      <li>You need to run Composer , then NPM install</li>
+        <li>PHP 7.3 and up</li>
+        <li>This app is based on Laravel 8 + Inertia JS + React JS + Tailwindcss</li>
+        <li>You need to run Composer , then NPM install</li>
     </ul>
 
 
 
 
-<h3>Insallation:</h3>
+    <h3>Insallation:</h3>
     <ol>
-      <li>clone the project</li>
-      <li>cd into the application</li>
-      <li>run `composer install`</li>
-      <li>`cp .env.example .env` and configure your .env with the right database name / user / password</li>
-      <li>Database must be MySQL</li>
-      <li>run `php artisan key:generate`</li>
-      <li>run `php artisan migrate:fresh --seed` , seed will give you some dummy data</li>
-      <li>the end point for login is /login</li>
-      <li>you can login with admin@example.com as email and password as passowrd</li>
+        <li>clone the project</li>
+        <li>cd into the application</li>
+        <li>run `composer install`</li>
+        <li>`cp .env.example .env` and configure your .env with the right database name / user / password</li>
+        <li>Database must be MySQL</li>
+        <li>run `php artisan key:generate`</li>
+        <li>run `php artisan migrate:fresh --seed` , seed will give you some dummy data</li>
+        <li>the end point for login is /login</li>
+        <li>you can login with admin@example.com as email and password as passowrd</li>
+    </ol>
+    <h3>Insallation on Laravel Vapor:</h3>
+    <ol>
+        <li>clone the project</li>
+        <li>cd into the application</li>
+        <li>run `composer install`</li>
+        <li>`cp .env.example .env` and configure your .env with the right database name / user / password</li>
+        <li>Database must be MySQL</li>
+        <li>run `php artisan key:generate`</li>
+        <li>run `php artisan migrate:fresh --seed` , seed will give you some dummy data</li>
+        <li>Go to `webpack.mix.js` and comment line 21, and then uncomment all lines from 25 to 51</li>
+        <li>run `npm install && npm run prod`</li>
+        <li>the end point for login is /login</li>
+        <li>you can login with admin@example.com as email and password as passowrd</li>
     </ol>
 
-<h3>Notes:</h3>
-<p>
-  First user created will be the super admin, however, to change it to other user you must do it manually from the database.
-</p>
+    <h3>Notes:</h3>
+    <p>
+        First user created will be the super admin, however, to change it to other user you must do it manually from the
+        database.
+    </p>
 </body>
+
 </html>
